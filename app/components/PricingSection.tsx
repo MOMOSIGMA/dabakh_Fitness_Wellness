@@ -89,7 +89,7 @@ export default function PricingSection() {
             Investis Dans Ta <span className="text-stroke italic">Transformation</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Pas d'engagement. Annule quand tu veux. Première séance gratuite.
+            Pas d&apos;engagement. Annule quand tu veux. Première séance gratuite.
           </p>
         </motion.div>
 
@@ -183,7 +183,7 @@ export default function PricingSection() {
               🎁 <span className="text-yellow-400 font-bold">Offre Spéciale</span> - Ta première séance est gratuite !
             </p>
             <p className="text-sm text-gray-500">
-              Viens tester nos installations avant de t'engager
+              Viens tester nos installations avant de t&apos;engager
             </p>
           </div>
         </motion.div>

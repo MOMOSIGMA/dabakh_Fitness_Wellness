@@ -195,7 +195,7 @@ export default function AICoachSection() {
               </motion.button>
             </div>
             <p className="text-xs text-gray-500 mt-2 text-center">
-              💡 Exemple: "Je pèse 70kg, je veux perdre du poids"
+              💡 Exemple: &quot;Je pèse 70kg, je veux perdre du poids&quot;
             </p>
           </div>
         </motion.div>
