@@ -7,8 +7,8 @@ import TikTokIcon from './TikTokIcon'
 
 export default function Footer() {
   const socialLinks = [
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Facebook, href: '#', label: 'Facebook' },
+    { icon: Instagram, href: 'https://www.instagram.com/dabakh_fitnesswellnessclub?igsh=MWQ4NWk2d21kMWN6eQ==', label: 'Instagram' },
+    { icon: Facebook, href: 'https://www.facebook.com/share/1AWZq5noZP/', label: 'Facebook' },
     { icon: TikTokIcon, href: 'https://www.tiktok.com/@dabakhfitness1', label: 'TikTok' },
   ]
 

@@ -126,8 +126,8 @@ export default function RootLayout({
               },
               sameAs: [
                 'https://www.google.com/maps/search/Dabakh+Fitness',
-                'https://www.facebook.com/dabakh.fitness',
-                'https://www.instagram.com/dabakh.fitness'
+                'https://www.facebook.com/share/1AWZq5noZP/',
+                'https://www.instagram.com/dabakh_fitnesswellnessclub?igsh=MWQ4NWk2d21kMWN6eQ=='
               ],
               hasMap: 'https://www.google.com/maps/search/Yoff+Dakar',
               geo: {
@@ -160,8 +160,8 @@ export default function RootLayout({
                 addressCountry: 'SN'
               },
               sameAs: [
-                'https://www.facebook.com/dabakh.fitness',
-                'https://www.instagram.com/dabakh.fitness',
+                'https://www.facebook.com/share/1AWZq5noZP/',
+                'https://www.instagram.com/dabakh_fitnesswellnessclub?igsh=MWQ4NWk2d21kMWN6eQ==',
                 'https://www.tiktok.com/@dabakhfitness1'
               ],
               contactPoint: {
