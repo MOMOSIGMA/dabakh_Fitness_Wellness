@@ -29,18 +29,19 @@ export default function HeroSection() {
       
       {/* Background Image Optimized */}
       <Image
-        src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=50"
+        src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=40"
         alt="Fitness Background"
         fill
         priority
-        quality={50}
+        quality={40}
         className="absolute inset-0 object-cover grayscale"
-        sizes="100vw"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1920px"
         loading="eager"
+        placeholder="empty"
       />
 
-      {/* Animated Grid Background - disabled on mobile for performance */}
-      {!isMobile && (
+      {/* Animated Grid Background - completely disabled for performance */}
+      {false && !isMobile && (
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0" style={{
             backgroundImage: 'linear-gradient(rgba(255,215,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,215,0,0.1) 1px, transparent 1px)',
@@ -55,12 +56,12 @@ export default function HeroSection() {
       >
         {/* Badge animé */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: animationDelay(0.2) }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: animationDelay(0.1), duration: 0.3 }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 glass mb-8"
         >
-          <span className="w-2 h-2 rounded-full bg-red-500" style={{animation: isMobile ? 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' : undefined}} />
+          <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
           <span className="text-xs font-medium uppercase tracking-widest">
             Sacré Cœur 3 • Dakar 🇸🇳 • Note 4.3★
           </span>
@@ -68,9 +69,9 @@ export default function HeroSection() {
         
         {/* Titre Principal avec animation */}
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: animationDelay(0.4), duration: isMobile ? 0.4 : 0.8 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: animationDelay(0.2), duration: isMobile ? 0.4 : 0.6 }}
           className="text-5xl sm:text-7xl lg:text-9xl font-black tracking-tighter mb-6 leading-none"
         >
           <span className="block">DABAKH</span>
@@ -79,9 +80,9 @@ export default function HeroSection() {
         
         {/* Sous-titre */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: animationDelay(0.6) }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: animationDelay(0.3), duration: 0.3 }}
           className="max-w-2xl mx-auto text-gray-300 text-lg md:text-2xl mb-12 leading-relaxed"
         >
           Dépassez vos limites au cœur de Dakar.
@@ -92,16 +93,16 @@ export default function HeroSection() {
 
         {/* Boutons CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: animationDelay(0.8) }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: animationDelay(0.4), duration: 0.3 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
           <motion.a
             href="#disciplines"
             className="group px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-full hover:shadow-2xl hover:shadow-red-600/50 transition-all flex items-center justify-center gap-2 min-w-[250px]"
-            whileHover={{ scale: scaleHover }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={isMobile ? undefined : { scale: scaleHover }}
+            whileTap={isMobile ? undefined : { scale: 0.95 }}
           >
             COMMENCER MAINTENANT
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -110,8 +111,8 @@ export default function HeroSection() {
           <motion.a
             href="#disciplines"
             className="group px-8 py-4 glass border border-white/30 rounded-full font-bold hover:bg-white/10 transition-all flex items-center justify-center gap-2 min-w-[250px]"
-            whileHover={{ scale: scaleHover }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={isMobile ? undefined : { scale: scaleHover }}
+            whileTap={isMobile ? undefined : { scale: 0.95 }}
           >
             <Play className="w-5 h-5" />
             VOIR LES ÉVÉNEMENTS
@@ -122,7 +123,7 @@ export default function HeroSection() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: animationDelay(1.2) }}
+          transition={{ delay: animationDelay(0.6), duration: 0.3 }}
           className="mt-20 grid grid-cols-3 gap-8 max-w-3xl mx-auto"
         >
           {[
@@ -130,11 +131,8 @@ export default function HeroSection() {
             { number: '4.3★', label: 'Note Google' },
             { number: '15+', label: 'Disciplines' },
           ].map((stat, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: animationDelay(1.2 + index * 0.1) }}
               className="text-center"
             >
               <div className="text-3xl md:text-4xl font-black text-red-500 mb-2">
@@ -143,7 +141,7 @@ export default function HeroSection() {
               <div className="text-sm text-gray-400 uppercase tracking-wider">
                 {stat.label}
               </div>
-            </motion.div>
+            </div>
           ))}
         </motion.div>
       </div>

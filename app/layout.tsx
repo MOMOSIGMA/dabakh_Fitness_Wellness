@@ -93,6 +93,17 @@ export default function RootLayout({
     <html lang="fr" className="scroll-smooth">
       <head>
         <meta charSet="utf-8" />
+        
+        {/* Preload critical image for LCP */}
+        <link 
+          rel="preload" 
+          as="image" 
+          href="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=40"
+          imageSrcSet="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=640&q=40 640w,
+                       https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=40 1920w"
+          imageSizes="100vw"
+        />
+        
         <meta name="theme-color" content="#000000" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />

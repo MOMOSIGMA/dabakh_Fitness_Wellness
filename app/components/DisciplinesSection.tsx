@@ -63,14 +63,14 @@ export default function DisciplinesSection() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: isMobile ? 0.05 : 0.1,
+        staggerChildren: isMobile ? 0.03 : 0.08,
       },
     },
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: isMobile ? 10 : 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: isMobile ? 0.2 : 0.4 } },
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: isMobile ? 0.15 : 0.3 } },
   }
 
   return (
@@ -88,10 +88,10 @@ export default function DisciplinesSection() {
       <div className="container mx-auto max-w-7xl relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: isMobile ? 0.3 : 0.6 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: isMobile ? 0.2 : 0.4 }}
           className="text-center mb-16"
         >
           <span className="inline-block px-4 py-2 glass rounded-full text-sm font-medium uppercase tracking-wider text-red-500 mb-4">
@@ -110,7 +110,7 @@ export default function DisciplinesSection() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-150px" }}
           className="grid grid-cols-1 md:grid-cols-6 gap-4 auto-rows-[200px]"
         >
           {disciplines.map((discipline, index) => {
