@@ -98,10 +98,13 @@ export default function Navbar() {
               {navLinks.map((link) => (
                 <button
                   key={link.name}
+                  type="button"
                   onClick={() => {
                     const element = document.querySelector(link.href)
                     if (element) {
                       element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                    } else {
+                      window.location.hash = link.href
                     }
                     setMobileMenuOpen(false)
                   }}
@@ -111,10 +114,13 @@ export default function Navbar() {
                 </button>
               ))}
               <button
+                type="button"
                 onClick={() => {
                   const element = document.querySelector('#tarifs')
                   if (element) {
                     element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  } else {
+                    window.location.hash = '#tarifs'
                   }
                   setMobileMenuOpen(false)
                 }}

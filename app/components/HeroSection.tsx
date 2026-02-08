@@ -51,7 +51,7 @@ export default function HeroSection() {
 
       <div
         className="relative z-20 text-center px-4 max-w-6xl mx-auto"
-        style={isIOS ? { paddingTop: '1.5rem' } : undefined}
+        style={isIOS ? { paddingTop: '2.5rem' } : undefined}
       >
         {/* Badge animé */}
         <motion.div
