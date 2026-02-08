@@ -1,13 +1,15 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Bot, Send, Sparkles, User } from 'lucide-react'
+import { Bot, Send, Sparkles, User, AlertCircle, Lock } from 'lucide-react'
 
 interface Message {
   role: 'user' | 'assistant'
   content: string
 }
+
+const DAILY_LIMIT = 10
 
 export default function AICoachSection() {
   const [messages, setMessages] = useState<Message[]>([
@@ -20,6 +22,33 @@ export default function AICoachSection() {
   const [isLoading, setIsLoading] = useState(false)
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
   const [bookingLoading, setBookingLoading] = useState(false)
+  const [messagesCount, setMessagesCount] = useState(0)
+  const [limitReached, setLimitReached] = useState(false)
+
+  // Initialiser le compteur au chargement
+  useEffect(() => {
+    const today = new Date().toDateString()
+    const storedData = localStorage.getItem('ai-coach-limit')
+    
+    if (storedData) {
+      const { date, count } = JSON.parse(storedData)
+      
+      // Si c'est un nouveau jour, réinitialiser
+      if (date !== today) {
+        localStorage.setItem('ai-coach-limit', JSON.stringify({ date: today, count: 0 }))
+        setMessagesCount(0)
+        setLimitReached(false)
+      } else {
+        setMessagesCount(count)
+        setLimitReached(count >= DAILY_LIMIT)
+      }
+    } else {
+      // Premier jour
+      localStorage.setItem('ai-coach-limit', JSON.stringify({ date: today, count: 0 }))
+      setMessagesCount(0)
+      setLimitReached(false)
+    }
+  }, [])
 
   const formatMessage = (text: string) => {
     return text
@@ -65,11 +94,29 @@ export default function AICoachSection() {
 
   const handleSend = async () => {
     if (!input.trim()) return
+    
+    // Vérifier la limite
+    if (messagesCount >= DAILY_LIMIT) {
+      setLimitReached(true)
+      return
+    }
 
     const userMessage: Message = { role: 'user', content: input }
     setMessages(prev => [...prev, userMessage])
     setInput('')
     setIsLoading(true)
+
+    // Incrémenter le compteur
+    const newCount = messagesCount + 1
+    setMessagesCount(newCount)
+    
+    // Mettre à jour localStorage
+    const today = new Date().toDateString()
+    localStorage.setItem('ai-coach-limit', JSON.stringify({ date: today, count: newCount }))
+    
+    if (newCount >= DAILY_LIMIT) {
+      setLimitReached(true)
+    }
 
     try {
       const response = await fetch('/api/ai-coach', {
@@ -244,29 +291,61 @@ export default function AICoachSection() {
           </div>
 
           {/* Input */}
-          <div className="p-4 border-t border-white/10 bg-black/60">
+          <div className="p-4 border-t border-white/10 bg-black/60 space-y-3">
+            {/* Compteur de messages */}
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-gray-400">Messages aujourd&apos;hui: <span className="text-yellow-400 font-bold">{messagesCount}/{DAILY_LIMIT}</span></span>
+              <div className="h-1.5 w-24 bg-white/10 rounded-full overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${(messagesCount / DAILY_LIMIT) * 100}%` }}
+                  className="h-full bg-gradient-to-r from-yellow-400 to-yellow-500"
+                />
+              </div>
+            </div>
+
+            {/* Message limite atteinte */}
+            {limitReached && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-gradient-to-r from-amber-600/20 to-orange-600/20 border border-orange-400/40 rounded-lg p-3 flex gap-3"
+              >
+                <Lock className="w-5 h-5 text-orange-400 flex-shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-orange-300 mb-1">
+                    Limite quotidienne atteinte! 🎯
+                  </p>
+                  <p className="text-xs text-orange-200">
+                    Reviens demain ou <span className="font-bold text-yellow-400">abonne-toi</span> pour des messages illimités!
+                  </p>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Input */}
             <div className="flex gap-2">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="Ex: Je pèse 75kg et je veux prendre de la masse..."
-                className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors"
-                disabled={isLoading}
+                placeholder={limitReached ? "Limite atteinte pour aujourd'hui..." : "Ex: Je pèse 75kg et je veux prendre de la masse..."}
+                className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors disabled:opacity-50"
+                disabled={isLoading || limitReached}
               />
               <motion.button
                 onClick={handleSend}
-                disabled={isLoading || !input.trim()}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                disabled={isLoading || !input.trim() || limitReached}
+                whileHover={!limitReached ? { scale: 1.05 } : {}}
+                whileTap={!limitReached ? { scale: 0.95 } : {}}
+                className="px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transition-all"
               >
                 <Send className="w-5 h-5" />
               </motion.button>
             </div>
-            <p className="text-xs text-gray-500 mt-2 text-center">
-              💡 Exemple: &quot;Je pèse 70kg, je veux perdre du poids&quot;
+            <p className="text-xs text-gray-500 text-center">
+              {limitReached ? '✨ Tu as utilisé tes 10 messages gratuits! Abonne-toi pour continuer.' : '💡 Exemple: &quot;Je pèse 70kg, je veux perdre du poids&quot;'}
             </p>
           </div>
         </motion.div>
