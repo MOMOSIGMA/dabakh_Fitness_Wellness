@@ -5,6 +5,14 @@
 @layer base {
   body {
     @apply bg-black text-white antialiased;
+    /* Mobile performance: reduce motion on slower devices */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
   }
 }
 
@@ -20,4 +28,33 @@
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    /* Disable expensive animations on mobile */
+    .no-mobile-blur {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    /* Reduce shadow complexity */
+    .shadow-lg {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  /* Smooth font rendering */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
+
+/* GPU acceleration for animations */
+@supports (transform: translateZ(0)) {
+  .motion-safe {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
+

@@ -1,8 +1,26 @@
+import dynamic from 'next/dynamic'
 import HeroSection from './components/HeroSection'
-import DisciplinesSection from './components/DisciplinesSection'
-import AICoachSection from './components/AICoachSection'
-import PricingSection from './components/PricingSection'
-import Footer from './components/Footer'
+
+// Lazy load sections below the fold
+const DisciplinesSection = dynamic(() => import('./components/DisciplinesSection'), {
+  loading: () => <div className="h-96 bg-black/50" />,
+  ssr: true,
+})
+
+const AICoachSection = dynamic(() => import('./components/AICoachSection'), {
+  loading: () => <div className="h-96 bg-black/50" />,
+  ssr: true,
+})
+
+const PricingSection = dynamic(() => import('./components/PricingSection'), {
+  loading: () => <div className="h-96 bg-black/50" />,
+  ssr: true,
+})
+
+const Footer = dynamic(() => import('./components/Footer'), {
+  loading: () => <div className="h-32 bg-black" />,
+  ssr: true,
+})
 
 export default function Home() {
   return (

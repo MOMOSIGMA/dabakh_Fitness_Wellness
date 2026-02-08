@@ -27,9 +27,21 @@ const config: Config = {
       },
       backdropBlur: {
         xs: '2px',
-      }
+      },
+      screens: {
+        'mobile': '320px',
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
+      },
     },
   },
   plugins: [],
+  // Optimize for production
+  corePlugins: {
+    preflight: true,
+  },
 }
 export default config

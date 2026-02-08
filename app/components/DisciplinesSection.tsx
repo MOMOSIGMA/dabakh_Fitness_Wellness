@@ -1,10 +1,19 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Dumbbell, Heart, Zap, Clock, Users, Calendar } from 'lucide-react'
 
 export default function DisciplinesSection() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768)
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   const disciplines = [
     {
       title: 'Musculation & Cardio',
@@ -12,7 +21,7 @@ export default function DisciplinesSection() {
       icon: Dumbbell,
       size: 'large', // Grande carte
       gradient: 'from-yellow-400/20 to-orange-500/20',
-      image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800',
+      image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=40',
     },
     {
       title: 'Boxe & Combat',
@@ -20,7 +29,7 @@ export default function DisciplinesSection() {
       icon: Zap,
       size: 'medium',
       gradient: 'from-red-400/20 to-pink-500/20',
-      image: 'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=800',
+      image: 'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=800&q=40',
     },
     {
       title: 'Planning des Cours',
@@ -54,25 +63,27 @@ export default function DisciplinesSection() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: isMobile ? 0.05 : 0.1,
       },
     },
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, y: isMobile ? 10 : 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: isMobile ? 0.2 : 0.4 } },
   }
 
   return (
     <section id="disciplines" className="py-24 px-4 bg-black relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle, rgba(255,215,0,0.5) 1px, transparent 1px)',
-          backgroundSize: '30px 30px'
-        }} />
-      </div>
+      {/* Background Pattern - disabled on mobile */}
+      {!isMobile && (
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(circle, rgba(255,215,0,0.5) 1px, transparent 1px)',
+            backgroundSize: '30px 30px'
+          }} />
+        </div>
+      )}
 
       <div className="container mx-auto max-w-7xl relative z-10">
         {/* Section Header */}
@@ -80,6 +91,7 @@ export default function DisciplinesSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: isMobile ? 0.3 : 0.6 }}
           className="text-center mb-16"
         >
           <span className="inline-block px-4 py-2 glass rounded-full text-sm font-medium uppercase tracking-wider text-yellow-400 mb-4">
@@ -112,16 +124,16 @@ export default function DisciplinesSection() {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                whileHover={{ scale: 1.02, y: -5 }}
-                className={`${gridClass} group relative overflow-hidden rounded-3xl glass cursor-pointer`}
+                whileHover={isMobile ? undefined : { scale: 1.02, y: -5 }}
+                className={`${gridClass} group relative overflow-hidden rounded-3xl glass cursor-pointer transition-transform`}
               >
                 {/* Background Gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${discipline.gradient} opacity-50 group-hover:opacity-70 transition-opacity`} />
+                <div className={`absolute inset-0 bg-gradient-to-br ${discipline.gradient} opacity-50 group-hover:opacity-70 transition-opacity duration-300`} />
                 
-                {/* Background Image for large/medium cards */}
-                {discipline.image && (
+                {/* Background Image for large/medium cards - lazy loaded on mobile */}
+                {discipline.image && !isMobile && (
                   <div 
-                    className="absolute inset-0 bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity grayscale group-hover:grayscale-0"
+                    className="absolute inset-0 bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity grayscale group-hover:grayscale-0 duration-300"
                     style={{ backgroundImage: `url(${discipline.image})` }}
                   />
                 )}
@@ -147,12 +159,14 @@ export default function DisciplinesSection() {
                     </div>
                   )}
 
-                  {/* Hover Arrow */}
-                  <div className="absolute bottom-6 right-6 w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0">
-                    <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
+                  {/* Hover Arrow - hidden on mobile */}
+                  {!isMobile && (
+                    <div className="absolute bottom-6 right-6 w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0">
+                      <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  )}
                 </div>
               </motion.div>
             )
