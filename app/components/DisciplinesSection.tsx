@@ -21,7 +21,7 @@ export default function DisciplinesSection() {
       icon: Dumbbell,
       size: 'large', // Grande carte
       gradient: 'from-yellow-400/20 to-orange-500/20',
-      image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=40',
+      image: '/images/musculation.jpg',
     },
     {
       title: 'Boxe & Combat',
@@ -29,7 +29,7 @@ export default function DisciplinesSection() {
       icon: Zap,
       size: 'medium',
       gradient: 'from-red-400/20 to-pink-500/20',
-      image: 'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=800&q=40',
+      image: '/images/boxe.jpg',
     },
     {
       title: 'Planning des Cours',
