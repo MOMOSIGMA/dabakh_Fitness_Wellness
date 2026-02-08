@@ -309,17 +309,34 @@ export default function AICoachSection() {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-gradient-to-r from-amber-600/20 to-orange-600/20 border border-orange-400/40 rounded-lg p-3 flex gap-3"
+                className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-400/40 rounded-lg p-4 flex flex-col gap-3"
               >
-                <Lock className="w-5 h-5 text-orange-400 flex-shrink-0 mt-0.5" />
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-orange-300 mb-1">
-                    Limite quotidienne atteinte! 🎯
-                  </p>
-                  <p className="text-xs text-orange-200">
-                    Reviens demain ou <span className="font-bold text-yellow-400">abonne-toi</span> pour des messages illimités!
-                  </p>
+                <div className="flex gap-3">
+                  <div className="text-2xl">🚀</div>
+                  <div className="flex-1">
+                    <p className="text-sm font-bold text-purple-300 mb-2">
+                      Je ne suis qu&apos;une IA...
+                    </p>
+                    <p className="text-xs text-purple-200 leading-relaxed">
+                      Pour voir tes <span className="font-bold text-yellow-400">VRAIS résultats</span>, il faut passer à l&apos;action! C&apos;est maintenant que ça se joue. Fais-le pour toi, allez <span className="font-bold animate-pulse">GO GO GO</span> 💪 Tu peux y arriver!
+                    </p>
+                  </div>
                 </div>
+                
+                {/* Bouton CTA WhatsApp */}
+                <motion.button
+                  onClick={async () => {
+                    const message = encodeURIComponent(
+                      `👋 Salut! Je suis prêt à passer à l'action et à commencer mes vrais entraînements chez Dabakh Fitness! 💪 J'aimerais prendre rendez-vous avec un coach pour débuter. Peux-tu m'aider? 🚀`
+                    )
+                    window.open(`https://wa.me/221771463012?text=${message}`, '_blank')
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full px-4 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-bold text-sm hover:shadow-lg hover:shadow-green-500/50 transition-all flex items-center justify-center gap-2"
+                >
+                  📱 Commence Maintenant sur WhatsApp
+                </motion.button>
               </motion.div>
             )}
 
@@ -345,7 +362,7 @@ export default function AICoachSection() {
               </motion.button>
             </div>
             <p className="text-xs text-gray-500 text-center">
-              {limitReached ? '✨ Tu as utilisé tes 10 messages gratuits! Abonne-toi pour continuer.' : '💡 Exemple: &quot;Je pèse 70kg, je veux perdre du poids&quot;'}
+              {limitReached ? '⚠️ Limite atteinte! Contacte un coach pour des conseils illimités.' : '💡 Exemple: &quot;Je pèse 70kg, je veux perdre du poids&quot;'}
             </p>
           </div>
         </motion.div>
