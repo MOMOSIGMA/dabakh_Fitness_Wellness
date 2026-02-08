@@ -86,52 +86,69 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass mt-4 overflow-hidden"
-          >
-            <div className="container mx-auto px-4 py-6 flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <button
-                  key={link.name}
-                  type="button"
-                  onClick={() => {
+      {mobileMenuOpen && (
+        <div className="md:hidden glass mt-4">
+          <div className="container mx-auto px-4 py-6 flex flex-col gap-4">
+            {navLinks.map((link) => (
+              <button
+                key={link.name}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  setMobileMenuOpen(false)
+                  setTimeout(() => {
                     const element = document.querySelector(link.href)
                     if (element) {
                       element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                    } else {
-                      window.location.hash = link.href
                     }
-                    setMobileMenuOpen(false)
-                  }}
-                  className="text-lg font-medium text-gray-300 hover:text-yellow-400 transition-colors text-left w-full py-2"
-                >
-                  {link.name}
-                </button>
-              ))}
-              <button
-                type="button"
-                onClick={() => {
+                  }, 100)
+                }}
+                onTouchEnd={(e) => {
+                  e.preventDefault()
+                  setMobileMenuOpen(false)
+                  setTimeout(() => {
+                    const element = document.querySelector(link.href)
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                    }
+                  }, 100)
+                }}
+                className="text-lg font-medium text-gray-300 hover:text-yellow-400 transition-colors text-left w-full py-2 cursor-pointer"
+              >
+                {link.name}
+              </button>
+            ))}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                setMobileMenuOpen(false)
+                setTimeout(() => {
                   const element = document.querySelector('#tarifs')
                   if (element) {
                     element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                  } else {
-                    window.location.hash = '#tarifs'
                   }
-                  setMobileMenuOpen(false)
-                }}
-                className="mt-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold rounded-full text-center w-full"
-              >
-                Essai Gratuit
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                }, 100)
+              }}
+              onTouchEnd={(e) => {
+                e.preventDefault()
+                setMobileMenuOpen(false)
+                setTimeout(() => {
+                  const element = document.querySelector('#tarifs')
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }
+                }, 100)
+              }}
+              className="mt-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold rounded-full text-center w-full cursor-pointer"
+            >
+              Essai Gratuit
+            </button>
+          </div>
+        </div>
+      )}
     </motion.nav>
   )
 }
