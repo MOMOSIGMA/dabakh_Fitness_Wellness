@@ -7,9 +7,12 @@ import { ArrowRight, Play } from 'lucide-react'
 
 export default function HeroSection() {
   const [isMobile, setIsMobile] = useState(false)
+  const [isIOS, setIsIOS] = useState(false)
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 768)
+    const ua = navigator.userAgent || navigator.vendor
+    setIsIOS(/iPad|iPhone|iPod/.test(ua))
     const handleResize = () => setIsMobile(window.innerWidth < 768)
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
@@ -46,7 +49,10 @@ export default function HeroSection() {
         </div>
       )}
 
-      <div className="relative z-20 text-center px-4 max-w-6xl mx-auto">
+      <div
+        className="relative z-20 text-center px-4 max-w-6xl mx-auto"
+        style={isIOS ? { paddingTop: '1.5rem' } : undefined}
+      >
         {/* Badge animé */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
