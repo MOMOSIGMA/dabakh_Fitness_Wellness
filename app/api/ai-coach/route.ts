@@ -45,12 +45,24 @@ export async function POST(request: NextRequest) {
 
     if (!groqResponse.ok) {
       const errorText = await groqResponse.text()
-      console.error('Groq API Error:', errorText)
+      console.error('Groq API Error:', groqResponse.status, errorText)
+      
+      // Friendly error messages
+      let friendlyMessage = ''
+      
+      if (groqResponse.status === 429 || groqResponse.status === 400) {
+        // Token limit or rate limit exceeded
+        friendlyMessage = '🤔 Je suis un peu fatigué en ce moment! L\'API Groq atteint sa limite. Réessaye dans quelques secondes. Les vrais coachs de Dabakh Fitness sont toujours là pour toi! Contacte-les sur WhatsApp. 💪'
+      } else if (groqResponse.status === 401) {
+        friendlyMessage = '❌ Problème d\'authentification avec l\'API. Le coach revient bientôt!'
+      } else if (groqResponse.status === 500) {
+        friendlyMessage = '⚠️ Le serveur Groq a un souci. Réessaye dans 1 minute, ou contacte un vrai coach sur WhatsApp! 📱'
+      } else {
+        friendlyMessage = `❌ Oups! Je n'arrive pas à te répondre. Réessaye ou contacte un coach sur WhatsApp.`
+      }
+      
       return NextResponse.json(
-        {
-          message: `Erreur Groq API (${groqResponse.status}). Vérifie la clé et le modèle.`,
-          details: errorText?.slice(0, 500),
-        },
+        { message: friendlyMessage },
         { status: groqResponse.status || 502 }
       )
     }

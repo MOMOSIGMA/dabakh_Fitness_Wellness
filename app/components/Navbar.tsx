@@ -96,22 +96,32 @@ export default function Navbar() {
           >
             <div className="container mx-auto px-4 py-6 flex flex-col gap-4">
               {navLinks.map((link) => (
-                <a
+                <button
                   key={link.name}
-                  href={link.href}
-                  className="text-lg font-medium text-gray-300 hover:text-yellow-400 transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => {
+                    const element = document.querySelector(link.href)
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                    }
+                    setMobileMenuOpen(false)
+                  }}
+                  className="text-lg font-medium text-gray-300 hover:text-yellow-400 transition-colors text-left w-full py-2"
                 >
                   {link.name}
-                </a>
+                </button>
               ))}
-              <a
-                href="#tarifs"
-                className="mt-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold rounded-full text-center"
-                onClick={() => setMobileMenuOpen(false)}
+              <button
+                onClick={() => {
+                  const element = document.querySelector('#tarifs')
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }
+                  setMobileMenuOpen(false)
+                }}
+                className="mt-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold rounded-full text-center w-full"
               >
                 Essai Gratuit
-              </a>
+              </button>
             </div>
           </motion.div>
         )}
