@@ -18,6 +18,50 @@ export default function AICoachSection() {
   ])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
+  const [bookingLoading, setBookingLoading] = useState(false)
+
+  const formatMessage = (text: string) => {
+    return text
+      .replace(/\*\*(.*?)\*\*/g, '$1')
+      .replace(/^\s*[*+-]\s+/gm, '• ')
+      .replace(/^(\d+)\.\s+/gm, '$1) ')
+  }
+
+  const handleCopy = async (text: string, index: number) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopiedIndex(index)
+      setTimeout(() => setCopiedIndex(null), 1500)
+    } catch (error) {
+      console.error('Copy failed:', error)
+    }
+  }
+
+  const handleBookSession = async () => {
+    setBookingLoading(true)
+    try {
+      const response = await fetch('/api/book-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          messageHistory: messages,
+          userContext: { lastUserMessage: input }
+        }),
+      })
+
+      const data = await response.json()
+      
+      if (data.whatsappLink) {
+        // Ouvrir WhatsApp avec le message pré-rempli
+        window.open(data.whatsappLink, '_blank')
+      }
+    } catch (error) {
+      console.error('Booking error:', error)
+    } finally {
+      setBookingLoading(false)
+    }
+  }
 
   const handleSend = async () => {
     if (!input.trim()) return
@@ -135,13 +179,40 @@ export default function AICoachSection() {
                     </div>
                   )}
                   <div
-                    className={`max-w-[80%] px-4 py-3 rounded-2xl ${
+                    className={`max-w-[80%] px-4 py-3 rounded-2xl whitespace-pre-wrap ${
                       message.role === 'user'
                         ? 'bg-yellow-400 text-black font-medium'
                         : 'glass text-white'
                     }`}
                   >
-                    {message.content}
+                    {message.role === 'assistant'
+                      ? formatMessage(message.content)
+                      : message.content}
+
+                    {message.role === 'assistant' && (
+                      <div className="mt-4 flex flex-col gap-2">
+                        {/* Bouton Copier */}
+                        <button
+                          onClick={() => handleCopy(message.content, index)}
+                          className="text-xs px-3 py-1 rounded-full border border-white/20 hover:border-yellow-400/60 text-gray-300 hover:text-yellow-400 transition-colors self-end"
+                        >
+                          {copiedIndex === index ? '✓ Copié' : 'Copier'}
+                        </button>
+
+                        {/* Bouton Réserver Séance - Seulement si CTA présent */}
+                        {message.content.includes('OFFRE SPÉCIALE') && (
+                          <motion.button
+                            onClick={handleBookSession}
+                            disabled={bookingLoading}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full font-bold text-sm hover:shadow-lg hover:shadow-green-500/50 disabled:opacity-50 transition-all"
+                          >
+                            {bookingLoading ? '⏳ Ouverture WhatsApp...' : '📱 Réserver via WhatsApp'}
+                          </motion.button>
+                        )}
+                      </div>
+                    )}
                   </div>
                   {message.role === 'user' && (
                     <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center flex-shrink-0">

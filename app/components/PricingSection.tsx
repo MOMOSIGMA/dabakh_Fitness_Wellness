@@ -1,10 +1,35 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Check, Zap, Star, Crown } from 'lucide-react'
 
 export default function PricingSection() {
+  const [loadingIndex, setLoadingIndex] = useState<number | null>(null)
+
+  const handleSubscribe = async (planName: string, price: string, features: string[]) => {
+    setLoadingIndex(plans.findIndex(p => p.name === planName))
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          planName,
+          price,
+          features
+        }),
+      })
+
+      const data = await response.json()
+      if (data.whatsappLink) {
+        window.open(data.whatsappLink, '_blank')
+      }
+    } catch (error) {
+      console.error('Subscribe error:', error)
+    } finally {
+      setLoadingIndex(null)
+    }
+  }
   const plans = [
     {
       name: 'BASIC',
@@ -155,15 +180,17 @@ export default function PricingSection() {
 
                   {/* CTA Button */}
                   <motion.button
+                    onClick={() => handleSubscribe(plan.name, plan.price, plan.features)}
+                    disabled={loadingIndex === index}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className={`w-full py-4 rounded-xl font-bold transition-all ${
                       plan.popular
                         ? 'bg-gradient-to-r from-yellow-400 to-yellow-500 text-black shadow-lg shadow-yellow-400/50'
                         : 'glass border border-white/20 text-white hover:border-yellow-400'
-                    }`}
+                    } disabled:opacity-50`}
                   >
-                    {plan.cta}
+                    {loadingIndex === index ? '⏳ Redirection...' : plan.cta}
                   </motion.button>
                 </div>
               </motion.div>

@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'llama-3.1-70b-versatile',
+        model: 'llama-3.3-70b-versatile',
         messages,
         temperature: 0.7,
         max_tokens: 500,
@@ -47,18 +47,27 @@ export async function POST(request: NextRequest) {
       const errorText = await groqResponse.text()
       console.error('Groq API Error:', errorText)
       return NextResponse.json(
-        { message: 'Erreur Groq API. Réessaie plus tard.' },
-        { status: 502 }
+        {
+          message: `Erreur Groq API (${groqResponse.status}). Vérifie la clé et le modèle.`,
+          details: errorText?.slice(0, 500),
+        },
+        { status: groqResponse.status || 502 }
       )
     }
 
     const data = await groqResponse.json()
     const assistantMessage = data?.choices?.[0]?.message?.content
 
+    // Ajouter CTA après conseils - Transformation en vendeur automatique
+    const messageWithCTA = `${assistantMessage || 'Je suis là pour t\'aider ! Dis-moi ton objectif et ton poids.'}\n\n---\n\n🎯 OFFRE SPÉCIALE : Tu veux des résultats réels ?\n\nCe programme est calculé pour toi, mais pour maximiser ton succès, je te recommande de venir tester nos équipements professionnels à Dabakh Fitness.\n\nRéserve une séance d'essai GRATUITE avec un de nos coachs !\n(Clic sur le bouton ci-dessous)`
+
     return NextResponse.json({
-      message:
-        assistantMessage ||
-        'Je suis là pour t’aider ! Dis-moi ton objectif et ton poids.',
+      message: messageWithCTA,
+      showBookingButton: true,
+      userContext: {
+        history: messages,
+        lastMessage: message,
+      }
     })
   } catch (error) {
     console.error('AI Coach Error:', error)
