@@ -88,69 +88,68 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden glass mt-4">
-          <div className="container mx-auto px-4 py-6 flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <button
-                key={link.name}
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  setMobileMenuOpen(false)
-                  setTimeout(() => {
-                    const element = document.querySelector(link.href)
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                    }
-                  }, 100)
-                }}
-                onTouchEnd={(e) => {
-                  e.preventDefault()
-                  setMobileMenuOpen(false)
-                  setTimeout(() => {
-                    const element = document.querySelector(link.href)
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                    }
-                  }, 100)
-                }}
-                className="text-lg font-medium text-gray-300 hover:text-red-500 transition-colors text-left w-full py-2 cursor-pointer"
-              >
-                {link.name}
-              </button>
-            ))}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                setMobileMenuOpen(false)
-                setTimeout(() => {
-                  const element = document.querySelector('#tarifs')
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                  }
-                }, 100)
-              }}
-              onTouchEnd={(e) => {
-                e.preventDefault()
-                setMobileMenuOpen(false)
-                setTimeout(() => {
-                  const element = document.querySelector('#tarifs')
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                  }
-                }, 100)
-              }}
-              className="mt-2 px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold rounded-full text-center w-full cursor-pointer"
-            >
-              Séance Découverte
-            </button>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden overflow-hidden"
+          >
+            <div className="bg-black/95 backdrop-blur-xl border-t border-white/10 shadow-2xl">
+              <div className="container mx-auto px-6 py-8 flex flex-col gap-2">
+                {navLinks.map((link, index) => (
+                  <motion.button
+                    key={link.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      setMobileMenuOpen(false)
+                      setTimeout(() => {
+                        const element = document.querySelector(link.href)
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                        }
+                      }, 100)
+                    }}
+                    className="text-left w-full px-4 py-4 rounded-xl text-white text-lg font-semibold hover:bg-red-500/10 active:bg-red-500/20 transition-all border-b border-white/5 last:border-0"
+                  >
+                    <span className="flex items-center gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                      {link.name}
+                    </span>
+                  </motion.button>
+                ))}
+                <motion.button
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setMobileMenuOpen(false)
+                    setTimeout(() => {
+                      const element = document.querySelector('#tarifs')
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                      }
+                    }, 100)
+                  }}
+                  className="mt-4 px-6 py-4 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold rounded-xl text-center w-full shadow-lg shadow-red-500/30 active:scale-95 transition-transform text-lg"
+                >
+                  🔥 Séance Découverte
+                </motion.button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   )
 }
