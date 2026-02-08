@@ -21,7 +21,8 @@ export default function DisciplinesSection() {
       icon: Dumbbell,
       size: 'large', // Grande carte
       gradient: 'from-red-500/20 to-red-600/20',
-      image: '/images/musculation.jpg',
+      // 📸 PHOTO À PRENDRE: Vue d'ensemble de la salle de musculation avec les machines
+      image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80&fit=crop&auto=format',
     },
     {
       title: 'Boxe & Combat',
@@ -29,7 +30,8 @@ export default function DisciplinesSection() {
       icon: Zap,
       size: 'medium',
       gradient: 'from-red-400/20 to-pink-500/20',
-      image: '/images/boxe.jpg',
+      // 📸 PHOTO À PRENDRE: Zone de boxe avec sacs de frappe et ring si disponible
+      image: 'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=1200&q=80&fit=crop&auto=format',
     },
     {
       title: 'Événements & Challenges',
@@ -49,6 +51,8 @@ export default function DisciplinesSection() {
       icon: Users,
       size: 'medium',
       gradient: 'from-green-400/20 to-emerald-500/20',
+      // 📸 PHOTO À PRENDRE: Coach avec un client pendant une séance (avec autorisation)
+      image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80&fit=crop&auto=format',
     },
     {
       title: 'Large Amplitude Horaire',
@@ -100,7 +104,7 @@ export default function DisciplinesSection() {
           <h2 className="text-4xl md:text-6xl font-black mb-4">
             Trouvez Votre <span className="text-stroke italic">Passion</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-white text-lg max-w-2xl mx-auto">
             Des équipements de pointe et des programmes adaptés à tous les niveaux
           </p>
         </motion.div>
@@ -143,7 +147,7 @@ export default function DisciplinesSection() {
                   <div>
                     <Icon className="w-10 h-10 mb-4 text-red-500" />
                     <h3 className="text-2xl font-bold mb-2">{discipline.title}</h3>
-                    <p className="text-gray-300 text-sm">{discipline.description}</p>
+                    <p className="text-white text-sm">{discipline.description}</p>
                   </div>
 
                   {/* Schedule for planning card */}
@@ -153,7 +157,7 @@ export default function DisciplinesSection() {
                         <div key={idx} className="flex items-center justify-between text-xs glass rounded-lg px-3 py-2">
                           <span className="font-semibold">{item.day}</span>
                           <span className="text-red-500">{item.time}</span>
-                          <span className="text-gray-400">{item.activity}</span>
+                          <span className="text-gray-100">{item.activity}</span>
                         </div>
                       ))}
                     </div>

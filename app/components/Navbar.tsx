@@ -49,7 +49,7 @@ export default function Navbar() {
             />
             <div className="flex flex-col">
               <span className="font-black text-xl tracking-tight uppercase">Dabakh</span>
-              <span className="text-xs text-gray-400 -mt-1">Fitness Club</span>
+              <span className="text-xs text-gray-200 -mt-1">Fitness Club</span>
             </div>
           </motion.a>
 
@@ -59,7 +59,7 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
+                className="text-sm font-medium text-white hover:text-red-500 transition-colors relative group"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-blue-600 group-hover:w-full transition-all duration-300" />

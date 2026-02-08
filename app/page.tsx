@@ -1,8 +1,14 @@
 import dynamic from 'next/dynamic'
 import HeroSection from './components/HeroSection'
+import WhatsAppButton from './components/WhatsAppButton'
 
 // Lazy load sections below the fold
 const DisciplinesSection = dynamic(() => import('./components/DisciplinesSection'), {
+  loading: () => <div className="h-96 bg-black/50" />,
+  ssr: true,
+})
+
+const GallerySection = dynamic(() => import('./components/GallerySection'), {
   loading: () => <div className="h-96 bg-black/50" />,
   ssr: true,
 })
@@ -32,10 +38,12 @@ export default function Home() {
     <main className="min-h-screen bg-black text-white selection:bg-yellow-400 selection:text-black">
       <HeroSection />
       <DisciplinesSection />
+      <GallerySection />
       <AICoachSection />
       <PricingSection />
       <PracticalInfoSection />
       <Footer />
+      <WhatsAppButton />
     </main>
   )
 }

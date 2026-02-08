@@ -29,7 +29,7 @@ export default function HeroSection() {
       
       {/* Background Image Optimized */}
       <Image
-        src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=40"
+        src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80&fit=crop&auto=format"
         alt="Fitness Background"
         fill
         priority
@@ -83,7 +83,8 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: animationDelay(0.3), duration: 0.3 }}
-          className="max-w-2xl mx-auto text-gray-300 text-lg md:text-2xl mb-12 leading-relaxed"
+          className="max-w-2xl mx-auto text-white text-lg md:text-2xl mb-12 leading-relaxed"
+          style={{ textShadow: '0 1px 3px rgba(0,0,0,0.7)' }}
         >
           Dépassez vos limites au cœur de Dakar.
           <span className="block mt-2 text-red-500 font-semibold">
@@ -135,10 +136,10 @@ export default function HeroSection() {
               key={index}
               className="text-center"
             >
-              <div className="text-3xl md:text-4xl font-black text-red-500 mb-2">
+              <div className="text-4xl md:text-5xl font-black text-red-500 mb-2">
                 {stat.number}
               </div>
-              <div className="text-sm text-gray-400 uppercase tracking-wider">
+              <div className="text-sm text-white uppercase tracking-wider font-medium">
                 {stat.label}
               </div>
             </div>

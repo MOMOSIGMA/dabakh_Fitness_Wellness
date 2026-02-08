@@ -183,7 +183,7 @@ export default function AICoachSection() {
           <h2 className="text-4xl md:text-6xl font-black mb-4">
             Dabakh <span className="text-red-500">AI</span> Coach
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-white text-lg max-w-2xl mx-auto">
             Intelligence artificielle pour ton programme personnalisé
           </p>
         </motion.div>
@@ -241,7 +241,7 @@ export default function AICoachSection() {
                         {/* Bouton Copier */}
                         <button
                           onClick={() => handleCopy(message.content, index)}
-                          className="text-xs px-3 py-1 rounded-full border border-white/20 hover:border-red-500/60 text-gray-300 hover:text-red-500 transition-colors self-end"
+                          className="text-xs px-3 py-1 rounded-full border border-white/20 hover:border-red-500/60 text-white hover:text-red-500 transition-colors self-end"
                         >
                           {copiedIndex === index ? '✓ Copié' : 'Copier'}
                         </button>
@@ -294,7 +294,7 @@ export default function AICoachSection() {
           <div className="p-4 border-t border-white/10 bg-black/60 space-y-3">
             {/* Compteur de messages */}
             <div className="flex items-center justify-between text-xs">
-              <span className="text-gray-400">Messages aujourd&apos;hui: <span className="text-red-500 font-bold">{messagesCount}/{DAILY_LIMIT}</span></span>
+              <span className="text-gray-100">Messages aujourd&apos;hui: <span className="text-red-500 font-bold">{messagesCount}/{DAILY_LIMIT}</span></span>
               <div className="h-1.5 w-24 bg-white/10 rounded-full overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
@@ -361,7 +361,7 @@ export default function AICoachSection() {
                 <Send className="w-5 h-5" />
               </motion.button>
             </div>
-            <p className="text-xs text-gray-500 text-center">
+            <p className="text-xs text-gray-200 text-center">
               {limitReached ? '⚠️ Limite atteinte! Contacte un coach pour des conseils illimités.' : '💡 Exemple: &quot;Je pèse 70kg, je veux perdre du poids&quot;'}
             </p>
           </div>

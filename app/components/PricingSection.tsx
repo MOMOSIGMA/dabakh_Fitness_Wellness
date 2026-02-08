@@ -67,7 +67,7 @@ export default function PricingSection() {
       price: '150 000',
       period: 'FCFA / 12 mois',
       icon: Crown,
-      gradient: 'from-blue-600 to-blue-800',
+      gradient: 'from-purple-600 to-purple-800',
       features: [
         '👑 Abonnement annuel',
         '5 massages inclus',
@@ -76,37 +76,6 @@ export default function PricingSection() {
         'Programme personnalisé',
       ],
       cta: 'Choisir Premium',
-      popular: false,
-    },
-    {
-      name: 'PACK DABAKH VIP',
-      price: '200 000',
-      period: 'FCFA / 12 mois',
-      icon: Crown,
-      gradient: 'from-red-400 to-red-600',
-      features: [
-        '🏆 Statut VIP Premium',
-        '5 massages + cadeaux',
-        'Serviette premium',
-        'Coaching personnalisé illimité',
-        'Espace VIP exclusif',
-      ],
-      cta: 'Choisir Dabakh',
-      popular: false,
-    },
-    {
-      name: 'PACK SPÉCIAL',
-      price: '50 000',
-      period: 'FCFA / 1 mois',
-      icon: Star,
-      gradient: 'from-blue-600 to-red-600',
-      features: [
-        'Accès illimité 1 mois',
-        'Massage inclus',
-        'Coaching personnalisé',
-        'Accès tous les services',
-      ],
-      cta: 'Choisir Spécial',
       popular: false,
     },
   ]
@@ -143,10 +112,10 @@ export default function PricingSection() {
           <h2 className="text-4xl md:text-6xl font-black mb-4">
             Investis Dans Ta <span className="text-stroke italic">Transformation</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-white text-lg max-w-2xl mx-auto">
             Pas d&apos;engagement. Annule quand tu veux. Séance découverte disponible.
           </p>
-          <p className="text-gray-500 text-sm mt-3">
+          <p className="text-gray-100 text-sm mt-3">
             Séance journalière: 2 000 FCFA.
           </p>
         </motion.div>
@@ -164,7 +133,7 @@ export default function PricingSection() {
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -10 }}
                 className={`relative rounded-3xl overflow-hidden ${
-                  plan.popular ? 'md:scale-110 z-10' : ''
+                  plan.popular ? 'md:scale-110 z-10 shadow-2xl shadow-red-500/40' : ''
                 }`}
               >
                 {/* Popular Badge */}
@@ -173,9 +142,9 @@ export default function PricingSection() {
                     <motion.div
                       animate={{ rotate: [0, 5, -5, 0] }}
                       transition={{ duration: 2, repeat: Infinity }}
-                      className="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full"
+                      className="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full shadow-xl shadow-red-500/50"
                     >
-                      ⭐ POPULAIRE
+                      🔥 LE PLUS CHOISI
                     </motion.div>
                   </div>
                 )}
@@ -196,9 +165,11 @@ export default function PricingSection() {
                   {/* Price */}
                   <div className="mb-6">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-5xl font-black">{plan.price}</span>
+                      <span className={`font-black ${
+                        plan.popular ? 'text-6xl' : 'text-5xl'
+                      }`}>{plan.price}</span>
                     </div>
-                    <span className="text-gray-400 text-sm">{plan.period}</span>
+                    <span className="text-white text-sm font-medium">{plan.period}</span>
                   </div>
 
                   {/* Features */}
@@ -206,7 +177,7 @@ export default function PricingSection() {
                     {plan.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start gap-2">
                         <Check className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-300 text-sm">{feature}</span>
+                        <span className="text-white text-sm">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -251,9 +222,9 @@ export default function PricingSection() {
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
-              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Inscription unique</p>
+              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Inscription unique</p>
               <p className="text-3xl font-black text-red-500 mb-2">5 000 FCFA</p>
-              <p className="text-gray-500 text-xs">Frais de création de compte</p>
+              <p className="text-gray-300 text-xs">Frais de création de compte</p>
             </motion.div>
 
             {/* Séance journalière */}
@@ -265,9 +236,9 @@ export default function PricingSection() {
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
-              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Séance journalière</p>
+              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Séance journalière</p>
               <p className="text-3xl font-black text-red-500 mb-2">2 000 FCFA</p>
-              <p className="text-gray-500 text-xs">Accès illimité 1 jour</p>
+              <p className="text-gray-300 text-xs">Accès illimité 1 jour</p>
             </motion.div>
 
             {/* Mensualité classique */}
@@ -279,9 +250,9 @@ export default function PricingSection() {
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
-              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Mensualité Musculation/Cardio</p>
+              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Mensualité Musculation/Cardio</p>
               <p className="text-3xl font-black text-red-500 mb-2">20 000 FCFA</p>
-              <p className="text-gray-500 text-xs">Accès illimité 1 mois</p>
+              <p className="text-gray-300 text-xs">Accès illimité 1 mois</p>
             </motion.div>
 
             {/* Boxe / Taekwondo - Enfant */}
@@ -293,10 +264,10 @@ export default function PricingSection() {
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
-              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Boxe / Taekwondo - Enfant</p>
+              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Boxe / Taekwondo - Enfant</p>
               <p className="text-3xl font-black text-red-500 mb-2">15 000 FCFA</p>
-              <p className="text-gray-500 text-xs">Mensualité enfant</p>
-              <p className="text-gray-500 text-xs">Inscription Boxe/Taekwondo: 5 000 FCFA</p>
+              <p className="text-gray-300 text-xs">Mensualité enfant</p>
+              <p className="text-gray-300 text-xs">Inscription Boxe/Taekwondo: 5 000 FCFA</p>
             </motion.div>
 
             {/* Boxe / Taekwondo - Adulte */}
@@ -308,10 +279,10 @@ export default function PricingSection() {
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
-              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Boxe / Taekwondo - Adulte</p>
+              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Boxe / Taekwondo - Adulte</p>
               <p className="text-3xl font-black text-red-500 mb-2">20 000 FCFA</p>
-              <p className="text-gray-500 text-xs">Mensualité adulte</p>
-              <p className="text-gray-500 text-xs">Inscription Boxe/Taekwondo: 5 000 FCFA</p>
+              <p className="text-gray-300 text-xs">Mensualité adulte</p>
+              <p className="text-gray-300 text-xs">Inscription Boxe/Taekwondo: 5 000 FCFA</p>
             </motion.div>
 
             {/* Massage Tonifiant */}
@@ -323,9 +294,9 @@ export default function PricingSection() {
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
-              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Massage Tonifiant</p>
+              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Massage Tonifiant</p>
               <p className="text-3xl font-black text-red-500 mb-2">15 000 FCFA</p>
-              <p className="text-gray-500 text-xs">30 minutes de bien-être</p>
+              <p className="text-gray-300 text-xs">30 minutes de bien-être</p>
             </motion.div>
 
             {/* Massage Relaxant Doux */}
@@ -337,9 +308,9 @@ export default function PricingSection() {
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
-              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Massage Relaxant Doux</p>
+              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Massage Relaxant Doux</p>
               <p className="text-3xl font-black text-red-500 mb-2">20 000 FCFA</p>
-              <p className="text-gray-500 text-xs">1h de relaxation</p>
+              <p className="text-gray-300 text-xs">1h de relaxation</p>
             </motion.div>
 
             {/* Massage Dos Relaxant */}
@@ -351,9 +322,9 @@ export default function PricingSection() {
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
-              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Dos Relaxant</p>
+              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Dos Relaxant</p>
               <p className="text-3xl font-black text-red-500 mb-2">10 000 FCFA</p>
-              <p className="text-gray-500 text-xs">20 minutes</p>
+              <p className="text-gray-300 text-xs">20 minutes</p>
             </motion.div>
           </div>
         </motion.div>
@@ -376,9 +347,9 @@ export default function PricingSection() {
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
-              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Pack Famille</p>
+              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Pack Famille</p>
               <p className="text-3xl font-black text-red-500 mb-2">45 000 FCFA</p>
-              <p className="text-gray-500 text-xs">3 personnes</p>
+              <p className="text-gray-300 text-xs">3 personnes</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -388,9 +359,9 @@ export default function PricingSection() {
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
-              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Pack Famille</p>
+              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Pack Famille</p>
               <p className="text-3xl font-black text-red-500 mb-2">60 000 FCFA</p>
-              <p className="text-gray-500 text-xs">4 personnes</p>
+              <p className="text-gray-300 text-xs">4 personnes</p>
             </motion.div>
           </div>
         </motion.div>
@@ -413,9 +384,9 @@ export default function PricingSection() {
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
-              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Pack Silver</p>
+              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Pack Silver</p>
               <p className="text-3xl font-black text-red-500 mb-2">80 000 FCFA</p>
-              <p className="text-gray-500 text-xs">16 séances + 1 séance de massage</p>
+              <p className="text-gray-300 text-xs">16 séances + 1 séance de massage</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -425,9 +396,9 @@ export default function PricingSection() {
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
-              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Pack Gold</p>
+              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Pack Gold</p>
               <p className="text-3xl font-black text-red-500 mb-2">100 000 FCFA</p>
-              <p className="text-gray-500 text-xs">18 séances + 2 séances de massage</p>
+              <p className="text-gray-300 text-xs">18 séances + 2 séances de massage</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -437,9 +408,9 @@ export default function PricingSection() {
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
-              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Pack Premium</p>
+              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Pack Premium</p>
               <p className="text-3xl font-black text-red-500 mb-2">115 000 FCFA</p>
-              <p className="text-gray-500 text-xs">20 séances + serviette + 10 bouteilles d&apos;eau + 5 séances de massage</p>
+              <p className="text-gray-300 text-xs">20 séances + serviette + 10 bouteilles d&apos;eau + 5 séances de massage</p>
             </motion.div>
           </div>
         </motion.div>
@@ -452,10 +423,10 @@ export default function PricingSection() {
           className="text-center mt-16"
         >
           <div className="glass inline-block px-8 py-4 rounded-2xl">
-            <p className="text-gray-300 mb-4">
+            <p className="text-white mb-4">
               🎁 <span className="text-red-500 font-bold">Offre Spéciale</span> - Séance découverte à 2 000 FCFA.
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-100">
               Viens tester nos installations avant de t&apos;engager
             </p>
           </div>

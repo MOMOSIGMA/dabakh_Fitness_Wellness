@@ -58,7 +58,7 @@ export default function PracticalInfoSection() {
           <h2 className="text-4xl md:text-6xl font-black mb-4">
             Infos <span className="text-stroke italic">Pratiques</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-white text-lg max-w-2xl mx-auto">
             Respecte ces règles simples pour profiter pleinement de ton expérience Dabakh
           </p>
         </motion.div>
@@ -89,7 +89,7 @@ export default function PracticalInfoSection() {
 
                   {/* Content */}
                   <h3 className="text-2xl font-black mb-3">{rule.title}</h3>
-                  <p className="text-gray-300 leading-relaxed flex-grow">
+                  <p className="text-white leading-relaxed flex-grow">
                     {rule.description}
                   </p>
                 </div>
@@ -109,7 +109,7 @@ export default function PracticalInfoSection() {
             <AlertCircle className="w-8 h-8 text-red-500 flex-shrink-0 mt-1" />
             <div>
               <h4 className="text-lg font-bold mb-2 text-red-500">Respect du lieu et de la communauté</h4>
-              <p className="text-gray-300">
+              <p className="text-white">
                 Dabakh est plus qu&apos;une salle de sport, c&apos;est une communauté. Nous comptons sur toi pour respecter ces règles simples et contribuer à créer un environnement sain, sécurisé et accueillant pour tous les membres.
               </p>
             </div>

@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     description: 'La meilleure salle de sport de Dakar. Musculation, boxe, cardio avec coaching IA. 500+ membres satisfaits.',
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=630&q=80',
+        url: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=630&q=80&fit=crop&auto=format',
         width: 1200,
         height: 630,
         alt: 'Dabakh Fitness Wellness Club - Salle de Sport Dakar',
@@ -94,17 +94,8 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         
-        {/* Preload critical image for LCP */}
-        <link 
-          rel="preload" 
-          as="image" 
-          href="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=40"
-          imageSrcSet="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=640&q=40 640w,
-                       https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=40 1920w"
-          imageSizes="100vw"
-        />
-        
         <meta name="theme-color" content="#000000" />
+        <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         
@@ -126,8 +117,8 @@ export default function RootLayout({
                 'addressCountry': 'SN'
               },
               priceRange: '$$',
-              image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=630&q=80',
-              logo: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=200&q=80',
+              image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=630&q=80&fit=crop&auto=format',
+              logo: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=200&q=80&fit=crop&auto=format',
               aggregateRating: {
                 '@type': 'AggregateRating',
                 ratingValue: '4.3',

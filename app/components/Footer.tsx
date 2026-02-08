@@ -70,7 +70,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-gray-400 hover:text-red-500 transition-colors text-sm"
+                    className="text-gray-100 hover:text-red-500 transition-colors text-sm"
                   >
                     {link.name}
                   </a>
@@ -82,7 +82,7 @@ export default function Footer() {
           {/* Horaires */}
           <div>
             <h3 className="font-bold text-lg mb-4">Horaires</h3>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <ul className="space-y-2 text-sm text-gray-100">
               <li className="flex justify-between">
                 <span>Lun - Ven</span>
                 <span className="text-red-500">07h - 22h30</span>
@@ -118,14 +118,14 @@ export default function Footer() {
                   className="w-10 h-10 rounded-full glass flex items-center justify-center hover:border-red-500 border border-white/10 transition-colors group"
                   aria-label={social.label}
                 >
-                  <Icon className="w-5 h-5 text-gray-400 group-hover:text-red-500 transition-colors" />
+                  <Icon className="w-5 h-5 text-gray-200 group-hover:text-red-500 transition-colors" />
                 </motion.a>
               )
             })}
           </div>
 
           <div className="text-center sm:text-right">
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-200 text-sm">
               © 2026 Dabakh Fitness Wellness Club. Tous droits réservés.
             </p>
             <p className="text-gray-600 text-xs mt-1">
