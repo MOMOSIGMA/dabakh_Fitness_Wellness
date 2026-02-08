@@ -62,7 +62,7 @@ export default function HeroSection() {
         >
           <span className="w-2 h-2 rounded-full bg-red-500" style={{animation: isMobile ? 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' : undefined}} />
           <span className="text-xs font-medium uppercase tracking-widest">
-            Le plus grand club de Yoff
+            Sacré Cœur 3 • Dakar 🇸🇳 • Note 4.3★
           </span>
         </motion.div>
         
@@ -85,7 +85,7 @@ export default function HeroSection() {
           className="max-w-2xl mx-auto text-gray-300 text-lg md:text-2xl mb-12 leading-relaxed"
         >
           Dépassez vos limites au cœur de Dakar.
-          <span className="block mt-2 text-yellow-400 font-semibold">
+          <span className="block mt-2 text-red-500 font-semibold">
             Équipements de pointe • Coaching IA • Communauté premium
           </span>
         </motion.p>
@@ -99,7 +99,7 @@ export default function HeroSection() {
         >
           <motion.a
             href="#disciplines"
-            className="group px-8 py-4 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold rounded-full hover:shadow-2xl hover:shadow-yellow-400/50 transition-all flex items-center justify-center gap-2 min-w-[250px]"
+            className="group px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-full hover:shadow-2xl hover:shadow-red-600/50 transition-all flex items-center justify-center gap-2 min-w-[250px]"
             whileHover={{ scale: scaleHover }}
             whileTap={{ scale: 0.95 }}
           >
@@ -114,7 +114,7 @@ export default function HeroSection() {
             whileTap={{ scale: 0.95 }}
           >
             <Play className="w-5 h-5" />
-            VOIR LE PLANNING
+            VOIR LES ÉVÉNEMENTS
           </motion.a>
         </motion.div>
 
@@ -137,7 +137,7 @@ export default function HeroSection() {
               transition={{ delay: animationDelay(1.2 + index * 0.1) }}
               className="text-center"
             >
-              <div className="text-3xl md:text-4xl font-black text-yellow-400 mb-2">
+              <div className="text-3xl md:text-4xl font-black text-red-500 mb-2">
                 {stat.number}
               </div>
               <div className="text-sm text-gray-400 uppercase tracking-wider">
@@ -157,7 +157,7 @@ export default function HeroSection() {
           className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20"
         >
           <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2">
-            <div className="w-1 h-2 bg-yellow-400 rounded-full animate-pulse" />
+            <div className="w-1 h-2 bg-red-500 rounded-full animate-pulse" />
           </div>
         </motion.div>
       )}

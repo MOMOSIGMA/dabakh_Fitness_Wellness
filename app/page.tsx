@@ -17,6 +17,11 @@ const PricingSection = dynamic(() => import('./components/PricingSection'), {
   ssr: true,
 })
 
+const PracticalInfoSection = dynamic(() => import('./components/PracticalInfoSection'), {
+  loading: () => <div className="h-96 bg-black/50" />,
+  ssr: true,
+})
+
 const Footer = dynamic(() => import('./components/Footer'), {
   loading: () => <div className="h-32 bg-black" />,
   ssr: true,
@@ -29,6 +34,7 @@ export default function Home() {
       <DisciplinesSection />
       <AICoachSection />
       <PricingSection />
+      <PracticalInfoSection />
       <Footer />
     </main>
   )

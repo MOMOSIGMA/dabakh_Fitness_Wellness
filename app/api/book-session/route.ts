@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const MANAGER_PHONE = '+221771463012' // Numéro du gérant Dabakh Fitness
+const MANAGER_PHONE = '+221775323725' // ✅ Numéro officiel Dabakh Fitness
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,18 +13,25 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Construire le résumé de la conversation
+    // Construire le résumé de la conversation - Détaillé et structuré
     const userMessage = messageHistory.find((m: any) => m.role === 'user')?.content || 'Pas de détails'
     const aiAdvice = messageHistory.find((m: any) => m.role === 'assistant')?.content || 'Consultation personnalisée'
 
-    // Créer le message WhatsApp avec le résumé
+    // Nettoyer et limiter à une longueur raisonnable
+    const cleanUserMessage = userMessage.replace(/[\u{1F300}-\u{1F9FF}]/gu, '').trim().slice(0, 150)
+    const cleanAiAdvice = aiAdvice.replace(/[\u{1F300}-\u{1F9FF}]/gu, '').trim().slice(0, 200)
+
+    // Créer le message WhatsApp - DÉTAILLÉ et STRUCTURÉ
     const whatsappMessage = encodeURIComponent(
-      `Bonjour Dabakh Fitness ! 🏋️\n\n` +
-      `Votre IA Coach m'a analysé et m'a conseillé :\n\n` +
-      `📊 Mon demande : ${userMessage.slice(0, 100)}...\n\n` +
-      `💡 Conseil reçu : ${aiAdvice.slice(0, 150)}...\n\n` +
-      `✅ Je souhaite réserver une séance d'essai GRATUITE !\n` +
-      `Merci d'avoir créé ce site intelligent 🙌`
+      `Bonjour Dabakh Fitness!\n` +
+      `Je souhaite reserver une seance decouverte (2 000 FCFA).\n\n` +
+      `L'IA Coach m'a analyse et conseille de venir tester vos equipements.\n\n` +
+      `--- Details de ma demande ---\n` +
+      `${cleanUserMessage}\n\n` +
+      `--- Conseil du Coach IA ---\n` +
+      `${cleanAiAdvice}\n\n` +
+      `Quels jours et horaires sont disponibles pour commencer?\n` +
+      `Merci!`
     )
 
     // Lien WhatsApp pré-rempli

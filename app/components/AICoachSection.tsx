@@ -15,7 +15,7 @@ export default function AICoachSection() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: '👋 Salut ! Je suis Dabakh AI Coach. Dis-moi ton poids et ton objectif, je vais créer ton programme personnalisé !'
+      content: '🤖 Salut ! Je suis Dabakh AI Coach, ton assistant personnel ! 💪\n\nJe peux t\'aider sur:\n• 💰 Tarifs et packs d\'abonnement\n• ⏰ Horaires d\'ouverture\n• 📍 Localisation et itinéraire\n• 📞 Réservations et contacts\n• 🏋️ Plans d\'entraînement personnalisés\n• 🥗 Conseils nutrition\n• 💆 Services de massages\n• 📋 Règlement intérieur et services\n\nTu peux me poser n\'importe quelle question sur Dabakh Fitness. Dis moi tes objectifs et je vais créer un programme juste pour toi ! 🎯'
     }
   ])
   const [input, setInput] = useState('')
@@ -178,10 +178,10 @@ export default function AICoachSection() {
             transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
             className="inline-block mb-4"
           >
-            <Sparkles className="w-12 h-12 text-yellow-400" />
+            <Sparkles className="w-12 h-12 text-red-500" />
           </motion.div>
           <h2 className="text-4xl md:text-6xl font-black mb-4">
-            Dabakh <span className="text-yellow-400">AI</span> Coach
+            Dabakh <span className="text-red-500">AI</span> Coach
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Intelligence artificielle pour ton programme personnalisé
@@ -193,16 +193,16 @@ export default function AICoachSection() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass rounded-3xl overflow-hidden shadow-2xl border border-yellow-400/20"
+          className="glass rounded-3xl overflow-hidden shadow-2xl border border-red-500/20"
         >
           {/* Chat Header */}
-          <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 p-4 flex items-center gap-3">
+          <div className="bg-gradient-to-r from-red-500 to-red-600 p-4 flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center">
-              <Bot className="w-6 h-6 text-yellow-400" />
+              <Bot className="w-6 h-6 text-white" />
             </div>
             <div>
-              <div className="font-bold text-black">Dabakh AI Coach</div>
-              <div className="text-xs text-black/70 flex items-center gap-1">
+              <div className="font-bold text-white">Dabakh AI Coach</div>
+              <div className="text-xs text-white/70 flex items-center gap-1">
                 <span className="w-2 h-2 rounded-full bg-green-600 animate-pulse" />
                 En ligne
               </div>
@@ -221,14 +221,14 @@ export default function AICoachSection() {
                   className={`flex gap-3 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   {message.role === 'assistant' && (
-                    <div className="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center flex-shrink-0">
                       <Bot className="w-5 h-5 text-black" />
                     </div>
                   )}
                   <div
                     className={`max-w-[80%] px-4 py-3 rounded-2xl whitespace-pre-wrap ${
                       message.role === 'user'
-                        ? 'bg-yellow-400 text-black font-medium'
+                        ? 'bg-red-500 text-white font-medium'
                         : 'glass text-white'
                     }`}
                   >
@@ -241,7 +241,7 @@ export default function AICoachSection() {
                         {/* Bouton Copier */}
                         <button
                           onClick={() => handleCopy(message.content, index)}
-                          className="text-xs px-3 py-1 rounded-full border border-white/20 hover:border-yellow-400/60 text-gray-300 hover:text-yellow-400 transition-colors self-end"
+                          className="text-xs px-3 py-1 rounded-full border border-white/20 hover:border-red-500/60 text-gray-300 hover:text-red-500 transition-colors self-end"
                         >
                           {copiedIndex === index ? '✓ Copié' : 'Copier'}
                         </button>
@@ -294,12 +294,12 @@ export default function AICoachSection() {
           <div className="p-4 border-t border-white/10 bg-black/60 space-y-3">
             {/* Compteur de messages */}
             <div className="flex items-center justify-between text-xs">
-              <span className="text-gray-400">Messages aujourd&apos;hui: <span className="text-yellow-400 font-bold">{messagesCount}/{DAILY_LIMIT}</span></span>
+              <span className="text-gray-400">Messages aujourd&apos;hui: <span className="text-red-500 font-bold">{messagesCount}/{DAILY_LIMIT}</span></span>
               <div className="h-1.5 w-24 bg-white/10 rounded-full overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${(messagesCount / DAILY_LIMIT) * 100}%` }}
-                  className="h-full bg-gradient-to-r from-yellow-400 to-yellow-500"
+                  className="h-full bg-gradient-to-r from-red-500 to-red-600"
                 />
               </div>
             </div>
@@ -318,7 +318,7 @@ export default function AICoachSection() {
                       Je ne suis qu&apos;une IA...
                     </p>
                     <p className="text-xs text-purple-200 leading-relaxed">
-                      Pour voir tes <span className="font-bold text-yellow-400">VRAIS résultats</span>, il faut passer à l&apos;action! C&apos;est maintenant que ça se joue. Fais-le pour toi, allez <span className="font-bold animate-pulse">GO GO GO</span> 💪 Tu peux y arriver!
+                      Pour voir tes <span className="font-bold text-red-500">VRAIS résultats</span>, il faut passer à l&apos;action! C&apos;est maintenant que ça se joue. Fais-le pour toi, allez <span className="font-bold animate-pulse">GO GO GO</span> 💪 Tu peux y arriver!
                     </p>
                   </div>
                 </div>
@@ -348,7 +348,7 @@ export default function AICoachSection() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSend()}
                 placeholder={limitReached ? "Limite atteinte pour aujourd'hui..." : "Ex: Je pèse 75kg et je veux prendre de la masse..."}
-                className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors disabled:opacity-50"
+                className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors disabled:opacity-50"
                 disabled={isLoading || limitReached}
               />
               <motion.button
@@ -356,7 +356,7 @@ export default function AICoachSection() {
                 disabled={isLoading || !input.trim() || limitReached}
                 whileHover={!limitReached ? { scale: 1.05 } : {}}
                 whileTap={!limitReached ? { scale: 0.95 } : {}}
-                className="px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transition-all"
+                className="px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transition-all"
               >
                 <Send className="w-5 h-5" />
               </motion.button>

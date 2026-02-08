@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Dumbbell, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Navbar() {
@@ -42,9 +42,11 @@ export default function Navbar() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <div className="p-2 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl shadow-lg group-hover:shadow-yellow-400/50 transition-shadow">
-              <Dumbbell className="w-6 h-6 text-black" />
-            </div>
+            <img 
+              src="/images/logo-dabakh.png" 
+              alt="Dabakh Fitness Logo"
+              className="w-10 h-10 object-contain"
+            />
             <div className="flex flex-col">
               <span className="font-black text-xl tracking-tight uppercase">Dabakh</span>
               <span className="text-xs text-gray-400 -mt-1">Fitness Club</span>
@@ -60,7 +62,7 @@ export default function Navbar() {
                 className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 group-hover:w-full transition-all duration-300" />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-blue-600 group-hover:w-full transition-all duration-300" />
               </a>
             ))}
           </div>
@@ -68,11 +70,11 @@ export default function Navbar() {
           {/* CTA Button */}
           <motion.a
             href="#tarifs"
-            className="hidden md:block px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold rounded-full hover:shadow-lg hover:shadow-yellow-400/50 transition-all"
+            className="hidden md:block px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold rounded-full hover:shadow-lg hover:shadow-red-500/50 transition-all"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Essai Gratuit
+            Séance Découverte
           </motion.a>
 
           {/* Mobile Menu Button */}
@@ -114,7 +116,7 @@ export default function Navbar() {
                     }
                   }, 100)
                 }}
-                className="text-lg font-medium text-gray-300 hover:text-yellow-400 transition-colors text-left w-full py-2 cursor-pointer"
+                className="text-lg font-medium text-gray-300 hover:text-red-500 transition-colors text-left w-full py-2 cursor-pointer"
               >
                 {link.name}
               </button>
@@ -142,9 +144,9 @@ export default function Navbar() {
                   }
                 }, 100)
               }}
-              className="mt-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black font-bold rounded-full text-center w-full cursor-pointer"
+              className="mt-2 px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold rounded-full text-center w-full cursor-pointer"
             >
-              Essai Gratuit
+              Séance Découverte
             </button>
           </div>
         </div>

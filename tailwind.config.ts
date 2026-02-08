@@ -9,7 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'dabakh-yellow': '#FFD700',
+        'dabakh-red': '#FF0000',
+        'dabakh-blue': '#0052CC',
         'dabakh-dark': '#0A0A0A',
       },
       fontFamily: {

@@ -56,8 +56,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Dabakh Fitness - Salle de Sport Premium à Dakar',
     description: 'Rejoignez 500+ membres à Dabakh Fitness. Musculation, boxe, cardio avec coaching IA.',
-    images: ['https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=630&q=80'],
-    creator: '@DabakhFitness',
+    images: ['https://dabakh-fitness-wellness.vercel.app/images/logo-dabakh.png'],
+    creator: '@dabakhfitness1',
   },
   icons: {
     icon: '/favicon.svg',
@@ -162,7 +162,7 @@ export default function RootLayout({
               sameAs: [
                 'https://www.facebook.com/dabakh.fitness',
                 'https://www.instagram.com/dabakh.fitness',
-                'https://twitter.com/DabakhFitness'
+                'https://www.tiktok.com/@dabakhfitness1'
               ],
               contactPoint: {
                 '@type': 'ContactPoint',

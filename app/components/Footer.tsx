@@ -2,13 +2,14 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { MapPin, Phone, Mail, Instagram, Facebook, Twitter, Dumbbell } from 'lucide-react'
+import { MapPin, Phone, Mail, Instagram, Facebook } from 'lucide-react'
+import TikTokIcon from './TikTokIcon'
 
 export default function Footer() {
   const socialLinks = [
     { icon: Instagram, href: '#', label: 'Instagram' },
     { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
+    { icon: TikTokIcon, href: 'https://www.tiktok.com/@dabakhfitness1', label: 'TikTok' },
   ]
 
   const quickLinks = [
@@ -30,9 +31,11 @@ export default function Footer() {
               viewport={{ once: true }}
               className="flex items-center gap-2 mb-4"
             >
-              <div className="p-2 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl">
-                <Dumbbell className="w-6 h-6 text-black" />
-              </div>
+              <img 
+                src="/images/logo-dabakh.png" 
+                alt="Dabakh Fitness Logo"
+                className="w-12 h-12 object-contain"
+              />
               <div>
                 <span className="font-black text-2xl tracking-tight uppercase">Dabakh</span>
                 <span className="block text-xs text-gray-400 -mt-1">Fitness Wellness Club</span>
@@ -44,15 +47,15 @@ export default function Footer() {
             
             {/* Contact Info */}
             <div className="space-y-3">
-              <a href="#" className="flex items-center gap-3 text-gray-400 hover:text-yellow-400 transition-colors group">
+              <a href="https://maps.google.com/?q=Sacré+Cœur+3+VDN+Villa+16+Dakar" className="flex items-center gap-3 text-gray-400 hover:text-red-500 transition-colors group">
                 <MapPin className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                <span className="text-sm">10355 Rue MZ 05, Dakar</span>
+                <span className="text-sm">Sacré Cœur 3, VDN Villa 16, Dakar</span>
               </a>
-              <a href="tel:+221" className="flex items-center gap-3 text-gray-400 hover:text-yellow-400 transition-colors group">
+              <a href="tel:+221775323725" className="flex items-center gap-3 text-gray-400 hover:text-red-500 transition-colors group">
                 <Phone className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                <span className="text-sm">+221 XX XXX XX XX</span>
+                <span className="text-sm">+221 77 532 37 25</span>
               </a>
-              <a href="mailto:contact@dabakhfitness.sn" className="flex items-center gap-3 text-gray-400 hover:text-yellow-400 transition-colors group">
+              <a href="mailto:contact@dabakhfitness.sn" className="flex items-center gap-3 text-gray-400 hover:text-red-500 transition-colors group">
                 <Mail className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span className="text-sm">contact@dabakhfitness.sn</span>
               </a>
@@ -67,7 +70,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-gray-400 hover:text-yellow-400 transition-colors text-sm"
+                    className="text-gray-400 hover:text-red-500 transition-colors text-sm"
                   >
                     {link.name}
                   </a>
@@ -82,18 +85,15 @@ export default function Footer() {
             <ul className="space-y-2 text-sm text-gray-400">
               <li className="flex justify-between">
                 <span>Lun - Ven</span>
-                <span className="text-yellow-400">6h - 22h</span>
+                <span className="text-red-500">07h - 22h30</span>
               </li>
               <li className="flex justify-between">
                 <span>Samedi</span>
-                <span className="text-yellow-400">8h - 20h</span>
+                <span className="text-red-500">09h - 21h</span>
               </li>
               <li className="flex justify-between">
                 <span>Dimanche</span>
-                <span className="text-yellow-400">8h - 20h</span>
-              </li>
-              <li className="mt-4 pt-4 border-t border-white/10">
-                <span className="text-yellow-400 font-semibold">Premium: 24/7</span>
+                <span className="text-red-500">10h - 15h</span>
               </li>
             </ul>
           </div>
@@ -115,10 +115,10 @@ export default function Footer() {
                   href={social.href}
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 rounded-full glass flex items-center justify-center hover:border-yellow-400 border border-white/10 transition-colors group"
+                  className="w-10 h-10 rounded-full glass flex items-center justify-center hover:border-red-500 border border-white/10 transition-colors group"
                   aria-label={social.label}
                 >
-                  <Icon className="w-5 h-5 text-gray-400 group-hover:text-yellow-400 transition-colors" />
+                  <Icon className="w-5 h-5 text-gray-400 group-hover:text-red-500 transition-colors" />
                 </motion.a>
               )
             })}

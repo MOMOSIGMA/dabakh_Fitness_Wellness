@@ -32,51 +32,81 @@ export default function PricingSection() {
   }
   const plans = [
     {
-      name: 'BASIC',
-      price: '25 000',
-      period: 'FCFA/mois',
+      name: 'PACK SILVER',
+      price: '45 000',
+      period: 'FCFA / 3 mois',
       icon: Star,
-      gradient: 'from-gray-500 to-gray-700',
+      gradient: 'from-blue-600 to-blue-800',
       features: [
-        'Accès salle (6h-22h)',
+        'Accès complet salle',
         'Vestiaires & Douches',
         'Tous les équipements',
-        'Planning des cours (limité)',
+        'Valide 3 mois',
       ],
-      cta: 'Choisir Basic',
+      cta: 'Choisir Silver',
       popular: false,
     },
     {
-      name: 'PREMIUM',
-      price: '40 000',
-      period: 'FCFA/mois',
+      name: 'PACK GOLD',
+      price: '100 000',
+      period: 'FCFA / 6 mois',
       icon: Zap,
-      gradient: 'from-yellow-400 to-orange-500',
+      gradient: 'from-red-500 to-red-700',
       features: [
-        '✨ Accès 24/7',
-        'Tous les cours collectifs',
-        'Suivi personnalisé mensuel',
-        'Zone cardio prioritaire',
-        'Guest pass (2/mois)',
+        '✨ Accès illimité',
+        'Tous les équipements',
+        '2 massages offerts',
+        'Valide 6 mois',
+        'Support prioritaire',
       ],
-      cta: 'Choisir Premium',
+      cta: 'Choisir Gold',
       popular: true,
     },
     {
-      name: 'VIP',
-      price: '60 000',
-      period: 'FCFA/mois',
+      name: 'PACK PREMIUM',
+      price: '150 000',
+      period: 'FCFA / 12 mois',
       icon: Crown,
-      gradient: 'from-purple-500 to-pink-600',
+      gradient: 'from-blue-600 to-blue-800',
       features: [
-        '👑 Tout Premium +',
-        'Dabakh AI Coach illimité',
-        'Coach personnel (4h/mois)',
-        'Programme nutrition',
-        'Espace VIP privé',
-        'Guest pass illimité',
+        '👑 Abonnement annuel',
+        '5 massages inclus',
+        'Serviette Dabakh offerte',
+        'Accès à tous les services',
+        'Programme personnalisé',
       ],
-      cta: 'Choisir VIP',
+      cta: 'Choisir Premium',
+      popular: false,
+    },
+    {
+      name: 'PACK DABAKH VIP',
+      price: '200 000',
+      period: 'FCFA / 12 mois',
+      icon: Crown,
+      gradient: 'from-red-400 to-red-600',
+      features: [
+        '🏆 Statut VIP Premium',
+        '5 massages + cadeaux',
+        'Serviette premium',
+        'Coaching personnalisé illimité',
+        'Espace VIP exclusif',
+      ],
+      cta: 'Choisir Dabakh',
+      popular: false,
+    },
+    {
+      name: 'PACK SPÉCIAL',
+      price: '50 000',
+      period: 'FCFA / 1 mois',
+      icon: Star,
+      gradient: 'from-blue-600 to-red-600',
+      features: [
+        'Accès illimité 1 mois',
+        'Massage inclus',
+        'Coaching personnalisé',
+        'Accès tous les services',
+      ],
+      cta: 'Choisir Spécial',
       popular: false,
     },
   ]
@@ -95,7 +125,7 @@ export default function PricingSection() {
             repeat: Infinity,
             ease: 'linear',
           }}
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-yellow-400 blur-[150px] rounded-full"
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-500 blur-[150px] rounded-full"
         />
       </div>
 
@@ -107,14 +137,17 @@ export default function PricingSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 glass rounded-full text-sm font-medium uppercase tracking-wider text-yellow-400 mb-4">
+          <span className="inline-block px-4 py-2 glass rounded-full text-sm font-medium uppercase tracking-wider text-red-500 mb-4">
             Nos Tarifs
           </span>
           <h2 className="text-4xl md:text-6xl font-black mb-4">
             Investis Dans Ta <span className="text-stroke italic">Transformation</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Pas d&apos;engagement. Annule quand tu veux. Première séance gratuite.
+            Pas d&apos;engagement. Annule quand tu veux. Séance découverte disponible.
+          </p>
+          <p className="text-gray-500 text-sm mt-3">
+            Séance journalière: 2 000 FCFA.
           </p>
         </motion.div>
 
@@ -140,7 +173,7 @@ export default function PricingSection() {
                     <motion.div
                       animate={{ rotate: [0, 5, -5, 0] }}
                       transition={{ duration: 2, repeat: Infinity }}
-                      className="px-3 py-1 bg-yellow-400 text-black text-xs font-bold rounded-full"
+                      className="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full"
                     >
                       ⭐ POPULAIRE
                     </motion.div>
@@ -153,7 +186,7 @@ export default function PricingSection() {
                 {/* Card Content */}
                 <div className="relative glass border-2 border-white/10 p-8 h-full flex flex-col">
                   {/* Icon */}
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${plan.gradient} flex items-center justify-center mb-4`}>
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${plan.gradient} flex items-center justify-center mb-4 border-2 border-white/20`}>
                     <Icon className="w-8 h-8 text-white" />
                   </div>
 
@@ -172,7 +205,7 @@ export default function PricingSection() {
                   <ul className="space-y-3 mb-8 flex-grow">
                     {plan.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start gap-2">
-                        <Check className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" />
+                        <Check className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
                         <span className="text-gray-300 text-sm">{feature}</span>
                       </li>
                     ))}
@@ -186,8 +219,8 @@ export default function PricingSection() {
                     whileTap={{ scale: 0.95 }}
                     className={`w-full py-4 rounded-xl font-bold transition-all ${
                       plan.popular
-                        ? 'bg-gradient-to-r from-yellow-400 to-yellow-500 text-black shadow-lg shadow-yellow-400/50'
-                        : 'glass border border-white/20 text-white hover:border-yellow-400'
+                        ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg shadow-red-600/50'
+                        : 'glass border border-white/20 text-white hover:border-red-500'
                     } disabled:opacity-50`}
                   >
                     {loadingIndex === index ? '⏳ Redirection...' : plan.cta}
@@ -198,6 +231,219 @@ export default function PricingSection() {
           })}
         </div>
 
+        {/* Additional Options Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-4xl mx-auto mt-20 pt-12 border-t border-white/10"
+        >
+          <h3 className="text-2xl md:text-3xl font-black text-center mb-12">
+            Options <span className="text-stroke italic">Supplémentaires</span>
+          </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Inscription */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -5 }}
+              className="glass border border-white/10 rounded-2xl p-6"
+            >
+              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Inscription unique</p>
+              <p className="text-3xl font-black text-red-500 mb-2">5 000 FCFA</p>
+              <p className="text-gray-500 text-xs">Frais de création de compte</p>
+            </motion.div>
+
+            {/* Séance journalière */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              whileHover={{ y: -5 }}
+              className="glass border border-white/10 rounded-2xl p-6"
+            >
+              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Séance journalière</p>
+              <p className="text-3xl font-black text-red-500 mb-2">2 000 FCFA</p>
+              <p className="text-gray-500 text-xs">Accès illimité 1 jour</p>
+            </motion.div>
+
+            {/* Mensualité classique */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              whileHover={{ y: -5 }}
+              className="glass border border-white/10 rounded-2xl p-6"
+            >
+              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Mensualité Musculation/Cardio</p>
+              <p className="text-3xl font-black text-red-500 mb-2">20 000 FCFA</p>
+              <p className="text-gray-500 text-xs">Accès illimité 1 mois</p>
+            </motion.div>
+
+            {/* Boxe / Taekwondo - Enfant */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              whileHover={{ y: -5 }}
+              className="glass border border-white/10 rounded-2xl p-6"
+            >
+              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Boxe / Taekwondo - Enfant</p>
+              <p className="text-3xl font-black text-red-500 mb-2">15 000 FCFA</p>
+              <p className="text-gray-500 text-xs">Mensualité enfant</p>
+              <p className="text-gray-500 text-xs">Inscription Boxe/Taekwondo: 5 000 FCFA</p>
+            </motion.div>
+
+            {/* Boxe / Taekwondo - Adulte */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              whileHover={{ y: -5 }}
+              className="glass border border-white/10 rounded-2xl p-6"
+            >
+              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Boxe / Taekwondo - Adulte</p>
+              <p className="text-3xl font-black text-red-500 mb-2">20 000 FCFA</p>
+              <p className="text-gray-500 text-xs">Mensualité adulte</p>
+              <p className="text-gray-500 text-xs">Inscription Boxe/Taekwondo: 5 000 FCFA</p>
+            </motion.div>
+
+            {/* Massage Tonifiant */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+              whileHover={{ y: -5 }}
+              className="glass border border-white/10 rounded-2xl p-6"
+            >
+              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Massage Tonifiant</p>
+              <p className="text-3xl font-black text-red-500 mb-2">15 000 FCFA</p>
+              <p className="text-gray-500 text-xs">30 minutes de bien-être</p>
+            </motion.div>
+
+            {/* Massage Relaxant Doux */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+              whileHover={{ y: -5 }}
+              className="glass border border-white/10 rounded-2xl p-6"
+            >
+              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Massage Relaxant Doux</p>
+              <p className="text-3xl font-black text-red-500 mb-2">20 000 FCFA</p>
+              <p className="text-gray-500 text-xs">1h de relaxation</p>
+            </motion.div>
+
+            {/* Massage Dos Relaxant */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.7 }}
+              whileHover={{ y: -5 }}
+              className="glass border border-white/10 rounded-2xl p-6"
+            >
+              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Dos Relaxant</p>
+              <p className="text-3xl font-black text-red-500 mb-2">10 000 FCFA</p>
+              <p className="text-gray-500 text-xs">20 minutes</p>
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Packs Famille */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-4xl mx-auto mt-16 pt-12 border-t border-white/10"
+        >
+          <h3 className="text-2xl md:text-3xl font-black text-center mb-12">
+            Pack <span className="text-stroke italic">Famille</span>
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -5 }}
+              className="glass border border-white/10 rounded-2xl p-6"
+            >
+              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Pack Famille</p>
+              <p className="text-3xl font-black text-red-500 mb-2">45 000 FCFA</p>
+              <p className="text-gray-500 text-xs">3 personnes</p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              whileHover={{ y: -5 }}
+              className="glass border border-white/10 rounded-2xl p-6"
+            >
+              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Pack Famille</p>
+              <p className="text-3xl font-black text-red-500 mb-2">60 000 FCFA</p>
+              <p className="text-gray-500 text-xs">4 personnes</p>
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Personal Training */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-4xl mx-auto mt-16 pt-12 border-t border-white/10"
+        >
+          <h3 className="text-2xl md:text-3xl font-black text-center mb-12">
+            Personal <span className="text-stroke italic">Training</span>
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -5 }}
+              className="glass border border-white/10 rounded-2xl p-6"
+            >
+              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Pack Silver</p>
+              <p className="text-3xl font-black text-red-500 mb-2">80 000 FCFA</p>
+              <p className="text-gray-500 text-xs">16 séances + 1 séance de massage</p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              whileHover={{ y: -5 }}
+              className="glass border border-white/10 rounded-2xl p-6"
+            >
+              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Pack Gold</p>
+              <p className="text-3xl font-black text-red-500 mb-2">100 000 FCFA</p>
+              <p className="text-gray-500 text-xs">18 séances + 2 séances de massage</p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              whileHover={{ y: -5 }}
+              className="glass border border-white/10 rounded-2xl p-6"
+            >
+              <p className="text-gray-400 text-sm uppercase tracking-wider mb-2">Pack Premium</p>
+              <p className="text-3xl font-black text-red-500 mb-2">115 000 FCFA</p>
+              <p className="text-gray-500 text-xs">20 séances + serviette + 10 bouteilles d&apos;eau + 5 séances de massage</p>
+            </motion.div>
+          </div>
+        </motion.div>
+
         {/* Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -207,7 +453,7 @@ export default function PricingSection() {
         >
           <div className="glass inline-block px-8 py-4 rounded-2xl">
             <p className="text-gray-300 mb-4">
-              🎁 <span className="text-yellow-400 font-bold">Offre Spéciale</span> - Ta première séance est gratuite !
+              🎁 <span className="text-red-500 font-bold">Offre Spéciale</span> - Séance découverte à 2 000 FCFA.
             </p>
             <p className="text-sm text-gray-500">
               Viens tester nos installations avant de t&apos;engager
