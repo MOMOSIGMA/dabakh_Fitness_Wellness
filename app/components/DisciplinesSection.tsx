@@ -130,8 +130,8 @@ export default function DisciplinesSection() {
                 {/* Background Gradient */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${discipline.gradient} opacity-50 group-hover:opacity-70 transition-opacity duration-300`} />
                 
-                {/* Background Image for large/medium cards - lazy loaded on mobile */}
-                {discipline.image && !isMobile && (
+                {/* Background Image for large/medium cards */}
+                {discipline.image && (
                   <div 
                     className="absolute inset-0 bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity grayscale group-hover:grayscale-0 duration-300"
                     style={{ backgroundImage: `url(${discipline.image})` }}
