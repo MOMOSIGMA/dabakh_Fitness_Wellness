@@ -29,15 +29,15 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
-  // Cache headers
+  // Cache headers - Force refresh on every visit
   headers: async () => {
     return [
       {
-        source: '/:path*',
+        source: '/(:path*)',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=3600, stale-while-revalidate=86400',
+            value: 'no-cache, no-store, must-revalidate',
           },
           {
             key: 'X-DNS-Prefetch-Control',

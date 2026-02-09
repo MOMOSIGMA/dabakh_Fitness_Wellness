@@ -3,6 +3,9 @@ import HeroSection from './components/HeroSection'
 import WhatsAppButton from './components/WhatsAppButton'
 import CoachAvatars from './components/CoachAvatars'
 
+// Force fresh content on every request
+export const revalidate = 0
+
 // Lazy load sections below the fold
 const DisciplinesSection = dynamic(() => import('./components/DisciplinesSection'), {
   loading: () => <div className="h-96 bg-black/50" />,
