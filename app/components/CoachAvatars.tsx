@@ -1,8 +1,9 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { useReducedMotion } from '@/lib/useReducedMotion'
 
 type Coach = {
   name: string
@@ -14,6 +15,15 @@ type Coach = {
 }
 
 export default function CoachAvatars() {
+  const shouldReduceMotion = useReducedMotion()
+  const [isVisible, setIsVisible] = useState(false)
+
+  // Defer animations until component is near viewport
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), 100)
+    return () => clearTimeout(timer)
+  }, [])
+
   const coaches: Coach[] = [
     {
       name: 'Babacar',
@@ -49,6 +59,30 @@ export default function CoachAvatars() {
     },
   ]
 
+  // Simplified animations
+  const containerVariants = shouldReduceMotion
+    ? undefined
+    : {
+        hidden: { opacity: 0 },
+        visible: {
+          opacity: 1,
+          transition: {
+            staggerChildren: 0.1,
+          },
+        },
+      }
+
+  const itemVariants = shouldReduceMotion
+    ? undefined
+    : {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.3 },
+        },
+      }
+
   return (
     <section id="coachs" className="py-12 px-4 bg-black relative overflow-hidden">
       {/* Subtle background effect */}
@@ -60,10 +94,10 @@ export default function CoachAvatars() {
       <div className="container mx-auto max-w-7xl relative z-10">
         {/* Section Title */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: -20 }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          viewport={{ once: true, margin: "-50px" }}
           className="text-center mb-8"
         >
           <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-red-500 via-yellow-500 to-purple-500 bg-clip-text text-transparent mb-2">
@@ -74,12 +108,12 @@ export default function CoachAvatars() {
           </p>
         </motion.div>
 
-        {/* Coaches Grid */}
+        {/* Coaches Grid - Optimized animations */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
           className="flex justify-center gap-6 py-6 flex-wrap md:flex-nowrap"
         >
           {coaches.map((coach, index) => (
@@ -88,25 +122,25 @@ export default function CoachAvatars() {
               href={coach.tiktok}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className={`flex flex-col items-center gap-3 cursor-pointer group`}
+              variants={itemVariants}
+              whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex flex-col items-center gap-3 cursor-pointer group"
             >
               {/* Avatar Circle with Neon Border */}
               <div className={`relative w-20 h-20 rounded-full overflow-hidden transition-all duration-300 ${coach.glowClass}`}>
                 {/* Gradient Border Effect */}
                 <div className={`absolute inset-0 rounded-full ${coach.colorClass} p-0.5`}>
-                  <div className="absolute inset-0.5 rounded-full bg-black flex items-center justify-center">
+                  <div className="absolute inset-0.5 rounded-full bg-black flex items-center justify-center overflow-hidden">
                     <Image
                       src={coach.image}
                       alt={`Coach ${coach.name}`}
-                      fill
+                      width={80}
+                      height={80}
                       className="object-cover rounded-full"
+                      loading={index < 2 ? "eager" : "lazy"}
+                      quality={85}
                       sizes="80px"
-                      priority={index < 2}
                     />
                   </div>
                 </div>
@@ -131,9 +165,9 @@ export default function CoachAvatars() {
 
         {/* Call to Action */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          initial={shouldReduceMotion ? false : { opacity: 0 }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
           viewport={{ once: true }}
           className="text-center mt-8"
         >
