@@ -15,7 +15,7 @@ const MESSAGES_STORAGE_KEY = 'ai-coach-messages'
 
 export default function AICoachBot() {
   const [isOpen, setIsOpen] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement | null>(null)
+  const lastMessageRef = useRef<HTMLDivElement | null>(null)
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -169,8 +169,12 @@ export default function AICoachBot() {
   }
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+    lastMessageRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }, [messages, isLoading])
+
+  const hasOfferCTA = (text: string) => {
+    return /offre\s+sp[eé]ciale/i.test(text)
+  }
 
   return (
     <>
@@ -251,6 +255,7 @@ export default function AICoachBot() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className={`flex gap-2 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                  ref={index === messages.length - 1 ? lastMessageRef : undefined}
                 >
                   {message.role === 'assistant' && (
                     <div className="w-7 h-7 rounded-full bg-red-500 flex items-center justify-center flex-shrink-0">
@@ -267,6 +272,22 @@ export default function AICoachBot() {
                     {message.role === 'assistant'
                       ? renderMessageContent(message.content)
                       : message.content}
+
+                    {message.role === 'assistant' && hasOfferCTA(message.content) && (
+                      <motion.button
+                        onClick={() => {
+                          const messageText = encodeURIComponent(
+                            "👋 Salut! Je veux profiter de l'offre spéciale et commencer mes entraînements chez Dabakh Fitness! 💪"
+                          )
+                          window.open(`https://wa.me/221771463012?text=${messageText}`, '_blank')
+                        }}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="mt-3 w-full px-3 py-1.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded text-xs font-bold hover:shadow-lg transition-all"
+                      >
+                        📱 Réserver via WhatsApp
+                      </motion.button>
+                    )}
                   </div>
                   {message.role === 'user' && (
                     <div className="w-7 h-7 rounded-full bg-gray-300 flex items-center justify-center flex-shrink-0">
@@ -320,7 +341,6 @@ export default function AICoachBot() {
                   </motion.button>
                 </motion.div>
               )}
-              <div ref={messagesEndRef} />
             </div>
 
             {/* Input */}
