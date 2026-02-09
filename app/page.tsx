@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic'
 import HeroSection from './components/HeroSection'
 import WhatsAppButton from './components/WhatsAppButton'
 import CoachAvatars from './components/CoachAvatars'
+import AICoachBot from './components/AICoachBot'
 
 // Force fresh content on every request
 export const revalidate = 0
@@ -13,11 +14,6 @@ const DisciplinesSection = dynamic(() => import('./components/DisciplinesSection
 })
 
 const GallerySection = dynamic(() => import('./components/GallerySection'), {
-  loading: () => <div className="h-96 bg-black/50" />,
-  ssr: true,
-})
-
-const AICoachSection = dynamic(() => import('./components/AICoachSection'), {
   loading: () => <div className="h-96 bg-black/50" />,
   ssr: true,
 })
@@ -48,7 +44,9 @@ export default function Home() {
       <PracticalInfoSection />
       <CoachAvatars />
       <Footer />
+      <PricingSection />
+      <PracticalInfoSection />
+      <CoachAvatars />
+      <Footer />
       <WhatsAppButton />
-    </main>
-  )
-}
+      <AICoachBot

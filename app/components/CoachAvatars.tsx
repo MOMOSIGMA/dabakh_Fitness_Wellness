@@ -128,22 +128,18 @@ export default function CoachAvatars() {
               className="flex flex-col items-center gap-3 cursor-pointer group"
             >
               {/* Avatar Circle with Neon Border */}
-              <div className={`relative w-16 sm:w-20 h-16 sm:h-20 rounded-full overflow-hidden transition-all duration-300 ${coach.glowClass}`}>
-                {/* Gradient Border Effect */}
-                <div className={`absolute inset-0 rounded-full ${coach.colorClass} p-0.5`}>
-                  <div className="absolute inset-0.5 rounded-full bg-black flex items-center justify-center overflow-hidden">
-                    <Image
-                      src={coach.image}
-                      alt={`Coach ${coach.name}`}
-                      width={80}
-                      height={80}
-                      className="object-cover rounded-full w-full h-full"
-                      loading={index < 2 ? "eager" : "lazy"}
-                      quality={85}
-                      sizes="(max-width: 640px) 64px, 80px"
-                    />
-                  </div>
-                </div>
+              <div className={`relative w-16 sm:w-20 h-16 sm:h-20 rounded-full overflow-hidden transition-all duration-300 border-2 ${coach.colorClass.replace('bg-gradient', 'border')} ${coach.glowClass}`}>
+                <Image
+                  src={coach.image}
+                  alt={`Coach ${coach.name}`}
+                  width={80}
+                  height={80}
+                  className="object-cover rounded-full w-full h-full"
+                  loading={index < 2 ? "eager" : "lazy"}
+                  quality={90}
+                  sizes="(max-width: 640px) 64px, 80px"
+                  priority={index < 2}
+                />
 
                 {/* Subtle Shine Effect on Hover */}
                 <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
