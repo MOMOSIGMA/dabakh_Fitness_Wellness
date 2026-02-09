@@ -32,6 +32,22 @@ export default function PricingSection() {
   }
   const plans = [
     {
+      name: 'PACK STARTER',
+      price: '25 000',
+      period: 'FCFA / 1er mois',
+      icon: Star,
+      gradient: 'from-green-600 to-green-800',
+      features: [
+        'Inscription incluse (5 000F)',
+        'Mensualité 1 mois (20 000F)',
+        'Accès complet salle',
+        'Tous les équipements',
+        'Vestiaires & Douches',
+      ],
+      cta: 'Commencer',
+      popular: false,
+    },
+    {
       name: 'PACK SILVER',
       price: '45 000',
       period: 'FCFA / 3 mois',
@@ -121,7 +137,7 @@ export default function PricingSection() {
         </motion.div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
           {plans.map((plan, index) => {
             const Icon = plan.icon
             return (
@@ -214,25 +230,11 @@ export default function PricingSection() {
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Inscription */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-2xl p-6"
-            >
-              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Inscription unique</p>
-              <p className="text-3xl font-black text-red-500 mb-2">5 000 FCFA</p>
-              <p className="text-gray-300 text-xs">Frais de création de compte</p>
-            </motion.div>
-
             {/* Séance journalière */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
@@ -241,26 +243,12 @@ export default function PricingSection() {
               <p className="text-gray-300 text-xs">Accès illimité 1 jour</p>
             </motion.div>
 
-            {/* Mensualité classique */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-2xl p-6"
-            >
-              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Mensualité Musculation/Cardio</p>
-              <p className="text-3xl font-black text-red-500 mb-2">20 000 FCFA</p>
-              <p className="text-gray-300 text-xs">Accès illimité 1 mois</p>
-            </motion.div>
-
             {/* Boxe / Taekwondo - Enfant */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.1 }}
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
@@ -275,7 +263,7 @@ export default function PricingSection() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
+              transition={{ delay: 0.2 }}
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
@@ -290,7 +278,7 @@ export default function PricingSection() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.3 }}
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
@@ -304,7 +292,7 @@ export default function PricingSection() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.6 }}
+              transition={{ delay: 0.4 }}
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
@@ -318,7 +306,7 @@ export default function PricingSection() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.7 }}
+              transition={{ delay: 0.5 }}
               whileHover={{ y: -5 }}
               className="glass border border-white/10 rounded-2xl p-6"
             >
