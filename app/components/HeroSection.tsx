@@ -30,13 +30,13 @@ export default function HeroSection() {
       
       {/* Background Image Optimized */}
       <Image
-        src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80&fit=crop&auto=format"
+        src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=50&fit=crop&auto=format"
         alt="Fitness Background"
         fill
         priority
-        quality={40}
+        quality={50}
         className="absolute inset-0 object-cover grayscale"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1920px"
+        sizes="(max-width: 768px) 640px, (max-width: 1200px) 1080px, 1920px"
         loading="eager"
         placeholder="empty"
       />
