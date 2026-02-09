@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Mail, Instagram, Facebook } from 'lucide-react'
 import TikTokIcon from './TikTokIcon'
@@ -16,7 +17,6 @@ export default function Footer() {
     { name: 'Accueil', href: '#hero' },
     { name: 'Disciplines', href: '#disciplines' },
     { name: 'Tarifs', href: '#tarifs' },
-    { name: 'IA Coach', href: '#ai-coach' },
   ]
 
   return (
@@ -31,9 +31,11 @@ export default function Footer() {
               viewport={{ once: true }}
               className="flex items-center gap-2 mb-4"
             >
-              <img 
-                src="/images/logo-dabakh.png" 
+              <Image
+                src="/images/logo-dabakh.png"
                 alt="Dabakh Fitness Logo"
+                width={48}
+                height={48}
                 className="w-12 h-12 object-contain"
               />
               <div>

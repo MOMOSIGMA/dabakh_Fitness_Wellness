@@ -240,9 +240,9 @@ export default function AICoachBot() {
                   animate={{ opacity: 1, y: 0 }}
                   className="bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-300 rounded-lg p-3 mt-2"
                 >
-                  <p className="text-xs font-bold text-purple-700 mb-2">🚀 Je ne suis qu\'une IA...</p>
+                  <p className="text-xs font-bold text-purple-700 mb-2">🚀 Je ne suis qu&apos;une IA...</p>
                   <p className="text-xs text-purple-600 mb-3">
-                    Pour voir tes <span className="font-bold text-red-500">VRAIS résultats</span>, il faut passer à l\'action!
+                    Pour voir tes <span className="font-bold text-red-500">VRAIS résultats</span>, il faut passer à l&apos;action!
                   </p>
                   <motion.button
                     onClick={async () => {

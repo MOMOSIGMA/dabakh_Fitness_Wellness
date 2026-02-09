@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -20,7 +21,6 @@ export default function Navbar() {
     { name: 'Accueil', href: '#hero' },
     { name: 'Disciplines', href: '#disciplines' },
     { name: 'Tarifs', href: '#tarifs' },
-    { name: 'IA Coach', href: '#ai-coach' },
     { name: 'Nos Coachs', href: '#coachs' },
     { name: 'Infos', href: '#infos-pratiques' },
   ]
@@ -44,10 +44,13 @@ export default function Navbar() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <img 
-              src="/images/logo-dabakh.png" 
+            <Image
+              src="/images/logo-dabakh.png"
               alt="Dabakh Fitness Logo"
+              width={40}
+              height={40}
               className="w-10 h-10 object-contain"
+              priority
             />
             <div className="flex flex-col">
               <span className="font-black text-xl tracking-tight uppercase">Dabakh</span>
