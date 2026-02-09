@@ -38,6 +38,7 @@ export default function DisciplinesSection() {
       description: 'Participe aux activités phares de la salle',
       icon: Calendar,
       size: 'small',
+      fullWidthMobile: true,
       gradient: 'from-blue-600/30 to-blue-700/20',
       schedule: [
         { day: 'Concours de force', time: 'Powerlifting', activity: 'Événement' },
@@ -59,6 +60,7 @@ export default function DisciplinesSection() {
       description: 'Ouvert dès 07h00 en semaine et accès le dimanche matin.',
       icon: Clock,
       size: 'small',
+      fullWidthMobile: true,
       gradient: 'from-blue-600/20 to-blue-700/30',
     },
   ]
@@ -122,6 +124,7 @@ export default function DisciplinesSection() {
             const gridClass = 
               discipline.size === 'large' ? 'col-span-2 md:col-span-4 md:row-span-2' :
               discipline.size === 'medium' ? 'col-span-2 md:col-span-3 md:row-span-2' :
+              discipline.fullWidthMobile ? 'col-span-2 md:col-span-2 md:row-span-1' :
               'col-span-1 md:col-span-2 md:row-span-1'
 
             return (
