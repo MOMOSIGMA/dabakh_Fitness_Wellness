@@ -57,6 +57,29 @@ export default function AICoachSection() {
       .replace(/^(\d+)\.\s+/gm, '$1) ')
   }
 
+  const renderMessageContent = (text: string) => {
+    const formattedText = formatMessage(text)
+    const urlRegex = /(https?:\/\/[^\s]+)/g
+    const parts = formattedText.split(urlRegex)
+    
+    return parts.map((part, index) => {
+      if (part.match(urlRegex)) {
+        return (
+          <a
+            key={index}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-red-400 hover:text-red-300 underline font-semibold"
+          >
+            {part}
+          </a>
+        )
+      }
+      return <span key={index}>{part}</span>
+    })
+  }
+
   const handleCopy = async (text: string, index: number) => {
     try {
       await navigator.clipboard.writeText(text)
@@ -233,7 +256,7 @@ export default function AICoachSection() {
                     }`}
                   >
                     {message.role === 'assistant'
-                      ? formatMessage(message.content)
+                      ? renderMessageContent(message.content)
                       : message.content}
 
                     {message.role === 'assistant' && (

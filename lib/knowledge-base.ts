@@ -20,7 +20,7 @@ export const DABAKH_KNOWLEDGE_BASE = {
     credit_whatsapp: "+221775323725", // Pour les liens a.me
     adresse_complete: "Sacré Cœur 3, VDN Villa 16, Dakar, Sénégal",
     repere: "Derrière la résidence Mamoune",
-    google_maps_link: "https://maps.google.com/?q=Sacré+Cœur+3+VDN+Villa+16+Dakar",
+    google_maps_link: "https://maps.app.goo.gl/BAVYB8i4dUwGWnss7",
   },
 
   // HORAIRES OFFICIELS

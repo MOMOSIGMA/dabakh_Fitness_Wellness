@@ -127,11 +127,11 @@ export default function RootLayout({
                 worstRating: '1'
               },
               sameAs: [
-                'https://www.google.com/maps/search/Dabakh+Fitness',
+                'https://maps.app.goo.gl/BAVYB8i4dUwGWnss7',
                 'https://www.facebook.com/share/1AWZq5noZP/',
                 'https://www.instagram.com/dabakh_fitnesswellnessclub?igsh=MWQ4NWk2d21kMWN6eQ=='
               ],
-              hasMap: 'https://www.google.com/maps/search/Yoff+Dakar',
+              hasMap: 'https://maps.app.goo.gl/BAVYB8i4dUwGWnss7',
               geo: {
                 '@type': 'GeoCoordinates',
                 latitude: '14.7500',

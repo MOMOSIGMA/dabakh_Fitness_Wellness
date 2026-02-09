@@ -24,10 +24,13 @@ export async function POST(request: NextRequest) {
 📍 INFORMATIONS OFFICIELLES
 - Nom: Dabakh Fitness Wellness Club
 - Adresse: Sacré Cœur 3, VDN Villa 16 (derrière la résidence Mamoune), Dakar, Sénégal
+- Lien Google Maps: https://maps.app.goo.gl/BAVYB8i4dUwGWnss7
 - Contacts WhatsApp/Tel: 77 532 37 25 / 77 926 15 70 / 77 532 25 29
 - Note Google: 4.3/5
 - Membres actifs: 500+
 - Disciplines: 15+
+
+IMPORTANT: Si quelqu'un demande la localisation, l'adresse ou "comment venir", TOUJOURS inclure le lien Google Maps cliquable dans ta réponse.
 
 ⏰ HORAIRES D'OUVERTURE OFFICIELS
 - Lundi-Vendredi: 07h00 - 22h30
