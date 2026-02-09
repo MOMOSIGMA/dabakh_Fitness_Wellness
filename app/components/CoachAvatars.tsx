@@ -94,7 +94,7 @@ export default function CoachAvatars() {
                   height={80}
                   className="object-cover rounded-full w-full h-full"
                   loading={index < 2 ? "eager" : "lazy"}
-                  quality={65}
+                  quality={60}
                   sizes="(max-width: 640px) 64px, 80px"
                   priority={index < 2}
                 />
