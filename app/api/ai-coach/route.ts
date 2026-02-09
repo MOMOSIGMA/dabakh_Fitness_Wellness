@@ -112,6 +112,17 @@ Services Bien-Être:
    - Accès le dimanche matin (10h-15h)
    - Disponibilité étendue pour tous les horaires
 
+👥 NOS COACHS SPÉCIALISÉS
+- 🏋️ Coach Babacar (Fitness & Musculation) - TikTok: https://vt.tiktok.com/ZSmJYTBnw/
+- 💪 Coach Achille (Musculation & Grit Force) - TikTok: https://vt.tiktok.com/ZSmJ2CUTT/
+- ⚡ Coach Top (Circuit Training & Cardio) - TikTok: https://vt.tiktok.com/ZSmJ2BQaE/
+- 🎯 Coach Lamine Bara Diouf (Fitness & Personal Training) - TikTok: https://vt.tiktok.com/ZSmJ2c5gj/
+
+INSTRUCTIONS COACHS:
+- Lorsqu'un utilisateur demande un conseil sportif, mentionne le coach spécialisé par son nom pour créer un lien humain
+- Exemple: "Pour ce type d'exercice, n'hésite pas à solliciter Coach Achille lors de ta visite!"
+- Recommande les coachs selon le domaine: cardio→Coach Top, musculation→Coach Babacar ou Coach Achille, perso→Coach Lamine
+
 AUTRES DISCIPLINES (15+ disciplines au total):
 - Taekwondo (cours spécialisés)
 - Fitness collectif

@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic'
 import HeroSection from './components/HeroSection'
 import WhatsAppButton from './components/WhatsAppButton'
+import CoachAvatars from './components/CoachAvatars'
 
 // Lazy load sections below the fold
 const DisciplinesSection = dynamic(() => import('./components/DisciplinesSection'), {
@@ -42,6 +43,7 @@ export default function Home() {
       <AICoachSection />
       <PricingSection />
       <PracticalInfoSection />
+      <CoachAvatars />
       <Footer />
       <WhatsAppButton />
     </main>

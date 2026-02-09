@@ -21,6 +21,8 @@ export default function Navbar() {
     { name: 'Disciplines', href: '#disciplines' },
     { name: 'Tarifs', href: '#tarifs' },
     { name: 'IA Coach', href: '#ai-coach' },
+    { name: 'Nos Coachs', href: '#coachs' },
+    { name: 'Infos', href: '#infos-pratiques' },
   ]
 
   return (
