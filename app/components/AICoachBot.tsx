@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Bot, Send, X, Minimize2, AlertCircle, User } from 'lucide-react'
+import { Bot, Send, X, User } from 'lucide-react'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -44,6 +44,12 @@ export default function AICoachBot() {
       setMessagesCount(0)
       setLimitReached(false)
     }
+  }, [])
+
+  useEffect(() => {
+    const handleOpen = () => setIsOpen(true)
+    window.addEventListener('open-ai-coach', handleOpen as EventListener)
+    return () => window.removeEventListener('open-ai-coach', handleOpen as EventListener)
   }, [])
 
   const formatMessage = (text: string) => {
@@ -156,7 +162,7 @@ export default function AICoachBot() {
             initial={{ opacity: 0, scale: 0.8, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 50 }}
-            className="fixed bottom-6 right-6 w-80 sm:w-96 h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden"
+            className="fixed bottom-24 right-6 w-80 sm:w-96 h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-red-500 to-red-600 p-4 flex items-center justify-between">
@@ -273,7 +279,7 @@ export default function AICoachBot() {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSend()}
                   placeholder={limitReached ? "Limite atteinte..." : "Écris ta question..."}
-                  className="flex-1 px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-red-500 disabled:opacity-50"
+                  className="flex-1 px-3 py-2 bg-gray-100 text-gray-900 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-red-500 disabled:opacity-50"
                   disabled={isLoading || limitReached}
                 />
                 <motion.button

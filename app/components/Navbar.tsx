@@ -21,9 +21,14 @@ export default function Navbar() {
     { name: 'Accueil', href: '#hero' },
     { name: 'Disciplines', href: '#disciplines' },
     { name: 'Tarifs', href: '#tarifs' },
+    { name: 'AI Coach', href: '#ai-coach', action: 'ai' as const },
     { name: 'Nos Coachs', href: '#coachs' },
     { name: 'Infos', href: '#infos-pratiques' },
   ]
+
+  const openAICoach = () => {
+    window.dispatchEvent(new CustomEvent('open-ai-coach'))
+  }
 
   return (
     <motion.nav
@@ -60,16 +65,28 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-sm font-medium text-white hover:text-red-500 transition-colors relative group"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-blue-600 group-hover:w-full transition-all duration-300" />
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              link.action === 'ai' ? (
+                <button
+                  key={link.name}
+                  type="button"
+                  onClick={openAICoach}
+                  className="text-sm font-medium text-white hover:text-red-500 transition-colors relative group"
+                >
+                  {link.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-blue-600 group-hover:w-full transition-all duration-300" />
+                </button>
+              ) : (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-sm font-medium text-white hover:text-red-500 transition-colors relative group"
+                >
+                  {link.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-red-500 to-blue-600 group-hover:w-full transition-all duration-300" />
+                </a>
+              )
+            )}
           </div>
 
           {/* CTA Button */}
@@ -115,6 +132,12 @@ export default function Navbar() {
                       e.preventDefault()
                       e.stopPropagation()
                       setMobileMenuOpen(false)
+                      if (link.action === 'ai') {
+                        setTimeout(() => {
+                          openAICoach()
+                        }, 100)
+                        return
+                      }
                       setTimeout(() => {
                         const element = document.querySelector(link.href)
                         if (element) {

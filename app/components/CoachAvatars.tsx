@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useReducedMotion } from '@/lib/useReducedMotion'
@@ -16,13 +16,6 @@ type Coach = {
 
 export default function CoachAvatars() {
   const shouldReduceMotion = useReducedMotion()
-  const [isVisible, setIsVisible] = useState(false)
-
-  // Defer animations until component is near viewport
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 100)
-    return () => clearTimeout(timer)
-  }, [])
 
   const coaches: Coach[] = [
     {
@@ -59,29 +52,7 @@ export default function CoachAvatars() {
     },
   ]
 
-  // Simplified animations
-  const containerVariants = shouldReduceMotion
-    ? undefined
-    : {
-        hidden: { opacity: 0 },
-        visible: {
-          opacity: 1,
-          transition: {
-            staggerChildren: 0.1,
-          },
-        },
-      }
-
-  const itemVariants = shouldReduceMotion
-    ? undefined
-    : {
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.3 },
-        },
-      }
+  const enableHover = shouldReduceMotion ? undefined : { scale: 1.05 }
 
   return (
     <section id="coachs" className="py-12 px-4 bg-black relative overflow-hidden">
@@ -93,37 +64,24 @@ export default function CoachAvatars() {
 
       <div className="container mx-auto max-w-7xl relative z-10">
         {/* Section Title */}
-        <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, y: -20 }}
-          whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          viewport={{ once: true, margin: "-200px" }}
-          className="text-center mb-8"
-        >
+        <div className="text-center mb-8">
           <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-red-500 via-yellow-500 to-purple-500 bg-clip-text text-transparent mb-2">
             Nos Coachs Experts
           </h2>
           <p className="text-gray-300 text-sm md:text-base">
             Découvre nos spécialistes et suis-les sur TikTok
           </p>
-        </motion.div>
+        </div>
 
         {/* Coaches Grid - Optimized animations */}
-        <motion.div
-          variants={containerVariants}
-          initial={isVisible ? "visible" : "hidden"}
-          whileInView="visible"
-          viewport={{ once: true, margin: "-200px" }}
-          className="flex justify-center gap-3 sm:gap-6 py-6 flex-wrap"
-        >
+        <div className="flex justify-center gap-3 sm:gap-6 py-6 flex-wrap">
           {coaches.map((coach, index) => (
             <motion.a
               key={coach.name}
               href={coach.tiktok}
               target="_blank"
               rel="noopener noreferrer"
-              variants={itemVariants}
-              whileHover={shouldReduceMotion ? undefined : { scale: 1.05 }}
+              whileHover={enableHover}
               whileTap={{ scale: 0.95 }}
               className="flex flex-col items-center gap-3 cursor-pointer group"
             >
@@ -157,20 +115,14 @@ export default function CoachAvatars() {
               </div>
             </motion.a>
           ))}
-        </motion.div>
+        </div>
 
         {/* Call to Action */}
-        <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0 }}
-          whileInView={shouldReduceMotion ? undefined : { opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="text-center mt-8"
-        >
+        <div className="text-center mt-8">
           <p className="text-gray-400 text-sm md:text-base">
             💡 Visite nos coachs sur TikTok pour des <span className="text-red-400 font-semibold">conseils et transformation</span> en direct
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
