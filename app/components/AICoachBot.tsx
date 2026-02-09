@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Bot, Send, X, User } from 'lucide-react'
 
@@ -10,9 +10,12 @@ interface Message {
 }
 
 const DAILY_LIMIT = 10
+const MESSAGES_TTL_MS = 24 * 60 * 60 * 1000
+const MESSAGES_STORAGE_KEY = 'ai-coach-messages'
 
 export default function AICoachBot() {
   const [isOpen, setIsOpen] = useState(false)
+  const messagesEndRef = useRef<HTMLDivElement | null>(null)
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -36,8 +39,23 @@ export default function AICoachBot() {
     }
   }, [isOpen])
 
-  // Initialiser le compteur
+  // Restaurer l'historique sur 24h et initialiser le compteur
   useEffect(() => {
+    const storedMessages = localStorage.getItem(MESSAGES_STORAGE_KEY)
+    if (storedMessages) {
+      try {
+        const parsed = JSON.parse(storedMessages)
+        const isExpired = Date.now() - parsed.timestamp > MESSAGES_TTL_MS
+        if (!isExpired && Array.isArray(parsed.messages) && parsed.messages.length > 0) {
+          setMessages(parsed.messages)
+        } else if (isExpired) {
+          localStorage.removeItem(MESSAGES_STORAGE_KEY)
+        }
+      } catch {
+        localStorage.removeItem(MESSAGES_STORAGE_KEY)
+      }
+    }
+
     const today = new Date().toDateString()
     const storedData = localStorage.getItem('ai-coach-limit')
     
@@ -57,6 +75,13 @@ export default function AICoachBot() {
       setLimitReached(false)
     }
   }, [])
+
+  useEffect(() => {
+    localStorage.setItem(
+      MESSAGES_STORAGE_KEY,
+      JSON.stringify({ timestamp: Date.now(), messages })
+    )
+  }, [messages])
 
   useEffect(() => {
     const handleOpen = () => setIsOpen(true)
@@ -142,6 +167,10 @@ export default function AICoachBot() {
       setIsLoading(false)
     }
   }
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+  }, [messages, isLoading])
 
   return (
     <>
@@ -229,7 +258,7 @@ export default function AICoachBot() {
                     </div>
                   )}
                   <div
-                    className={`max-w-[75%] px-3 py-2 rounded-lg text-sm whitespace-pre-wrap ${
+                    className={`max-w-[75%] px-3 py-2 rounded-lg text-sm whitespace-pre-wrap break-words ${
                       message.role === 'user'
                         ? 'bg-red-500 text-white'
                         : 'bg-white text-gray-800 border border-gray-200'
@@ -291,6 +320,7 @@ export default function AICoachBot() {
                   </motion.button>
                 </motion.div>
               )}
+              <div ref={messagesEndRef} />
             </div>
 
             {/* Input */}
