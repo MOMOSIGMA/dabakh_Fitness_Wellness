@@ -168,7 +168,7 @@ export default function AICoachBot() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-gradient-to-r from-red-500 to-red-600 shadow-2xl shadow-red-500/50 flex items-center justify-center z-[100] hover:shadow-lg hover:shadow-red-600/70 transition-all"
+            className="fixed bottom-24 right-6 w-16 h-16 rounded-full bg-gradient-to-r from-red-500 to-red-600 shadow-2xl shadow-red-500/50 flex items-center justify-center z-[100] hover:shadow-lg hover:shadow-red-600/70 transition-all"
           >
             <motion.div
               animate={{ rotate: 360 }}
@@ -188,7 +188,7 @@ export default function AICoachBot() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 50 }}
             onClick={(e) => e.stopPropagation()}
-            className="fixed bottom-6 right-6 w-80 sm:w-96 h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col z-[100] overflow-hidden"
+            className="fixed bottom-24 right-6 w-80 sm:w-96 h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col z-[100] overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-red-500 to-red-600 p-4 flex items-center justify-between">
