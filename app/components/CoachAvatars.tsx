@@ -97,7 +97,7 @@ export default function CoachAvatars() {
           initial={shouldReduceMotion ? false : { opacity: 0, y: -20 }}
           whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-200px" }}
           className="text-center mb-8"
         >
           <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-red-500 via-yellow-500 to-purple-500 bg-clip-text text-transparent mb-2">
@@ -111,10 +111,10 @@ export default function CoachAvatars() {
         {/* Coaches Grid - Optimized animations */}
         <motion.div
           variants={containerVariants}
-          initial="hidden"
+          initial={isVisible ? "visible" : "hidden"}
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="flex justify-center gap-6 py-6 flex-wrap md:flex-nowrap"
+          viewport={{ once: true, margin: "-200px" }}
+          className="flex justify-center gap-3 sm:gap-6 py-6 flex-wrap"
         >
           {coaches.map((coach, index) => (
             <motion.a
@@ -128,7 +128,7 @@ export default function CoachAvatars() {
               className="flex flex-col items-center gap-3 cursor-pointer group"
             >
               {/* Avatar Circle with Neon Border */}
-              <div className={`relative w-20 h-20 rounded-full overflow-hidden transition-all duration-300 ${coach.glowClass}`}>
+              <div className={`relative w-16 sm:w-20 h-16 sm:h-20 rounded-full overflow-hidden transition-all duration-300 ${coach.glowClass}`}>
                 {/* Gradient Border Effect */}
                 <div className={`absolute inset-0 rounded-full ${coach.colorClass} p-0.5`}>
                   <div className="absolute inset-0.5 rounded-full bg-black flex items-center justify-center overflow-hidden">
@@ -137,10 +137,10 @@ export default function CoachAvatars() {
                       alt={`Coach ${coach.name}`}
                       width={80}
                       height={80}
-                      className="object-cover rounded-full"
+                      className="object-cover rounded-full w-full h-full"
                       loading={index < 2 ? "eager" : "lazy"}
                       quality={85}
-                      sizes="80px"
+                      sizes="(max-width: 640px) 64px, 80px"
                     />
                   </div>
                 </div>
