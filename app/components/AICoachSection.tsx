@@ -352,7 +352,7 @@ export default function AICoachSection() {
                     const message = encodeURIComponent(
                       `👋 Salut! Je suis prêt à passer à l'action et à commencer mes vrais entraînements chez Dabakh Fitness! 💪 J'aimerais prendre rendez-vous avec un coach pour débuter. Peux-tu m'aider? 🚀`
                     )
-                    window.open(`https://wa.me/221771463012?text=${message}`, '_blank')
+                    window.open(`https://wa.me/221775323725?text=${message}`, '_blank')
                   }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}

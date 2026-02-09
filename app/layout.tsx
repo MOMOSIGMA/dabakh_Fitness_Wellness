@@ -110,7 +110,7 @@ export default function RootLayout({
               name: 'Dabakh Fitness Wellness Club',
               description: 'Salle de sport premium à Yoff Dakar avec musculation, boxe, cardio et coaching IA',
               url: 'https://dabakh-fitness-wellness.vercel.app',
-              telephone: '+221771463012',
+              telephone: '+221775323725',
               areaServed: {
                 '@type': 'City',
                 name: 'Dakar',
@@ -152,7 +152,7 @@ export default function RootLayout({
               url: 'https://dabakh-fitness-wellness.vercel.app',
               logo: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=200&q=80',
               description: 'Meilleure salle de sport de Dakar - Musculation, Boxe, Cardio, Coaching IA',
-              telephone: '+221771463012',
+              telephone: '+221775323725',
               address: {
                 '@type': 'PostalAddress',
                 streetAddress: 'Yoff',
@@ -169,7 +169,7 @@ export default function RootLayout({
               contactPoint: {
                 '@type': 'ContactPoint',
                 contactType: 'Customer Service',
-                telephone: '+221771463012',
+                telephone: '+221775323725',
                 availableLanguage: ['fr', 'en']
               }
             }),

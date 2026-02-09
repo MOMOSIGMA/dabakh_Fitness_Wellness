@@ -279,7 +279,7 @@ export default function AICoachBot() {
                           const messageText = encodeURIComponent(
                             "👋 Salut! Je veux profiter de l'offre spéciale et commencer mes entraînements chez Dabakh Fitness! 💪"
                           )
-                          window.open(`https://wa.me/221771463012?text=${messageText}`, '_blank')
+                          window.open(`https://wa.me/221775323725?text=${messageText}`, '_blank')
                         }}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
@@ -331,7 +331,7 @@ export default function AICoachBot() {
                       const message = encodeURIComponent(
                         `👋 Salut! Je suis prêt à passer à l\'action chez Dabakh Fitness! 💪 Je voudrais commencer mes entraînements.`
                       )
-                      window.open(`https://wa.me/221771463012?text=${message}`, '_blank')
+                      window.open(`https://wa.me/221775323725?text=${message}`, '_blank')
                     }}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
