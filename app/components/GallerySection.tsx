@@ -158,7 +158,7 @@ export default function GallerySection() {
               📸 <span className="text-red-500 font-bold">Bientôt les vraies photos</span> de notre salle !
             </p>
             <p className="text-gray-200 text-sm">
-              Ces images te donnent une idée du type d'équipements et d'ambiance que tu trouveras chez Dabakh
+              Ces images te donnent une idée du type d&apos;équipements et d&apos;ambiance que tu trouveras chez Dabakh
             </p>
           </div>
         </motion.div>
