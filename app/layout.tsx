@@ -60,8 +60,8 @@ export const metadata: Metadata = {
     creator: '@dabakhfitness1',
   },
   icons: {
-    icon: '/favicon.svg',
-    apple: '/apple-touch-icon.png',
+    icon: '/images/favicon.png',
+    apple: '/images/logo-dabakh.png',
   },
   manifest: '/manifest.json',
   robots: {
