@@ -64,7 +64,7 @@ export default function PracticalInfoSection() {
         </motion.div>
 
         {/* Rules Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto mb-16">
           {rules.map((rule, index) => {
             const Icon = rule.icon
             return (
@@ -81,15 +81,15 @@ export default function PracticalInfoSection() {
                 <div className={`absolute inset-0 bg-gradient-to-br ${rule.color} opacity-10 rounded-3xl blur transition-all duration-300 group-hover:opacity-20`} />
                 
                 {/* Card Content */}
-                <div className="relative glass border-2 border-white/10 p-8 h-full flex flex-col rounded-3xl hover:border-white/30 transition-colors">
+                <div className="relative glass border-2 border-white/10 p-4 md:p-8 h-full flex flex-col rounded-2xl md:rounded-3xl hover:border-white/30 transition-colors">
                   {/* Icon */}
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${rule.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                    <Icon className="w-8 h-8 text-white" />
+                  <div className={`w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br ${rule.color} flex items-center justify-center mb-3 md:mb-6 group-hover:scale-110 transition-transform`}>
+                    <Icon className="w-6 h-6 md:w-8 md:h-8 text-white" />
                   </div>
 
                   {/* Content */}
-                  <h3 className="text-2xl font-black mb-3">{rule.title}</h3>
-                  <p className="text-white leading-relaxed flex-grow">
+                  <h3 className="text-lg md:text-2xl font-black mb-2 md:mb-3">{rule.title}</h3>
+                  <p className="text-white text-xs md:text-base leading-relaxed flex-grow">
                     {rule.description}
                   </p>
                 </div>

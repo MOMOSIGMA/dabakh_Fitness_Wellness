@@ -137,7 +137,7 @@ export default function PricingSection() {
         </motion.div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 max-w-7xl mx-auto">
           {plans.map((plan, index) => {
             const Icon = plan.icon
             return (
@@ -169,31 +169,31 @@ export default function PricingSection() {
                 <div className={`absolute inset-0 bg-gradient-to-br ${plan.gradient} opacity-20`} />
                 
                 {/* Card Content */}
-                <div className="relative glass border-2 border-white/10 p-8 h-full flex flex-col">
+                <div className="relative glass border-2 border-white/10 p-4 md:p-8 h-full flex flex-col">
                   {/* Icon */}
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${plan.gradient} flex items-center justify-center mb-4 border-2 border-white/20`}>
-                    <Icon className="w-8 h-8 text-white" />
+                  <div className={`w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-gradient-to-br ${plan.gradient} flex items-center justify-center mb-2 md:mb-4 border-2 border-white/20`}>
+                    <Icon className="w-5 h-5 md:w-8 md:h-8 text-white" />
                   </div>
 
                   {/* Plan Name */}
-                  <h3 className="text-2xl font-black mb-2">{plan.name}</h3>
+                  <h3 className="text-sm md:text-2xl font-black mb-1 md:mb-2">{plan.name}</h3>
 
                   {/* Price */}
-                  <div className="mb-6">
+                  <div className="mb-3 md:mb-6">
                     <div className="flex items-baseline gap-1">
                       <span className={`font-black ${
-                        plan.popular ? 'text-6xl' : 'text-5xl'
+                        plan.popular ? 'text-3xl md:text-6xl' : 'text-2xl md:text-5xl'
                       }`}>{plan.price}</span>
                     </div>
-                    <span className="text-white text-sm font-medium">{plan.period}</span>
+                    <span className="text-white text-xs md:text-sm font-medium">{plan.period}</span>
                   </div>
 
                   {/* Features */}
-                  <ul className="space-y-3 mb-8 flex-grow">
+                  <ul className="space-y-1 md:space-y-3 mb-4 md:mb-8 flex-grow">
                     {plan.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <Check className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                        <span className="text-white text-sm">{feature}</span>
+                      <li key={idx} className="flex items-start gap-1 md:gap-2">
+                        <Check className="w-3 h-3 md:w-5 md:h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                        <span className="text-white text-xs md:text-sm leading-tight">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -204,7 +204,7 @@ export default function PricingSection() {
                     disabled={loadingIndex === index}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`w-full py-4 rounded-xl font-bold transition-all ${
+                    className={`w-full py-2 md:py-4 rounded-lg md:rounded-xl text-xs md:text-base font-bold transition-all ${
                       plan.popular
                         ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg shadow-red-600/50'
                         : 'glass border border-white/20 text-white hover:border-red-500'
@@ -229,18 +229,18 @@ export default function PricingSection() {
             Options <span className="text-stroke italic">Supplémentaires</span>
           </h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
             {/* Séance journalière */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-2xl p-6"
+              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
             >
-              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Séance journalière</p>
-              <p className="text-3xl font-black text-red-500 mb-2">2 000 FCFA</p>
-              <p className="text-gray-300 text-xs">Accès illimité 1 jour</p>
+              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Séance journalière</p>
+              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">2 000 FCFA</p>
+              <p className="text-gray-300 text-xs leading-tight">Accès illimité 1 jour</p>
             </motion.div>
 
             {/* Boxe / Taekwondo - Enfant */}
@@ -250,12 +250,12 @@ export default function PricingSection() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
               whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-2xl p-6"
+              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
             >
-              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Boxe / Taekwondo - Enfant</p>
-              <p className="text-3xl font-black text-red-500 mb-2">15 000 FCFA</p>
-              <p className="text-gray-300 text-xs">Mensualité enfant</p>
-              <p className="text-gray-300 text-xs">Inscription Boxe/Taekwondo: 5 000 FCFA</p>
+              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Boxe / Taekwondo - Enfant</p>
+              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">15 000 FCFA</p>
+              <p className="text-gray-300 text-xs leading-tight">Mensualité enfant</p>
+              <p className="text-gray-300 text-xs leading-tight">Inscription Boxe/Taekwondo: 5 000 FCFA</p>
             </motion.div>
 
             {/* Boxe / Taekwondo - Adulte */}
@@ -265,12 +265,12 @@ export default function PricingSection() {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
               whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-2xl p-6"
+              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
             >
-              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Boxe / Taekwondo - Adulte</p>
-              <p className="text-3xl font-black text-red-500 mb-2">20 000 FCFA</p>
-              <p className="text-gray-300 text-xs">Mensualité adulte</p>
-              <p className="text-gray-300 text-xs">Inscription Boxe/Taekwondo: 5 000 FCFA</p>
+              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Boxe / Taekwondo - Adulte</p>
+              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">20 000 FCFA</p>
+              <p className="text-gray-300 text-xs leading-tight">Mensualité adulte</p>
+              <p className="text-gray-300 text-xs leading-tight">Inscription Boxe/Taekwondo: 5 000 FCFA</p>
             </motion.div>
 
             {/* Massage Tonifiant */}
@@ -280,11 +280,11 @@ export default function PricingSection() {
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
               whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-2xl p-6"
+              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
             >
-              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Massage Tonifiant</p>
-              <p className="text-3xl font-black text-red-500 mb-2">15 000 FCFA</p>
-              <p className="text-gray-300 text-xs">30 minutes de bien-être</p>
+              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Massage Tonifiant</p>
+              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">15 000 FCFA</p>
+              <p className="text-gray-300 text-xs leading-tight">30 minutes de bien-être</p>
             </motion.div>
 
             {/* Massage Relaxant Doux */}
@@ -294,11 +294,11 @@ export default function PricingSection() {
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
               whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-2xl p-6"
+              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
             >
-              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Massage Relaxant Doux</p>
-              <p className="text-3xl font-black text-red-500 mb-2">20 000 FCFA</p>
-              <p className="text-gray-300 text-xs">1h de relaxation</p>
+              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Massage Relaxant Doux</p>
+              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">20 000 FCFA</p>
+              <p className="text-gray-300 text-xs leading-tight">1h de relaxation</p>
             </motion.div>
 
             {/* Massage Dos Relaxant */}
@@ -308,11 +308,11 @@ export default function PricingSection() {
               viewport={{ once: true }}
               transition={{ delay: 0.5 }}
               whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-2xl p-6"
+              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
             >
-              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Dos Relaxant</p>
-              <p className="text-3xl font-black text-red-500 mb-2">10 000 FCFA</p>
-              <p className="text-gray-300 text-xs">20 minutes</p>
+              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Dos Relaxant</p>
+              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">10 000 FCFA</p>
+              <p className="text-gray-300 text-xs leading-tight">20 minutes</p>
             </motion.div>
           </div>
         </motion.div>
@@ -327,17 +327,17 @@ export default function PricingSection() {
           <h3 className="text-2xl md:text-3xl font-black text-center mb-12">
             Pack <span className="text-stroke italic">Famille</span>
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-2xl p-6"
+              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
             >
-              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Pack Famille</p>
-              <p className="text-3xl font-black text-red-500 mb-2">45 000 FCFA</p>
-              <p className="text-gray-300 text-xs">3 personnes</p>
+              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Pack Famille</p>
+              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">45 000 FCFA</p>
+              <p className="text-gray-300 text-xs leading-tight">3 personnes</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -345,11 +345,11 @@ export default function PricingSection() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
               whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-2xl p-6"
+              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
             >
-              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Pack Famille</p>
-              <p className="text-3xl font-black text-red-500 mb-2">60 000 FCFA</p>
-              <p className="text-gray-300 text-xs">4 personnes</p>
+              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Pack Famille</p>
+              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">60 000 FCFA</p>
+              <p className="text-gray-300 text-xs leading-tight">4 personnes</p>
             </motion.div>
           </div>
         </motion.div>
@@ -364,17 +364,17 @@ export default function PricingSection() {
           <h3 className="text-2xl md:text-3xl font-black text-center mb-12">
             Personal <span className="text-stroke italic">Training</span>
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-2xl p-6"
+              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
             >
-              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Pack Silver</p>
-              <p className="text-3xl font-black text-red-500 mb-2">80 000 FCFA</p>
-              <p className="text-gray-300 text-xs">16 séances + 1 séance de massage</p>
+              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Pack Silver</p>
+              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">80 000 FCFA</p>
+              <p className="text-gray-300 text-xs leading-tight">16 séances + 1 séance de massage</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -382,11 +382,11 @@ export default function PricingSection() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
               whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-2xl p-6"
+              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
             >
-              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Pack Gold</p>
-              <p className="text-3xl font-black text-red-500 mb-2">100 000 FCFA</p>
-              <p className="text-gray-300 text-xs">18 séances + 2 séances de massage</p>
+              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Pack Gold</p>
+              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">100 000 FCFA</p>
+              <p className="text-gray-300 text-xs leading-tight">18 séances + 2 séances de massage</p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -394,11 +394,11 @@ export default function PricingSection() {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
               whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-2xl p-6"
+              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6 col-span-2 md:col-span-1"
             >
-              <p className="text-gray-200 text-sm uppercase tracking-wider mb-2">Pack Premium</p>
-              <p className="text-3xl font-black text-red-500 mb-2">115 000 FCFA</p>
-              <p className="text-gray-300 text-xs">20 séances + serviette + 10 bouteilles d&apos;eau + 5 séances de massage</p>
+              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Pack Premium</p>
+              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">115 000 FCFA</p>
+              <p className="text-gray-300 text-xs leading-tight">20 séances + serviette + 10 bouteilles d&apos;eau + 5 séances de massage</p>
             </motion.div>
           </div>
         </motion.div>

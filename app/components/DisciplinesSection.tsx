@@ -115,14 +115,14 @@ export default function DisciplinesSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-150px" }}
-          className="grid grid-cols-1 md:grid-cols-6 gap-4 auto-rows-[200px]"
+          className="grid grid-cols-2 md:grid-cols-6 gap-3 md:gap-4 auto-rows-[200px]"
         >
           {disciplines.map((discipline, index) => {
             const Icon = discipline.icon
             const gridClass = 
-              discipline.size === 'large' ? 'md:col-span-4 md:row-span-2' :
-              discipline.size === 'medium' ? 'md:col-span-3 md:row-span-2' :
-              'md:col-span-2 md:row-span-1'
+              discipline.size === 'large' ? 'col-span-2 md:col-span-4 md:row-span-2' :
+              discipline.size === 'medium' ? 'col-span-2 md:col-span-3 md:row-span-2' :
+              'col-span-1 md:col-span-2 md:row-span-1'
 
             return (
               <motion.div
