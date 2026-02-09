@@ -9,6 +9,18 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  // Bloquer le scroll du body quand menu ouvert
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [mobileMenuOpen])
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
@@ -112,21 +124,28 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden overflow-hidden"
-          >
+          <>
+            {/* Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+            />
+            
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.2 }}
+              className="md:hidden overflow-hidden fixed top-[72px] left-0 right-0 z-50"
+            >
             <div className="bg-black/95 backdrop-blur-xl border-t border-white/10 shadow-2xl">
               <div className="container mx-auto px-6 py-8 flex flex-col gap-2">
-                {navLinks.map((link, index) => (
-                  <motion.button
+                {navLinks.map((link) => (
+                  <button
                     key={link.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
                     type="button"
                     onClick={(e) => {
                       e.preventDefault()
@@ -151,12 +170,9 @@ export default function Navbar() {
                       <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
                       {link.name}
                     </span>
-                  </motion.button>
+                  </button>
                 ))}
-                <motion.button
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
+                <button
                   type="button"
                   onClick={(e) => {
                     e.preventDefault()
@@ -172,10 +188,11 @@ export default function Navbar() {
                   className="mt-4 px-6 py-4 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold rounded-xl text-center w-full shadow-lg shadow-red-500/30 active:scale-95 transition-transform text-lg"
                 >
                   🔥 Séance Découverte
-                </motion.button>
+                </button>
               </div>
             </div>
           </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.nav>
