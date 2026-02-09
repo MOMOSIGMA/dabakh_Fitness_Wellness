@@ -39,14 +39,12 @@ export default function Home() {
       <HeroSection />
       <DisciplinesSection />
       <GallerySection />
-      <AICoachSection />
-      <PricingSection />
-      <PracticalInfoSection />
-      <CoachAvatars />
-      <Footer />
       <PricingSection />
       <PracticalInfoSection />
       <CoachAvatars />
       <Footer />
       <WhatsAppButton />
-      <AICoachBot
+       <AICoachBot />
+     </main>
+   )
+ }
