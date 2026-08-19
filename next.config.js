@@ -3,9 +3,11 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: [
+      // Restreint a Unsplash tant que les photos de la salle ne sont pas livrees.
+      // hostname '**' laissait n importe quel domaine utiliser l optimiseur Vercel.
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: 'images.unsplash.com',
       },
     ],
     // Optimisations pour connexion faible (3G)
@@ -36,10 +38,6 @@ const nextConfig = {
       {
         source: '/(:path*)',
         headers: [
-          {
-            key: 'Cache-Control',
-            value: 'no-cache, no-store, must-revalidate',
-          },
           {
             key: 'X-DNS-Prefetch-Control',
             value: 'on',

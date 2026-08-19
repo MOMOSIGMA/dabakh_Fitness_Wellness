@@ -13,16 +13,16 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Dabakh Fitness Wellness Club - Meilleure Salle de Sport à Yoff Dakar, Sénégal',
-  description: 'Dabakh Fitness: salle de sport premium à Yoff Dakar avec musculation, boxe, cardio, coaching IA, et 500+ membres. Équipements professionnels. Rejoignez-nous!',
+  title: 'Dabakh Fitness Wellness Club - Salle de Sport à Sacré Cœur 3, Dakar, Sénégal',
+  description: 'Dabakh Fitness: salle de sport premium à Sacré Cœur 3 / Mermoz, Dakar avec musculation, boxe, cardio, coaching IA, et 500+ membres. Équipements professionnels. Rejoignez-nous!',
   keywords: [
     'salle de sport Dakar',
-    'gym Yoff',
+    'gym Sacré Cœur Dakar',
     'fitness Sénégal',
     'musculation Dakar',
     'boxe Dakar',
     'coaching fitness',
-    'salle de sport Yoff',
+    'salle de sport Mermoz',
     'Dabakh Fitness',
     'gym Dakar Sénégal',
     'centre de fitness'
@@ -40,11 +40,11 @@ export const metadata: Metadata = {
     locale: 'fr_SN',
     url: 'https://dabakh-fitness-wellness.vercel.app',
     siteName: 'Dabakh Fitness Wellness Club',
-    title: 'Dabakh Fitness - Salle de Sport Premium à Yoff Dakar',
+    title: 'Dabakh Fitness - Salle de Sport Premium à Sacré Cœur 3 Dakar',
     description: 'La meilleure salle de sport de Dakar. Musculation, boxe, cardio avec coaching IA. 500+ membres satisfaits.',
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=630&q=80&fit=crop&auto=format',
+        url: 'https://dabakh-fitness-wellness.vercel.app/images/logo-dabakh.png',
         width: 1200,
         height: 630,
         alt: 'Dabakh Fitness Wellness Club - Salle de Sport Dakar',
@@ -108,7 +108,7 @@ export default function RootLayout({
               '@type': 'HealthAndBeautyBusiness',
               '@id': 'https://dabakh-fitness-wellness.vercel.app',
               name: 'Dabakh Fitness Wellness Club',
-              description: 'Salle de sport premium à Yoff Dakar avec musculation, boxe, cardio et coaching IA',
+              description: 'Salle de sport premium à Sacré Cœur 3 Dakar avec musculation, boxe, cardio et coaching IA',
               url: 'https://dabakh-fitness-wellness.vercel.app',
               telephone: '+221775323725',
               areaServed: {
@@ -117,15 +117,8 @@ export default function RootLayout({
                 'addressCountry': 'SN'
               },
               priceRange: '$$',
-              image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=630&q=80&fit=crop&auto=format',
-              logo: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=200&q=80&fit=crop&auto=format',
-              aggregateRating: {
-                '@type': 'AggregateRating',
-                ratingValue: '4.3',
-                reviewCount: '150',
-                bestRating: '5',
-                worstRating: '1'
-              },
+              image: 'https://dabakh-fitness-wellness.vercel.app/images/logo-dabakh.png',
+              logo: 'https://dabakh-fitness-wellness.vercel.app/images/logo-dabakh.png',
               sameAs: [
                 'https://maps.app.goo.gl/BAVYB8i4dUwGWnss7',
                 'https://www.facebook.com/share/1AWZq5noZP/',
@@ -134,8 +127,8 @@ export default function RootLayout({
               hasMap: 'https://maps.app.goo.gl/BAVYB8i4dUwGWnss7',
               geo: {
                 '@type': 'GeoCoordinates',
-                latitude: '14.7500',
-                longitude: '-17.5000'
+                latitude: '14.7234638',
+                longitude: '-17.4739456'
               }
             }),
           }}
@@ -150,12 +143,12 @@ export default function RootLayout({
               '@type': 'Organization',
               name: 'Dabakh Fitness Wellness Club',
               url: 'https://dabakh-fitness-wellness.vercel.app',
-              logo: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=200&q=80',
+              logo: 'https://dabakh-fitness-wellness.vercel.app/images/logo-dabakh.png',
               description: 'Meilleure salle de sport de Dakar - Musculation, Boxe, Cardio, Coaching IA',
               telephone: '+221775323725',
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: 'Yoff',
+                streetAddress: '10355 Rue MZ 05',
                 addressLocality: 'Dakar',
                 addressRegion: 'Dakar',
                 postalCode: '',

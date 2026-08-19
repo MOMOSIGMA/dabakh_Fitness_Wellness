@@ -4,8 +4,9 @@ import WhatsAppButton from './components/WhatsAppButton'
 import CoachAvatars from './components/CoachAvatars'
 import AICoachBot from './components/AICoachBot'
 
-// Force fresh content on every request
-export const revalidate = 0
+// Regeneration horaire : les tarifs ne changent pas toutes les secondes,
+// et le rendu a chaque requete penalisait lourdement les connexions 3G.
+export const revalidate = 3600
 
 // Lazy load sections below the fold
 const DisciplinesSection = dynamic(() => import('./components/DisciplinesSection'), {

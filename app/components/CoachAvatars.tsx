@@ -9,119 +9,98 @@ type Coach = {
   name: string
   specialty: string
   image: string
-  tiktok: string
-  colorClass: string
-  glowClass: string
+  description: string
 }
 
 export default function CoachAvatars() {
   const shouldReduceMotion = useReducedMotion()
 
+  // TODO CLIENT : remplacer chaque `description` par la vraie bio fournie par la salle
+  // (parcours, certifications, approche). Les specialites ci-dessous proviennent des
+  // donnees deja presentes dans le projet, pas d'une invention.
   const coaches: Coach[] = [
     {
       name: 'Babacar',
-      specialty: 'Fitness',
+      specialty: 'Fitness & Musculation',
       image: '/images/coach-babacar.jpeg',
-      tiktok: 'https://vt.tiktok.com/ZSmJYTBnw/',
-      colorClass: 'bg-gradient-to-r from-red-500 to-red-600',
-      glowClass: 'hover:shadow-lg hover:shadow-red-500/50',
+      description:
+        'Accompagne les debutants comme les pratiquants confirmes sur le plateau musculation et les seances de fitness.',
     },
     {
       name: 'Achille',
-      specialty: 'Musculation',
+      specialty: 'Musculation & Grit Force',
       image: '/images/coach-achille.jpeg',
-      tiktok: 'https://vt.tiktok.com/ZSmJ2CUTT/',
-      colorClass: 'bg-gradient-to-r from-blue-500 to-blue-600',
-      glowClass: 'hover:shadow-lg hover:shadow-blue-500/50',
+      description:
+        'Specialiste du travail de force et des programmes de prise de masse, avec un suivi technique sur chaque mouvement.',
     },
     {
       name: 'Top',
-      specialty: 'Cardio',
+      specialty: 'Circuit Training & Cardio',
       image: '/images/coach-top.jpeg',
-      tiktok: 'https://vt.tiktok.com/ZSmJ2BQaE/',
-      colorClass: 'bg-gradient-to-r from-yellow-500 to-yellow-600',
-      glowClass: 'hover:shadow-lg hover:shadow-yellow-500/50',
+      description:
+        'Anime les seances de circuit training et de cardio intensif, orientees endurance et perte de poids.',
     },
     {
-      name: 'Lamine',
-      specialty: 'Personal',
+      name: 'Lamine Bara Diouf',
+      specialty: 'Fitness & Personal Training',
       image: '/images/coach-lamine.jpeg',
-      tiktok: 'https://vt.tiktok.com/ZSmJ2c5gj/',
-      colorClass: 'bg-gradient-to-r from-purple-500 to-purple-600',
-      glowClass: 'hover:shadow-lg hover:shadow-purple-500/50',
+      description:
+        'Construit des programmes sur mesure en coaching individuel, adaptes a l objectif et au rythme de chacun.',
     },
   ]
 
-  const enableHover = shouldReduceMotion ? undefined : { scale: 1.05 }
+  const cardMotion = shouldReduceMotion ? undefined : { y: -4 }
 
   return (
-    <section id="coachs" className="py-12 px-4 bg-black relative overflow-hidden">
-      {/* Subtle background effect */}
-      <div className="absolute inset-0 opacity-10">
+    <section id="coachs" className="py-16 px-4 bg-black relative overflow-hidden">
+      {/* Halo de fond discret */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div className="absolute top-1/2 left-1/4 w-72 h-72 bg-red-500 blur-[120px] rounded-full" />
-        <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-purple-500 blur-[120px] rounded-full" />
+        <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-red-700 blur-[120px] rounded-full" />
       </div>
 
-      <div className="container mx-auto max-w-7xl relative z-10">
-        {/* Section Title */}
-        <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-red-500 via-yellow-500 to-purple-500 bg-clip-text text-transparent mb-2">
-            Nos Coachs Experts
+      <div className="container mx-auto max-w-6xl relative z-10">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl md:text-3xl font-black mb-2">
+            Nos Coachs <span className="text-red-500">Experts</span>
           </h2>
           <p className="text-gray-300 text-sm md:text-base">
-            Découvre nos spécialistes et suis-les sur TikTok
+            Une equipe de specialistes pour t accompagner sur chaque discipline
           </p>
         </div>
 
-        {/* Coaches Grid - Optimized animations */}
-        <div className="flex justify-center gap-3 sm:gap-6 py-6 flex-wrap">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {coaches.map((coach, index) => (
-            <motion.a
+            <motion.article
               key={coach.name}
-              href={coach.tiktok}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={enableHover}
-              whileTap={{ scale: 0.95 }}
-              className="flex flex-col items-center gap-3 cursor-pointer group"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.3, delay: shouldReduceMotion ? 0 : index * 0.06 }}
+              whileHover={cardMotion}
+              className="glass border border-white/10 rounded-2xl p-5 flex flex-col items-center text-center transition-transform"
             >
-              {/* Avatar Circle with Neon Border */}
-              <div className={`relative w-16 sm:w-20 h-16 sm:h-20 rounded-full overflow-hidden transition-all duration-300 border-2 ${coach.colorClass.replace('bg-gradient', 'border')} ${coach.glowClass}`}>
+              <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-red-500/60 mb-4">
                 <Image
                   src={coach.image}
                   alt={`Coach ${coach.name}`}
-                  width={80}
-                  height={80}
-                  className="object-cover rounded-full w-full h-full"
-                  loading={index < 2 ? "eager" : "lazy"}
+                  width={96}
+                  height={96}
+                  className="object-cover w-full h-full"
+                  loading={index < 2 ? 'eager' : 'lazy'}
                   quality={60}
-                  sizes="(max-width: 640px) 64px, 80px"
+                  sizes="96px"
                   priority={index < 2}
                 />
-
-                {/* Subtle Shine Effect on Hover */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
 
-              {/* Coach Name */}
-              <div className="text-center">
-                <p className="text-white font-semibold text-sm">{coach.name}</p>
-                <p className="text-gray-400 text-xs">{coach.specialty}</p>
-              </div>
-
-              {/* TikTok Indicator */}
-              <div className="text-xs text-gray-500 group-hover:text-red-400 transition-colors">
-                @TikTok
-              </div>
-            </motion.a>
+              <h3 className="text-white font-bold text-base leading-tight">{coach.name}</h3>
+              <p className="text-red-500 text-xs font-semibold uppercase tracking-wider mt-1 mb-3">
+                {coach.specialty}
+              </p>
+              <p className="text-gray-300 text-sm leading-relaxed">{coach.description}</p>
+            </motion.article>
           ))}
-        </div>
-
-        {/* Call to Action */}
-        <div className="text-center mt-8">
-          <p className="text-gray-400 text-sm md:text-base">
-            💡 Visite nos coachs sur TikTok pour des <span className="text-red-400 font-semibold">conseils et transformation</span> en direct
-          </p>
         </div>
       </div>
     </section>

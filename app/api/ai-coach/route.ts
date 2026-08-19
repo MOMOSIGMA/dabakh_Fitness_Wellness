@@ -2,15 +2,90 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions'
 
+// Garde-fous : la route est publique et facturee a l appel.
+const MAX_MESSAGE_LENGTH = 500
+const MAX_HISTORY_MESSAGES = 10
+const MAX_HISTORY_CONTENT = 1000
+const RATE_LIMIT_MAX = 10
+const RATE_LIMIT_WINDOW_MS = 60_000
+
 type ChatMessage = {
   role: 'system' | 'user' | 'assistant'
   content: string
 }
 
+// Limitation par IP, en memoire. Chaque instance serverless a la sienne, donc la limite
+// reelle est un multiple de RATE_LIMIT_MAX ; suffisant contre le bouclage simple.
+// A remplacer par un store partage (Upstash) si l abus persiste.
+const hits = new Map<string, { count: number; resetAt: number }>()
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now()
+  const entry = hits.get(ip)
+
+  if (!entry || now > entry.resetAt) {
+    hits.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS })
+    if (hits.size > 5000) {
+      for (const [key, value] of hits) {
+        if (now > value.resetAt) hits.delete(key)
+      }
+    }
+    return false
+  }
+
+  entry.count += 1
+  return entry.count > RATE_LIMIT_MAX
+}
+
+// Le client envoyait son historique tel quel dans le tableau messages : un visiteur
+// pouvait y glisser un message role:'system' et reecrire entierement le prompt.
+// On ne garde que user/assistant, tronques et plafonnes.
+function sanitizeHistory(history: unknown): ChatMessage[] {
+  if (!Array.isArray(history)) return []
+
+  return history
+    .filter((item): item is { role: string; content: string } =>
+      typeof item === 'object' &&
+      item !== null &&
+      typeof (item as { content?: unknown }).content === 'string' &&
+      ((item as { role?: unknown }).role === 'user' ||
+        (item as { role?: unknown }).role === 'assistant')
+    )
+    .slice(-MAX_HISTORY_MESSAGES)
+    .map((item) => ({
+      role: item.role as 'user' | 'assistant',
+      content: item.content.slice(0, MAX_HISTORY_CONTENT),
+    }))
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const { message, history } = await request.json()
+    const ip =
+      request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
+
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        {
+          message:
+            'Tu vas un peu vite ! Laisse-moi souffler quelques secondes, puis reessaye. Pour une reponse immediate, un vrai coach est dispo sur WhatsApp.',
+        },
+        { status: 429 }
+      )
+    }
+
+    const body = await request.json()
+    const rawMessage = body?.message
+    const history = body?.history
     const apiKey = process.env.GROQ_API_KEY
+
+    if (typeof rawMessage !== 'string' || rawMessage.trim().length === 0) {
+      return NextResponse.json(
+        { message: 'Ecris-moi ta question et je te reponds !' },
+        { status: 400 }
+      )
+    }
+
+    const message = rawMessage.slice(0, MAX_MESSAGE_LENGTH)
 
     if (!apiKey) {
       return NextResponse.json(
@@ -167,7 +242,7 @@ INSTRUCTIONS CRITIQUES:
         role: 'system',
         content: systemPrompt,
       },
-      ...(Array.isArray(history) ? history : []),
+      ...sanitizeHistory(history),
       { role: 'user', content: message },
     ]
 

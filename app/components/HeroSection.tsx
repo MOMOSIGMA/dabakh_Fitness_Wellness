@@ -7,12 +7,9 @@ import { ArrowRight, Play } from 'lucide-react'
 
 export default function HeroSection() {
   const [isMobile, setIsMobile] = useState(false)
-  const [isIOS, setIsIOS] = useState(false)
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 768)
-    const ua = navigator.userAgent || navigator.vendor
-    setIsIOS(/iPad|iPhone|iPod/.test(ua))
     const handleResize = () => setIsMobile(window.innerWidth < 768)
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
@@ -23,7 +20,7 @@ export default function HeroSection() {
   const scaleHover = isMobile ? 1.02 : 1.05
 
   return (
-    <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-[var(--nav-h)] pb-12">
       {/* Background Video/Image Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black z-10" />
       <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-blue-600/10 z-10" />
@@ -51,10 +48,7 @@ export default function HeroSection() {
         </div>
       )}
 
-      <div
-        className="relative z-20 text-center px-4 max-w-6xl mx-auto"
-        style={isIOS ? { paddingTop: '3.5rem' } : { paddingTop: '2rem' }}
-      >
+      <div className="relative z-20 text-center px-4 max-w-6xl mx-auto">
         {/* Badge animé */}
         <motion.div
           initial={{ opacity: 1 }}
