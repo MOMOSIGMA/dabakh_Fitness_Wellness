@@ -32,11 +32,12 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
-  // Cache headers - Force refresh on every visit
+  // En-tetes de securite appliques a toutes les routes.
+  // Le motif etait ecrit /(:path*) : malforme, il ne matchait rien.
   headers: async () => {
     return [
       {
-        source: '/(:path*)',
+        source: '/:path*',
         headers: [
           {
             key: 'X-DNS-Prefetch-Control',
