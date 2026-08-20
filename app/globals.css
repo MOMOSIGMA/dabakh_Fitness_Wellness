@@ -2,7 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
+/* La police Inter est chargee par next/font dans layout.tsx : elle est
+   auto-hebergee, prechargee et son @font-face est inline dans le HTML.
+   L'@import Google Fonts qui figurait ici la telechargeait une seconde fois,
+   et bloquait le rendu : le navigateur devait recuperer ce CSS, le lire,
+   puis aller chercher la feuille de style distante, puis les fichiers de
+   police. Lighthouse mesurait 344 ms de blocage sur cette seule chaine. */
 
 @layer base {
   :root {
@@ -51,6 +56,29 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Halos d'ambiance.
+     Ils etaient obtenus par filter: blur(120-150px) sur de grands blocs pleins.
+     C'est l'une des operations les plus couteuses pour un navigateur mobile :
+     Lighthouse mesurait 4 484 ms passees en Style & Layout, plus que dans tout
+     le JavaScript reuni. Un degrade radial donne le meme rendu sans filtre. */
+  .glow-red {
+    background: radial-gradient(
+      circle closest-side,
+      rgba(239, 68, 68, 0.9),
+      rgba(239, 68, 68, 0.28) 45%,
+      transparent 75%
+    );
+  }
+
+  .glow-red-deep {
+    background: radial-gradient(
+      circle closest-side,
+      rgba(185, 28, 28, 0.9),
+      rgba(185, 28, 28, 0.28) 45%,
+      transparent 75%
+    );
   }
 
   /* Mobile optimizations */

@@ -12,12 +12,12 @@ export default function WhatsAppButton() {
       href={`https://wa.me/${phoneNumber}?text=${message}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-[90] flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-5 py-4 rounded-full shadow-2xl hover:shadow-green-500/50 transition-all hover:scale-105 active:scale-95 group"
-      aria-label="Contacter sur WhatsApp"
+      className="fixed bottom-6 right-6 z-[90] flex items-center gap-3 bg-green-700 hover:bg-green-800 text-white px-5 py-4 rounded-full shadow-2xl hover:shadow-green-700/50 transition-all hover:scale-105 active:scale-95 group"
+      aria-label="Message WhatsApp : seance decouverte a 2000 FCFA"
     >
       <MessageCircle className="w-6 h-6 group-hover:rotate-12 transition-transform" />
       <div className="hidden sm:flex flex-col">
-        <span className="text-xs font-medium opacity-90">2000 FCFA Découverte</span>
+        <span className="text-xs font-medium">2000 FCFA Découverte</span>
         <span className="text-sm font-bold">Message WhatsApp</span>
       </div>
       {/* Mobile: juste l'icône avec badge */}

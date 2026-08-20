@@ -210,6 +210,7 @@ export default function AICoachBot() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(true)}
+            aria-label="Ouvrir le coach IA"
             className="fixed bottom-24 right-6 w-16 h-16 rounded-full bg-gradient-to-r from-red-500 to-red-600 shadow-2xl shadow-red-500/50 flex items-center justify-center z-[100] hover:shadow-lg hover:shadow-red-600/70 transition-all"
           >
             <motion.div

@@ -1,8 +1,10 @@
 import dynamic from 'next/dynamic'
+// CoachAvatars reste en import direct : differe, son substitut noir de 384 px
+// degradait la progression visuelle (Speed Index 3,1 s -> 6,3 s) pour un gain nul.
+import CoachAvatars from './components/CoachAvatars'
 import HeroSection from './components/HeroSection'
 import WhatsAppButton from './components/WhatsAppButton'
-import CoachAvatars from './components/CoachAvatars'
-import AICoachBot from './components/AICoachBot'
+
 
 // Regeneration horaire : les tarifs ne changent pas toutes les secondes,
 // et le rendu a chaque requete penalisait lourdement les connexions 3G.
@@ -32,6 +34,11 @@ const SouvenirsSection = dynamic(() => import('./components/SouvenirsSection'), 
 const ReviewsSection = dynamic(() => import('./components/ReviewsSection'), {
   loading: () => <div className="h-96 bg-black/50" />,
 })
+
+// Le chat n'apparait qu'au clic sur la bulle : son code part dans un fragment
+// separe au lieu d'etre paye par tous les visiteurs au premier rendu.
+// (ssr: false est interdit depuis un Server Component avec l'App Router.)
+const AICoachBot = dynamic(() => import('./components/AICoachBot'))
 
 const Footer = dynamic(() => import('./components/Footer'), {
   loading: () => <div className="h-32 bg-black" />,

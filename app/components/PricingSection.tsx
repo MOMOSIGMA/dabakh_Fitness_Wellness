@@ -179,7 +179,7 @@ export default function PricingSection() {
       {/* Halo statique : l'animation en rotation infinie tournait en permanence
           pour un effet invisible, au prix de la batterie sur mobile. */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-500 blur-[150px] rounded-full" />
+        <div className="absolute top-1/4 left-1/4 w-[684px] h-[684px] glow-red" />
       </div>
 
       <div className="container mx-auto max-w-6xl relative z-10">
@@ -303,24 +303,29 @@ export default function PricingSection() {
                   </h4>
                 </div>
 
+                {/* dt et dd doivent etre enfants directs du div qui suit le dl :
+                    les imbriquer plus profond invalide la liste de definitions
+                    et casse la restitution par les lecteurs d'ecran. */}
                 <dl className="px-5 md:px-7 pb-4">
                   {group.rates.map((rate) => (
                     <div
                       key={rate.label}
                       className="flex items-baseline justify-between gap-5 py-3.5 border-b border-white/5 last:border-0"
                     >
-                      <div className="min-w-0">
-                        <dt className="text-white text-sm md:text-base font-semibold leading-snug">
+                      <dt className="min-w-0">
+                        <span className="block text-white text-sm md:text-base font-semibold leading-snug">
                           {rate.label}
-                        </dt>
-                        <dd className="text-gray-400 text-xs mt-1 leading-snug">{rate.detail}</dd>
-                      </div>
-                      <div className="shrink-0 text-right">
+                        </span>
+                        <span className="block text-gray-400 text-xs mt-1 leading-snug">
+                          {rate.detail}
+                        </span>
+                      </dt>
+                      <dd className="shrink-0 text-right m-0">
                         <span className="text-red-500 font-black text-base md:text-lg tabular-nums">
                           {rate.price}
                         </span>
                         <span className="text-gray-400 text-[11px] ml-1">FCFA</span>
-                      </div>
+                      </dd>
                     </div>
                   ))}
                 </dl>

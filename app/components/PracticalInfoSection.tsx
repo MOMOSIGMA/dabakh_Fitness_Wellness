@@ -8,21 +8,21 @@ export default function PracticalInfoSection() {
   const rules = [
     {
       icon: CheckCircle,
-      title: '🧼 Hygiène',
+      title: 'Hygiène',
       description: 'Le port de la serviette est rigoureusement obligatoire sur le plateau.',
-      color: 'from-blue-600 to-blue-700',
+      color: 'from-red-500 to-red-700',
     },
     {
       icon: Footprints,
-      title: '👟 Chaussures',
-      description: 'Les chaussures venant de l&apos;extérieur sont interdites sur les tapis et le plateau technique.',
-      color: 'from-green-500 to-emerald-500',
+      title: 'Chaussures',
+      description: 'Les chaussures venant de l’extérieur sont interdites sur les tapis et le plateau technique.',
+      color: 'from-red-600 to-red-800',
     },
     {
       icon: Shirt,
-      title: '👕 Tenue Appropriée',
+      title: 'Tenue appropriée',
       description: 'Tenue de sport correcte exigée à tout moment.',
-      color: 'from-purple-500 to-pink-500',
+      color: 'from-red-400 to-red-600',
     },
   ]
 
@@ -30,18 +30,8 @@ export default function PracticalInfoSection() {
     <section id="infos-pratiques" className="py-24 px-4 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
       {/* Background Effect */}
       <div className="absolute inset-0 opacity-5">
-        <motion.div
-          animate={{
-            scale: [1, 1.1, 1],
-            rotate: [0, -90, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-500 blur-[150px] rounded-full"
-        />
+        {/* Halo fige : meme raison, a 5 % d'opacite l'animation etait invisible. */}
+        <div className="absolute bottom-1/4 right-1/4 w-[684px] h-[684px] glow-red" />
       </div>
 
       <div className="container mx-auto max-w-7xl relative z-10">

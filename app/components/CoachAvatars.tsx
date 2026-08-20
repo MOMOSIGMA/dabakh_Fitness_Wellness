@@ -55,8 +55,8 @@ export default function CoachAvatars() {
     <section id="coachs" className="py-16 px-4 bg-black relative overflow-hidden">
       {/* Halo de fond discret */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
-        <div className="absolute top-1/2 left-1/4 w-72 h-72 bg-red-500 blur-[120px] rounded-full" />
-        <div className="absolute top-1/2 right-1/4 w-72 h-72 bg-red-700 blur-[120px] rounded-full" />
+        <div className="absolute top-1/2 left-1/4 w-[520px] h-[520px] -translate-x-1/4 glow-red" />
+        <div className="absolute top-1/2 right-1/4 w-[520px] h-[520px] translate-x-1/4 glow-red-deep" />
       </div>
 
       <div className="container mx-auto max-w-6xl relative z-10">

@@ -9,42 +9,42 @@ export default function GallerySection() {
   // 📸 IMAGES MODÈLES - Remplacer par vos vraies photos de Dabakh Fitness
   const galleryItems = [
     {
-      title: '🏋️ Zone Musculation',
+      title: 'Zone Musculation',
       description: 'Machines et poids libres professionnels',
       image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80&fit=crop',
       span: 'md:col-span-2 md:row-span-2',
       // 📸 À PRENDRE: Vue large de la salle avec tous les équipements visibles
     },
     {
-      title: '🥊 Espace Boxe',
+      title: 'Espace Boxe',
       description: 'Sacs de frappe et ring',
       image: 'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=1200&q=80&fit=crop',
       span: 'md:col-span-1 md:row-span-1',
       // 📸 À PRENDRE: Zone boxe avec sacs de frappe, angle dynamique
     },
     {
-      title: '💪 Cours Collectifs',
+      title: 'Cours Collectifs',
       description: 'Séances en groupe et coaching',
       image: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1200&q=80&fit=crop',
       span: 'md:col-span-1 md:row-span-1',
       // 📸 À PRENDRE: Groupe de membres pendant un cours (flouter visages si nécessaire)
     },
     {
-      title: '🏃 Espace Cardio',
+      title: 'Espace Cardio',
       description: 'Tapis de course et vélos',
       image: 'https://images.unsplash.com/photo-1576678927484-cc907957088c?w=1200&q=80&fit=crop',
       span: 'md:col-span-1 md:row-span-1',
       // 📸 À PRENDRE: Rangée de machines cardio (tapis, vélos, etc.)
     },
     {
-      title: '🚿 Vestiaires Premium',
+      title: 'Vestiaires Premium',
       description: 'Douches et casiers modernes',
       image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1200&q=80&fit=crop',
       span: 'md:col-span-1 md:row-span-1',
       // 📸 À PRENDRE: Vestiaires propres et ordonnés (quand vides de préférence)
     },
     {
-      title: '🧘 Zone Stretching',
+      title: 'Zone Stretching',
       description: 'Espace détente et étirements',
       image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200&q=80&fit=crop',
       span: 'md:col-span-2 md:row-span-1',
@@ -56,18 +56,10 @@ export default function GallerySection() {
     <section className="py-24 px-4 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
       {/* Background Effect */}
       <div className="absolute inset-0 opacity-10">
-        <motion.div
-          animate={{
-            scale: [1, 1.1, 1],
-            rotate: [0, 45, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="absolute top-1/2 left-1/2 w-[500px] h-[500px] bg-red-500 blur-[120px] rounded-full transform -translate-x-1/2 -translate-y-1/2"
-        />
+        {/* Halo fige : anime, il tournait en boucle a 10 % d'opacite derriere
+            un flou de 120 px, donc sans effet visible, en occupant le processeur
+            en permanence. */}
+        <div className="absolute top-1/2 left-1/2 w-[740px] h-[740px] -translate-x-1/2 -translate-y-1/2 glow-red" />
       </div>
 
       <div className="container mx-auto max-w-7xl relative z-10">
