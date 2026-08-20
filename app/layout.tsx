@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     description: 'La meilleure salle de sport de Dakar. Musculation, boxe, cardio avec coaching IA. 500+ membres satisfaits.',
     images: [
       {
-        url: 'https://dabakh-fitness-wellness.vercel.app/images/logo-dabakh.png',
+        url: 'https://dabakh-fitness-wellness.vercel.app/images/og-dabakh.jpg',
         width: 1200,
         height: 630,
         alt: 'Dabakh Fitness Wellness Club - Salle de Sport Dakar',
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Dabakh Fitness - Salle de Sport Premium à Dakar',
     description: 'Rejoignez 500+ membres à Dabakh Fitness. Musculation, boxe, cardio avec coaching IA.',
-    images: ['https://dabakh-fitness-wellness.vercel.app/images/logo-dabakh.png'],
+    images: ['https://dabakh-fitness-wellness.vercel.app/images/og-dabakh.jpg'],
     creator: '@dabakhfitness1',
   },
   icons: {
@@ -125,6 +125,26 @@ export default function RootLayout({
                 'https://www.instagram.com/dabakh_fitnesswellnessclub?igsh=MWQ4NWk2d21kMWN6eQ=='
               ],
               hasMap: 'https://maps.app.goo.gl/BAVYB8i4dUwGWnss7',
+              openingHoursSpecification: [
+                {
+                  '@type': 'OpeningHoursSpecification',
+                  dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                  opens: '07:00',
+                  closes: '22:30',
+                },
+                {
+                  '@type': 'OpeningHoursSpecification',
+                  dayOfWeek: 'Saturday',
+                  opens: '09:00',
+                  closes: '21:00',
+                },
+                {
+                  '@type': 'OpeningHoursSpecification',
+                  dayOfWeek: 'Sunday',
+                  opens: '10:00',
+                  closes: '15:00',
+                },
+              ],
               geo: {
                 '@type': 'GeoCoordinates',
                 latitude: '14.7234638',
@@ -165,6 +185,67 @@ export default function RootLayout({
                 telephone: '+221775323725',
                 availableLanguage: ['fr', 'en']
               }
+            }),
+          }}
+        />
+
+        {/* FAQ Schema - questions reellement posees au coach IA */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: [
+                {
+                  '@type': 'Question',
+                  name: 'La premiere seance est-elle gratuite ?',
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: "Non. La seance decouverte coute 2 000 FCFA et donne acces a l'ensemble de la salle pour la journee.",
+                  },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'Quels sont les horaires de la salle ?',
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: 'Du lundi au vendredi de 07h00 a 22h30, le samedi de 09h00 a 21h00 et le dimanche de 10h00 a 15h00.',
+                  },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'Combien coute un abonnement ?',
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: "La mensualite musculation et cardio est a 20 000 FCFA, avec 5 000 FCFA d'inscription. Des packs de 3, 6 et 12 mois sont disponibles a partir de 45 000 FCFA.",
+                  },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'Ou se trouve Dabakh Fitness Wellness Club ?',
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: 'A Sacre Coeur 3, VDN Villa 16, derriere la residence Mamoune, a Dakar au Senegal.',
+                  },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'Y a-t-il un engagement de duree ?',
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: "Non, aucun engagement de longue duree. L'abonnement peut etre arrete a tout moment.",
+                  },
+                },
+                {
+                  '@type': 'Question',
+                  name: 'Proposez-vous des cours de boxe et de taekwondo ?',
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: 'Oui, pour les enfants a 15 000 FCFA par mois et pour les adultes a 20 000 FCFA par mois, avec un coaching technique assure par des coachs certifies.',
+                  },
+                },
+              ],
             }),
           }}
         />

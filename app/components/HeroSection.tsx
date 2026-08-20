@@ -28,7 +28,7 @@ export default function HeroSection() {
       {/* Background Image Optimized */}
       <Image
         src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=50&fit=crop&auto=format"
-        alt="Fitness Background"
+        alt="Salle de musculation Dabakh Fitness Wellness Club a Sacre Coeur 3, Dakar"
         fill
         priority
         quality={50}
