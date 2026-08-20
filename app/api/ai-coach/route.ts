@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions'
 
+// Groq decommissionne ses modeles regulierement. Surchargeable par variable
+// d'environnement pour en changer sans toucher au code.
+const GROQ_MODEL = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile'
+
 // Garde-fous : la route est publique et facturee a l appel.
 const MAX_MESSAGE_LENGTH = 500
 const MAX_HISTORY_MESSAGES = 10
@@ -253,7 +257,7 @@ INSTRUCTIONS CRITIQUES:
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
+        model: GROQ_MODEL,
         messages,
         temperature: 0.7,
         max_tokens: 500,
@@ -262,22 +266,47 @@ INSTRUCTIONS CRITIQUES:
 
     if (!groqResponse.ok) {
       const errorText = await groqResponse.text()
-      console.error('Groq API Error:', groqResponse.status, errorText)
-      
-      // Friendly error messages
-      let friendlyMessage = ''
-      
-      if (groqResponse.status === 429 || groqResponse.status === 400) {
-        // Token limit or rate limit exceeded
-        friendlyMessage = '🤔 Je suis un peu fatigué en ce moment! L\'API Groq atteint sa limite. Réessaye dans quelques secondes. Les vrais coachs de Dabakh Fitness sont toujours là pour toi! Contacte-les sur WhatsApp. 💪'
-      } else if (groqResponse.status === 401) {
-        friendlyMessage = '❌ Problème d\'authentification avec l\'API. Le coach revient bientôt!'
-      } else if (groqResponse.status === 500) {
-        friendlyMessage = '⚠️ Le serveur Groq a un souci. Réessaye dans 1 minute, ou contacte un vrai coach sur WhatsApp! 📱'
-      } else {
-        friendlyMessage = `❌ Oups! Je n'arrive pas à te répondre. Réessaye ou contacte un coach sur WhatsApp.`
+
+      // Groq expose un code machine exploitable dans error.code
+      let groqCode = ''
+      try {
+        groqCode = JSON.parse(errorText)?.error?.code || ''
+      } catch {
+        groqCode = ''
       }
-      
+
+      console.error(
+        `[ai-coach] Groq ${groqResponse.status}` +
+          (groqCode ? ` code=${groqCode}` : '') +
+          ` model=${GROQ_MODEL} :: ${errorText.slice(0, 400)}`
+      )
+
+      const indispo =
+        'Le coach IA est momentanement indisponible. Contacte un coach sur WhatsApp, il te repondra tout de suite.'
+      let friendlyMessage = indispo
+
+      if (groqResponse.status === 429) {
+        // Quota reellement atteint
+        friendlyMessage =
+          'Je suis tres sollicite en ce moment ! Reessaye dans quelques secondes. Les coachs de Dabakh Fitness restent joignables sur WhatsApp.'
+      } else if (groqResponse.status === 400 || groqResponse.status === 404) {
+        // Presque toujours un modele retire par Groq, PAS un depassement de quota.
+        // Confondre les deux rendait la panne indiagnostiquable.
+        console.error(
+          `[ai-coach] Verifier que le modele "${GROQ_MODEL}" existe encore. ` +
+            'Lister les modeles : curl -s https://api.groq.com/openai/v1/models ' +
+            '-H "Authorization: Bearer $GROQ_API_KEY"'
+        )
+      } else if (groqResponse.status === 401 || groqResponse.status === 403) {
+        console.error(
+          "[ai-coach] Cle GROQ_API_KEY invalide, revoquee, ou absente de l'environnement. " +
+            'Sur Vercel, un redeploiement est necessaire apres avoir ajoute ou modifie la variable.'
+        )
+      } else if (groqResponse.status >= 500) {
+        friendlyMessage =
+          'Le service est momentanement perturbe. Reessaye dans une minute, ou contacte un coach sur WhatsApp.'
+      }
+
       return NextResponse.json(
         { message: friendlyMessage },
         { status: groqResponse.status || 502 }

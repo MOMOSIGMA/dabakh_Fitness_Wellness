@@ -4,58 +4,56 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Check, Zap, Star, Crown } from 'lucide-react'
 
+type Plan = {
+  name: string
+  price: string
+  period: string
+  icon: typeof Star
+  features: string[]
+  cta: string
+  popular: boolean
+}
+
+type Rate = {
+  label: string
+  detail: string
+  price: string
+}
+
+type RateGroup = {
+  title: string
+  rates: Rate[]
+}
+
 export default function PricingSection() {
   const [loadingIndex, setLoadingIndex] = useState<number | null>(null)
 
-  const handleSubscribe = async (planName: string, price: string, features: string[]) => {
-    setLoadingIndex(plans.findIndex(p => p.name === planName))
-    try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          planName,
-          price,
-          features
-        }),
-      })
-
-      const data = await response.json()
-      if (data.whatsappLink) {
-        window.open(data.whatsappLink, '_blank')
-      }
-    } catch (error) {
-      console.error('Subscribe error:', error)
-    } finally {
-      setLoadingIndex(null)
-    }
-  }
-  const plans = [
+  // TODO CLIENT : faire valider cette grille. Elle diverge aujourd'hui de celle
+  // utilisee par le bot IA (le Pack Starter y est absent, le Pack VIP y figure).
+  const plans: Plan[] = [
     {
-      name: 'PACK STARTER',
+      name: 'Starter',
       price: '25 000',
-      period: 'FCFA / 1er mois',
+      period: 'FCFA · 1er mois',
       icon: Star,
-      gradient: 'from-green-600 to-green-800',
       features: [
-        'Inscription incluse (5 000F)',
-        'Mensualité 1 mois (20 000F)',
+        'Inscription incluse (5 000 F)',
+        'Mensualité 1 mois (20 000 F)',
         'Accès complet salle',
         'Tous les équipements',
-        'Vestiaires & Douches',
+        'Vestiaires & douches',
       ],
       cta: 'Commencer',
       popular: false,
     },
     {
-      name: 'PACK SILVER',
+      name: 'Silver',
       price: '45 000',
-      period: 'FCFA / 3 mois',
+      period: 'FCFA · 3 mois',
       icon: Star,
-      gradient: 'from-blue-600 to-blue-800',
       features: [
         'Accès complet salle',
-        'Vestiaires & Douches',
+        'Vestiaires & douches',
         'Tous les équipements',
         'Valide 3 mois',
       ],
@@ -63,13 +61,12 @@ export default function PricingSection() {
       popular: false,
     },
     {
-      name: 'PACK GOLD',
+      name: 'Gold',
       price: '100 000',
-      period: 'FCFA / 6 mois',
+      period: 'FCFA · 6 mois',
       icon: Zap,
-      gradient: 'from-red-500 to-red-700',
       features: [
-        '✨ Accès illimité',
+        'Accès illimité',
         'Tous les équipements',
         '2 massages offerts',
         'Valide 6 mois',
@@ -79,13 +76,12 @@ export default function PricingSection() {
       popular: true,
     },
     {
-      name: 'PACK PREMIUM',
+      name: 'Premium',
       price: '150 000',
-      period: 'FCFA / 12 mois',
+      period: 'FCFA · 12 mois',
       icon: Crown,
-      gradient: 'from-purple-600 to-purple-800',
       features: [
-        '👑 Abonnement annuel',
+        'Abonnement annuel',
         '5 massages inclus',
         'Serviette Dabakh offerte',
         'Accès à tous les services',
@@ -96,31 +92,103 @@ export default function PricingSection() {
     },
   ]
 
+  // Les onze cartes secondaires precedentes, regroupees en grille tarifaire :
+  // une liste de prix se lit mieux qu'une pile de cartes, surtout sur mobile.
+  const rateGroups: RateGroup[] = [
+    {
+      title: 'Accès & cours',
+      rates: [
+        {
+          label: 'Séance journalière',
+          detail: 'Accès illimité pendant 1 jour',
+          price: '2 000',
+        },
+        {
+          label: 'Boxe / Taekwondo — Enfant',
+          detail: 'Mensualité · inscription 5 000 FCFA',
+          price: '15 000',
+        },
+        {
+          label: 'Boxe / Taekwondo — Adulte',
+          detail: 'Mensualité · inscription 5 000 FCFA',
+          price: '20 000',
+        },
+      ],
+    },
+    {
+      title: 'Bien-être',
+      rates: [
+        { label: 'Massage dos relaxant', detail: '20 minutes', price: '10 000' },
+        { label: 'Massage tonifiant', detail: '30 minutes', price: '15 000' },
+        { label: 'Massage relaxant doux', detail: '1 heure', price: '20 000' },
+      ],
+    },
+    {
+      title: 'Pack Famille',
+      rates: [
+        { label: 'Famille — 3 personnes', detail: 'Accès complet salle', price: '45 000' },
+        { label: 'Famille — 4 personnes', detail: 'Accès complet salle', price: '60 000' },
+      ],
+    },
+    {
+      title: 'Personal Training',
+      rates: [
+        {
+          label: 'Personal Silver',
+          detail: '16 séances + 1 séance de massage',
+          price: '80 000',
+        },
+        {
+          label: 'Personal Gold',
+          detail: '18 séances + 2 séances de massage',
+          price: '100 000',
+        },
+        {
+          label: 'Personal Premium',
+          detail: '20 séances + serviette + 10 bouteilles d’eau + 5 massages',
+          price: '115 000',
+        },
+      ],
+    },
+  ]
+
+  const handleSubscribe = async (planName: string, price: string, features: string[]) => {
+    setLoadingIndex(plans.findIndex((p) => p.name === planName))
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ planName: `Pack ${planName}`, price, features }),
+      })
+      const data = await response.json()
+      if (data.whatsappLink) {
+        window.open(data.whatsappLink, '_blank')
+      }
+    } catch (error) {
+      console.error('Subscribe error:', error)
+    } finally {
+      setLoadingIndex(null)
+    }
+  }
+
   return (
-    <section id="tarifs" className="py-24 px-4 bg-gradient-to-b from-black to-gray-900 relative overflow-hidden">
-      {/* Background Effect */}
-      <div className="absolute inset-0 opacity-10">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-500 blur-[150px] rounded-full"
-        />
+    <section
+      id="tarifs"
+      className="py-24 px-4 bg-gradient-to-b from-black to-gray-900 relative overflow-hidden"
+    >
+      {/* Halo statique : l'animation en rotation infinie tournait en permanence
+          pour un effet invisible, au prix de la batterie sur mobile. */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-500 blur-[150px] rounded-full" />
       </div>
 
-      <div className="container mx-auto max-w-7xl relative z-10">
+      <div className="container mx-auto max-w-6xl relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
           <span className="inline-block px-4 py-2 glass rounded-full text-sm font-medium uppercase tracking-wider text-red-500 mb-4">
             Nos Tarifs
@@ -129,295 +197,159 @@ export default function PricingSection() {
             Investis Dans Ta <span className="text-stroke italic">Transformation</span>
           </h2>
           <p className="text-white text-lg max-w-2xl mx-auto">
-            Pas d&apos;engagement. Annule quand tu veux. Séance découverte disponible.
-          </p>
-          <p className="text-gray-100 text-sm mt-3">
-            Séance journalière: 2 000 FCFA.
+            Pas d&apos;engagement. Annule quand tu veux. Séance découverte à 2 000 FCFA.
           </p>
         </motion.div>
 
-        {/* Pricing Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 max-w-7xl mx-auto">
+        {/* Abonnements */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-20">
           {plans.map((plan, index) => {
             const Icon = plan.icon
             return (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
+                key={plan.name}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -10 }}
-                className={`relative rounded-3xl overflow-hidden ${
-                  plan.popular ? 'md:scale-110 z-10 shadow-2xl shadow-red-500/40' : ''
+                transition={{ delay: index * 0.08 }}
+                className={`relative rounded-2xl border p-5 md:p-6 flex flex-col ${
+                  plan.popular
+                    ? 'border-red-500/60 bg-red-500/[0.07] ring-1 ring-red-500/20 shadow-xl shadow-red-500/10'
+                    : 'border-white/10 bg-white/[0.03]'
                 }`}
               >
-                {/* Popular Badge */}
                 {plan.popular && (
-                  <div className="absolute top-4 right-4 z-20">
-                    <motion.div
-                      animate={{ rotate: [0, 5, -5, 0] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                      className="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full shadow-xl shadow-red-500/50"
-                    >
-                      🔥 LE PLUS CHOISI
-                    </motion.div>
-                  </div>
+                  <span className="absolute -top-2.5 left-5 px-2.5 py-1 bg-red-500 text-white text-[10px] font-bold uppercase tracking-wider rounded-full">
+                    Le plus choisi
+                  </span>
                 )}
 
-                {/* Card Background */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${plan.gradient} opacity-20`} />
-                
-                {/* Card Content */}
-                <div className="relative glass border-2 border-white/10 p-4 md:p-8 h-full flex flex-col">
-                  {/* Icon */}
-                  <div className={`w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-gradient-to-br ${plan.gradient} flex items-center justify-center mb-2 md:mb-4 border-2 border-white/20`}>
-                    <Icon className="w-5 h-5 md:w-8 md:h-8 text-white" />
-                  </div>
-
-                  {/* Plan Name */}
-                  <h3 className="text-sm md:text-2xl font-black mb-1 md:mb-2">{plan.name}</h3>
-
-                  {/* Price */}
-                  <div className="mb-3 md:mb-6">
-                    <div className="flex items-baseline gap-1">
-                      <span className={`font-black ${
-                        plan.popular ? 'text-3xl md:text-6xl' : 'text-2xl md:text-5xl'
-                      }`}>{plan.price}</span>
-                    </div>
-                    <span className="text-white text-xs md:text-sm font-medium">{plan.period}</span>
-                  </div>
-
-                  {/* Features */}
-                  <ul className="space-y-1 md:space-y-3 mb-4 md:mb-8 flex-grow">
-                    {plan.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-1 md:gap-2">
-                        <Check className="w-3 h-3 md:w-5 md:h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                        <span className="text-white text-xs md:text-sm leading-tight">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* CTA Button */}
-                  <motion.button
-                    onClick={() => handleSubscribe(plan.name, plan.price, plan.features)}
-                    disabled={loadingIndex === index}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`w-full py-2 md:py-4 rounded-lg md:rounded-xl text-xs md:text-base font-bold transition-all ${
-                      plan.popular
-                        ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg shadow-red-600/50'
-                        : 'glass border border-white/20 text-white hover:border-red-500'
-                    } disabled:opacity-50`}
-                  >
-                    {loadingIndex === index ? '⏳ Redirection...' : plan.cta}
-                  </motion.button>
+                <div
+                  className={`w-10 h-10 md:w-11 md:h-11 rounded-xl grid place-items-center border mb-4 ${
+                    plan.popular
+                      ? 'border-red-500/40 bg-red-500/15 text-red-400'
+                      : 'border-white/10 bg-white/5 text-gray-300'
+                  }`}
+                >
+                  <Icon className="w-5 h-5" />
                 </div>
+
+                <h3 className="text-[11px] font-bold uppercase tracking-[0.14em] text-gray-400 mb-2">
+                  Pack {plan.name}
+                </h3>
+
+                <div className="mb-5">
+                  <div className="text-3xl md:text-4xl font-black text-white tabular-nums leading-none">
+                    {plan.price}
+                  </div>
+                  <div className="text-xs text-gray-400 mt-1.5">{plan.period}</div>
+                </div>
+
+                <ul className="space-y-2 mb-6 flex-grow">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2">
+                      <Check
+                        className={`w-4 h-4 flex-shrink-0 mt-0.5 ${
+                          plan.popular ? 'text-red-500' : 'text-gray-500'
+                        }`}
+                      />
+                      <span className="text-gray-200 text-xs md:text-sm leading-snug">
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <button
+                  type="button"
+                  onClick={() => handleSubscribe(plan.name, plan.price, plan.features)}
+                  disabled={loadingIndex === index}
+                  className={`w-full py-3 rounded-xl text-xs md:text-sm font-bold transition-colors disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black ${
+                    plan.popular
+                      ? 'bg-red-500 hover:bg-red-600 text-white'
+                      : 'border border-white/15 text-white hover:border-red-500/60 hover:bg-white/5'
+                  }`}
+                >
+                  {loadingIndex === index ? 'Redirection…' : plan.cta}
+                </button>
               </motion.div>
             )
           })}
         </div>
 
-        {/* Additional Options Section */}
+        {/* Grille tarifaire */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-4xl mx-auto mt-20 pt-12 border-t border-white/10"
+          className="max-w-3xl mx-auto"
         >
-          <h3 className="text-2xl md:text-3xl font-black text-center mb-12">
-            Options <span className="text-stroke italic">Supplémentaires</span>
-          </h3>
-          
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-            {/* Séance journalière */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
-            >
-              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Séance journalière</p>
-              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">2 000 FCFA</p>
-              <p className="text-gray-300 text-xs leading-tight">Accès illimité 1 jour</p>
-            </motion.div>
-
-            {/* Boxe / Taekwondo - Enfant */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
-            >
-              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Boxe / Taekwondo - Enfant</p>
-              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">15 000 FCFA</p>
-              <p className="text-gray-300 text-xs leading-tight">Mensualité enfant</p>
-              <p className="text-gray-300 text-xs leading-tight">Inscription Boxe/Taekwondo: 5 000 FCFA</p>
-            </motion.div>
-
-            {/* Boxe / Taekwondo - Adulte */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
-            >
-              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Boxe / Taekwondo - Adulte</p>
-              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">20 000 FCFA</p>
-              <p className="text-gray-300 text-xs leading-tight">Mensualité adulte</p>
-              <p className="text-gray-300 text-xs leading-tight">Inscription Boxe/Taekwondo: 5 000 FCFA</p>
-            </motion.div>
-
-            {/* Massage Tonifiant */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
-            >
-              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Massage Tonifiant</p>
-              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">15 000 FCFA</p>
-              <p className="text-gray-300 text-xs leading-tight">30 minutes de bien-être</p>
-            </motion.div>
-
-            {/* Massage Relaxant Doux */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
-            >
-              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Massage Relaxant Doux</p>
-              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">20 000 FCFA</p>
-              <p className="text-gray-300 text-xs leading-tight">1h de relaxation</p>
-            </motion.div>
-
-            {/* Massage Dos Relaxant */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
-              whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
-            >
-              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Dos Relaxant</p>
-              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">10 000 FCFA</p>
-              <p className="text-gray-300 text-xs leading-tight">20 minutes</p>
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* Packs Famille */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-4xl mx-auto mt-16 pt-12 border-t border-white/10"
-        >
-          <h3 className="text-2xl md:text-3xl font-black text-center mb-12">
-            Pack <span className="text-stroke italic">Famille</span>
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
-            >
-              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Pack Famille</p>
-              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">45 000 FCFA</p>
-              <p className="text-gray-300 text-xs leading-tight">3 personnes</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
-            >
-              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Pack Famille</p>
-              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">60 000 FCFA</p>
-              <p className="text-gray-300 text-xs leading-tight">4 personnes</p>
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* Personal Training */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-4xl mx-auto mt-16 pt-12 border-t border-white/10"
-        >
-          <h3 className="text-2xl md:text-3xl font-black text-center mb-12">
-            Personal <span className="text-stroke italic">Training</span>
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
-            >
-              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Pack Silver</p>
-              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">80 000 FCFA</p>
-              <p className="text-gray-300 text-xs leading-tight">16 séances + 1 séance de massage</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6"
-            >
-              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Pack Gold</p>
-              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">100 000 FCFA</p>
-              <p className="text-gray-300 text-xs leading-tight">18 séances + 2 séances de massage</p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              whileHover={{ y: -5 }}
-              className="glass border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6 col-span-2 md:col-span-1"
-            >
-              <p className="text-gray-200 text-xs md:text-sm uppercase tracking-wider mb-1 md:mb-2 leading-tight">Pack Premium</p>
-              <p className="text-2xl md:text-3xl font-black text-red-500 mb-1 md:mb-2">115 000 FCFA</p>
-              <p className="text-gray-300 text-xs leading-tight">20 séances + serviette + 10 bouteilles d&apos;eau + 5 séances de massage</p>
-            </motion.div>
-          </div>
-        </motion.div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mt-16"
-        >
-          <div className="glass inline-block px-8 py-4 rounded-2xl">
-            <p className="text-white mb-4">
-              🎁 <span className="text-red-500 font-bold">Offre Spéciale</span> - Séance découverte à 2 000 FCFA.
-            </p>
-            <p className="text-sm text-gray-100">
-              Viens tester nos installations avant de t&apos;engager
+          <div className="text-center mb-8">
+            <h3 className="text-2xl md:text-3xl font-black text-white">Grille tarifaire</h3>
+            <p className="text-gray-400 text-sm mt-2">
+              Cours à l&apos;unité, bien-être, formules famille et coaching individuel
             </p>
           </div>
+
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] overflow-hidden">
+            {rateGroups.map((group, groupIndex) => (
+              <div
+                key={group.title}
+                className={groupIndex > 0 ? 'border-t border-white/10' : undefined}
+              >
+                <div className="px-5 md:px-7 pt-6 pb-3">
+                  <h4 className="text-[11px] font-bold uppercase tracking-[0.16em] text-red-500">
+                    {group.title}
+                  </h4>
+                </div>
+
+                <dl className="px-5 md:px-7 pb-4">
+                  {group.rates.map((rate) => (
+                    <div
+                      key={rate.label}
+                      className="flex items-baseline justify-between gap-5 py-3.5 border-b border-white/5 last:border-0"
+                    >
+                      <div className="min-w-0">
+                        <dt className="text-white text-sm md:text-base font-semibold leading-snug">
+                          {rate.label}
+                        </dt>
+                        <dd className="text-gray-400 text-xs mt-1 leading-snug">{rate.detail}</dd>
+                      </div>
+                      <div className="shrink-0 text-right">
+                        <span className="text-red-500 font-black text-base md:text-lg tabular-nums">
+                          {rate.price}
+                        </span>
+                        <span className="text-gray-400 text-[11px] ml-1">FCFA</span>
+                      </div>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* CTA final */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="max-w-3xl mx-auto mt-10 rounded-2xl border border-red-500/25 bg-red-500/[0.06] p-6 md:p-8 text-center"
+        >
+          <p className="text-white text-lg font-bold mb-1">
+            Séance découverte à <span className="text-red-500">2 000 FCFA</span>
+          </p>
+          <p className="text-gray-300 text-sm mb-5">
+            Viens tester les installations avant de t&apos;engager
+          </p>
+          <a
+            href="https://wa.me/221775323725"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-7 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-full transition-colors"
+          >
+            Réserver ma séance
+          </a>
         </motion.div>
       </div>
     </section>
