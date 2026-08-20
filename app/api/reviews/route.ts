@@ -91,10 +91,12 @@ export async function POST(request: NextRequest) {
     rating: cleanRating,
     comment: cleanComment,
     createdAt: new Date().toISOString(),
-    // Jamais publie directement : un formulaire public sans moderation,
-    // c'est du spam en quelques jours et un risque de propos diffamatoires
-    // affiches sous le nom de la salle.
-    status: 'pending',
+    // Publication immediate, comme sur Google ou le Play Store : pas de compte
+    // a creer, pas d'attente. Le gerant supprime a posteriori si besoin, via
+    // /api/reviews/moderate. Les garde-fous conserves (longueur, refus des
+    // liens, 3 avis/jour/IP) sont invisibles pour un visiteur normal et ne
+    // bloquent que les robots.
+    status: 'approved',
   }
 
   const saved = await saveReview(review)
@@ -107,6 +109,6 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({
     success: true,
-    message: 'Merci ! Ton avis sera publie apres verification.',
+    message: 'Merci ! Ton avis est en ligne.',
   })
 }

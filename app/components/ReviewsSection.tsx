@@ -92,6 +92,9 @@ export default function ReviewsSection() {
         setName('')
         setComment('')
         setRating(5)
+        // L'avis est publie tout de suite : on recharge pour qu'il apparaisse.
+        load()
+        setTimeout(() => setFormOpen(false), 1400)
       } else {
         setFeedback({ ok: false, text: data.error || 'Une erreur est survenue.' })
       }
@@ -309,7 +312,7 @@ export default function ReviewsSection() {
                 </button>
 
                 <p className="text-[11px] text-gray-500 text-center">
-                  Ton avis est relu avant publication.
+                  Ton avis apparaît tout de suite sur le site.
                 </p>
               </form>
             </motion.div>
