@@ -3,7 +3,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { MapPin, Phone, Mail, Instagram, Facebook } from 'lucide-react'
+import { MapPin, Phone, Instagram, Facebook } from 'lucide-react'
 import TikTokIcon from './TikTokIcon'
 
 export default function Footer() {
@@ -57,10 +57,10 @@ export default function Footer() {
                 <Phone className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span className="text-sm">+221 77 532 37 25</span>
               </a>
-              <a href="mailto:contact@dabakhfitness.sn" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-gray-400 hover:text-red-500 transition-colors group">
-                <Mail className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                <span className="text-sm">contact@dabakhfitness.sn</span>
-              </a>
+              {/* Adresse email retiree : contact@dabakhfitness.sn etait une adresse
+                  de demonstration, sur un domaine jamais enregistre. Un lien mailto
+                  vers une boite inexistante fait perdre un contact au lieu d'en
+                  creer un. A remettre quand le nom de domaine definitif sera choisi. */}
             </div>
           </div>
 
