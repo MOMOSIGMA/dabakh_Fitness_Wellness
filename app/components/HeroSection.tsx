@@ -60,7 +60,7 @@ export default function HeroSection() {
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-red-500/30 glass shadow-lg shadow-red-500/10">
             <span className="w-2 h-2 rounded-full bg-red-500" />
             <span className="text-xs font-medium uppercase tracking-widest">
-              Sacré Cœur 3 • Dakar • Note 4.3★
+              Sacré Cœur 3 • Dakar • Note Google 4,3
             </span>
           </span>
           <OpenStatus />
@@ -127,9 +127,9 @@ export default function HeroSection() {
           className="mt-12 md:mt-16 grid grid-cols-3 gap-8 max-w-3xl mx-auto pb-20"
         >
           {[
-            { number: '500+', label: 'Membres Actifs', color: 'text-blue-400' },
-            { number: '4.3★', label: 'Note Google', color: 'text-red-500' },
-            { number: '15+', label: 'Disciplines', color: 'text-blue-500' },
+            { number: '500+', label: 'Membres Actifs', color: 'text-white' },
+            { number: '4,3', label: 'Note Google', color: 'text-red-500' },
+            { number: '15+', label: 'Disciplines', color: 'text-white' },
           ].map((stat, index) => (
             <div
               key={index}

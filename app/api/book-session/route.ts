@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const MANAGER_PHONE = '+221775323725' // ✅ Numéro officiel Dabakh Fitness
+const MANAGER_PHONE = '+221775323725' // Numéro officiel Dabakh Fitness
 
 export async function POST(request: NextRequest) {
   try {

@@ -6,49 +6,49 @@ import { Camera } from 'lucide-react'
 import Image from 'next/image'
 
 export default function GallerySection() {
-  // 📸 IMAGES MODÈLES - Remplacer par vos vraies photos de Dabakh Fitness
+  // IMAGES MODÈLES - Remplacer par vos vraies photos de Dabakh Fitness
   const galleryItems = [
     {
       title: 'Zone Musculation',
       description: 'Machines et poids libres professionnels',
       image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80&fit=crop',
       span: 'md:col-span-2 md:row-span-2',
-      // 📸 À PRENDRE: Vue large de la salle avec tous les équipements visibles
+      // À PRENDRE: Vue large de la salle avec tous les équipements visibles
     },
     {
       title: 'Espace Boxe',
       description: 'Sacs de frappe et ring',
       image: 'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=1200&q=80&fit=crop',
       span: 'md:col-span-1 md:row-span-1',
-      // 📸 À PRENDRE: Zone boxe avec sacs de frappe, angle dynamique
+      // À PRENDRE: Zone boxe avec sacs de frappe, angle dynamique
     },
     {
       title: 'Cours Collectifs',
       description: 'Séances en groupe et coaching',
       image: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1200&q=80&fit=crop',
       span: 'md:col-span-1 md:row-span-1',
-      // 📸 À PRENDRE: Groupe de membres pendant un cours (flouter visages si nécessaire)
+      // À PRENDRE: Groupe de membres pendant un cours (flouter visages si nécessaire)
     },
     {
       title: 'Espace Cardio',
       description: 'Tapis de course et vélos',
       image: 'https://images.unsplash.com/photo-1576678927484-cc907957088c?w=1200&q=80&fit=crop',
       span: 'md:col-span-1 md:row-span-1',
-      // 📸 À PRENDRE: Rangée de machines cardio (tapis, vélos, etc.)
+      // À PRENDRE: Rangée de machines cardio (tapis, vélos, etc.)
     },
     {
       title: 'Vestiaires Premium',
       description: 'Douches et casiers modernes',
       image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1200&q=80&fit=crop',
       span: 'md:col-span-1 md:row-span-1',
-      // 📸 À PRENDRE: Vestiaires propres et ordonnés (quand vides de préférence)
+      // À PRENDRE: Vestiaires propres et ordonnés (quand vides de préférence)
     },
     {
       title: 'Zone Stretching',
       description: 'Espace détente et étirements',
       image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200&q=80&fit=crop',
       span: 'md:col-span-2 md:row-span-1',
-      // 📸 À PRENDRE: Espace avec tapis de sol, ballons, foam rollers
+      // À PRENDRE: Espace avec tapis de sol, ballons, foam rollers
     },
   ]
 
@@ -148,7 +148,7 @@ export default function GallerySection() {
         >
           <div className="glass inline-block px-8 py-6 rounded-2xl border border-red-500/30">
             <p className="text-white text-lg mb-2">
-              📸 <span className="text-red-500 font-bold">Bientôt les vraies photos</span> de notre salle !
+              <span className="text-red-500 font-bold">Bientôt les vraies photos</span> de notre salle !
             </p>
             <p className="text-gray-200 text-sm">
               Ces images te donnent une idée du type d&apos;équipements et d&apos;ambiance que tu trouveras chez Dabakh

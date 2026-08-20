@@ -19,7 +19,7 @@ export default function AICoachBot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: '🤖 Salut ! Je suis Dabakh AI Coach, ton assistant personnel ! 💪\n\nJe peux t\'aider sur:\n• 💰 Tarifs et packs\n• ⏰ Horaires\n• 📍 Localisation\n• 🏋️ Programmes personnalisés\n• 🥗 Conseils nutrition\n• 💆 Services de massages\n\nTu peux me poser n\'importe quelle question ! 🎯'
+      content: 'Salut ! Je suis le coach IA de Dabakh Fitness.\n\nJe peux t\'aider sur:\n• Tarifs et packs\n• Horaires\n• Localisation\n• Programmes personnalisés\n• Conseils nutrition\n• Services de massage\n\nTu peux me poser n\'importe quelle question.'
     }
   ])
   const [input, setInput] = useState('')
@@ -170,7 +170,7 @@ export default function AICoachBot() {
     } catch (error) {
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: '❌ Désolé, une erreur s\'est produite. Réessaye plus tard.' 
+        content: 'Désolé, une erreur s\'est produite. Réessaye plus tard.' 
       }])
     } finally {
       setIsLoading(false)
@@ -213,12 +213,7 @@ export default function AICoachBot() {
             aria-label="Ouvrir le coach IA"
             className="fixed bottom-24 right-6 w-16 h-16 rounded-full bg-gradient-to-r from-red-500 to-red-600 shadow-2xl shadow-red-500/50 flex items-center justify-center z-[100] hover:shadow-lg hover:shadow-red-600/70 transition-all"
           >
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-            >
-              <Bot className="w-8 h-8 text-white" />
-            </motion.div>
+            <Bot className="w-8 h-8 text-white" />
           </motion.button>
         )}
       </AnimatePresence>
@@ -287,15 +282,15 @@ export default function AICoachBot() {
                       <motion.button
                         onClick={() => {
                           const messageText = encodeURIComponent(
-                            "👋 Salut! Je veux profiter de l'offre spéciale et commencer mes entraînements chez Dabakh Fitness! 💪"
+                            "Bonjour, je souhaite profiter de l'offre et commencer mes entraînements chez Dabakh Fitness."
                           )
                           window.open(`https://wa.me/221775323725?text=${messageText}`, '_blank')
                         }}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="mt-3 w-full px-3 py-1.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded text-xs font-bold hover:shadow-lg transition-all"
+                        className="mt-3 w-full px-3 py-1.5 bg-green-700 hover:bg-green-800 text-white rounded text-xs font-bold transition-colors"
                       >
-                        📱 Réserver via WhatsApp
+                        Réserver via WhatsApp
                       </motion.button>
                     )}
                   </div>
@@ -330,24 +325,24 @@ export default function AICoachBot() {
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-300 rounded-lg p-3 mt-2"
+                  className="bg-neutral-100 border border-neutral-300 rounded-lg p-3 mt-2"
                 >
-                  <p className="text-xs font-bold text-purple-700 mb-2">🚀 Je ne suis qu&apos;une IA...</p>
-                  <p className="text-xs text-purple-600 mb-3">
-                    Pour voir tes <span className="font-bold text-red-500">VRAIS résultats</span>, il faut passer à l&apos;action!
+                  <p className="text-xs font-bold text-neutral-800 mb-2">Passe à la pratique</p>
+                  <p className="text-xs text-neutral-600 mb-3">
+                    Les conseils, c&apos;est un début. Viens tester la salle pour la suite.
                   </p>
                   <motion.button
                     onClick={async () => {
                       const message = encodeURIComponent(
-                        `👋 Salut! Je suis prêt à passer à l\'action chez Dabakh Fitness! 💪 Je voudrais commencer mes entraînements.`
+                        `Bonjour, je souhaite commencer mes entraînements chez Dabakh Fitness. Contact depuis l\'action chez Dabakh Fitness! Je voudrais commencer mes entraînements.`
                       )
                       window.open(`https://wa.me/221775323725?text=${message}`, '_blank')
                     }}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full px-3 py-1.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded text-xs font-bold hover:shadow-lg transition-all"
+                    className="w-full px-3 py-1.5 bg-green-700 hover:bg-green-800 text-white rounded text-xs font-bold transition-colors"
                   >
-                    📱 WhatsApp
+                    Contacter sur WhatsApp
                   </motion.button>
                 </motion.div>
               )}

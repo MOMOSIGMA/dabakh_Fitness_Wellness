@@ -119,7 +119,7 @@ export const DABAKH_KNOWLEDGE_BASE = {
         periode: "6 mois",
         populaire: true,
         avantages: [
-          "✨ Accès illimité",
+          "Accès illimité",
           "Tous les équipements",
           "2 massages offerts",
           "Valide 6 mois",
@@ -145,7 +145,7 @@ export const DABAKH_KNOWLEDGE_BASE = {
         devise: "FCFA",
         periode: "12 mois",
         avantages: [
-          "🏆 Statut VIP Premium",
+          "Statut VIP Premium",
           "5 massages + cadeaux",
           "Serviette premium",
           "Coaching personnalisé illimité",
@@ -218,7 +218,7 @@ export const DABAKH_KNOWLEDGE_BASE = {
   // RÈGLEMENT INTÉRIEUR
   reglement_interieur: {
     hygiene: {
-      titre: "🧼 Hygiène",
+      titre: "Hygiène",
       regles: [
         "Port de la serviette OBLIGATOIRE sur le plateau",
         "Respect du code vestimentaire de la salle",
@@ -227,7 +227,7 @@ export const DABAKH_KNOWLEDGE_BASE = {
     },
 
     chaussures: {
-      titre: "👟 Chaussures",
+      titre: "Chaussures",
       regles: [
         "Chaussures extérieures INTERDITES sur les tapis",
         "Chaussures INTERDITES sur le plateau technique",
@@ -237,7 +237,7 @@ export const DABAKH_KNOWLEDGE_BASE = {
     },
 
     tenue: {
-      titre: "👕 Tenue Appropriée",
+      titre: "Tenue Appropriée",
       regles: [
         "Tenue de sport correcte EXIGÉE",
         "Vêtements appropriés et en bon état",
@@ -298,10 +298,10 @@ export const DABAKH_KNOWLEDGE_BASE = {
 
   // PROMPTS DE RÉPONSE
   response_templates: {
-    salutation: "Salut! 👋 Content de t'aider. Qu'est-ce que tu aimerais savoir sur Dabakh Fitness?",
-    horaires: "Nos horaires sont: Lun-Ven 07h-22h30 | Samedi 09h-21h | Dimanche 10h-15h 📅",
-    contact: "Pour plus d'info ou t'inscrire, contacte-nous sur WhatsApp: 📱 +221 77 532 37 25",
-    adresse: "Nous sommes à: Sacré Cœur 3, VDN Villa 16, Dakar 📍 (Derrière la résidence Mamoune)",
+    salutation: "Salut! Content de t'aider. Qu'est-ce que tu aimerais savoir sur Dabakh Fitness?",
+    horaires: "Nos horaires sont: Lun-Ven 07h-22h30 | Samedi 09h-21h | Dimanche 10h-15h ",
+    contact: "Pour plus d'info ou t'inscrire, contacte-nous sur WhatsApp: +221 77 532 37 25",
+    adresse: "Nous sommes à: Sacré Cœur 3, VDN Villa 16, Dakar (Derrière la résidence Mamoune)",
     premiere_seance: "Tu veux essayer? Séance découverte à 2 000 FCFA. Viens découvrir nos installations!",
   },
 

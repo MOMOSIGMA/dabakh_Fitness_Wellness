@@ -120,7 +120,7 @@ export default function PracticalInfoSection() {
             className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold rounded-xl shadow-lg shadow-red-600/50 transition-all hover:scale-105 hover:shadow-xl hover:shadow-red-600/70"
           >
             <MapPin className="w-6 h-6" />
-            <span>Comment venir à Dabakh ? 📍</span>
+            <span>Comment venir à Dabakh ?</span>
           </a>
           <p className="text-gray-300 text-sm mt-4">
             Sacré Cœur 3, VDN Villa 16 (derrière la résidence Mamoune)

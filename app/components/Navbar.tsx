@@ -196,7 +196,7 @@ export default function Navbar() {
                   }}
                   className="mt-4 px-6 py-4 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold rounded-xl text-center w-full shadow-lg shadow-red-500/30 active:scale-95 transition-transform text-lg"
                 >
-                  🔥 Séance Découverte
+                  Séance Découverte
                 </button>
               </div>
             </div>

@@ -51,7 +51,7 @@ export default function Footer() {
             <div className="space-y-3">
               <a href="https://maps.app.goo.gl/BAVYB8i4dUwGWnss7" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-gray-100 hover:text-red-500 transition-colors group">
                 <MapPin className="w-5 h-5 text-red-500 flex-shrink-0" />
-                <span className="text-sm">Sacré Cœur 3 VDN Villa 16, Dakar 📍</span>
+                <span className="text-sm">Sacré Cœur 3 VDN Villa 16, Dakar</span>
               </a>
               <a href="tel:+221775323725" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-gray-400 hover:text-red-500 transition-colors group">
                 <Phone className="w-5 h-5 group-hover:scale-110 transition-transform" />
@@ -133,7 +133,7 @@ export default function Footer() {
               © 2026 Dabakh Fitness Wellness Club. Tous droits réservés.
             </p>
             <p className="text-gray-600 text-xs mt-1">
-              Conçu avec ❤️ à Dakar
+              Dakar, Sénégal
             </p>
           </div>
         </motion.div>
