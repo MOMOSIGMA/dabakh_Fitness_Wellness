@@ -25,6 +25,10 @@ const PracticalInfoSection = dynamic(() => import('./components/PracticalInfoSec
   loading: () => <div className="h-96 bg-black/50" />,
 })
 
+const SouvenirsSection = dynamic(() => import('./components/SouvenirsSection'), {
+  loading: () => <div className="h-96 bg-black/50" />,
+})
+
 const Footer = dynamic(() => import('./components/Footer'), {
   loading: () => <div className="h-32 bg-black" />,
 })
@@ -38,6 +42,7 @@ export default function Home() {
       <PricingSection />
       <PracticalInfoSection />
       <CoachAvatars />
+      <SouvenirsSection />
       <Footer />
       <WhatsAppButton />
        <AICoachBot />

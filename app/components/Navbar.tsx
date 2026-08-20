@@ -3,15 +3,12 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Menu, X, LogIn, User } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { createClient } from '@/lib/supabase/client'
-import { User as SupabaseUser } from '@supabase/supabase-js'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [user, setUser] = useState<SupabaseUser | null>(null)
 
   // Bloquer le scroll du body quand menu ouvert
   useEffect(() => {
@@ -33,33 +30,13 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Fetch user from Supabase
-  useEffect(() => {
-    const checkUser = async () => {
-      const supabase = createClient()
-      const { data: { user: currentUser } } = await supabase.auth.getUser()
-      setUser(currentUser)
-    }
-    
-    checkUser()
-
-    // Subscribe to auth changes
-    const supabase = createClient()
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user || null)
-    })
-
-    return () => {
-      subscription?.unsubscribe()
-    }
-  }, [])
-
   const navLinks = [
     { name: 'Accueil', href: '#hero' },
     { name: 'Disciplines', href: '#disciplines' },
     { name: 'Tarifs', href: '#tarifs' },
     { name: 'AI Coach', href: '#ai-coach', action: 'ai' as const },
     { name: 'Nos Coachs', href: '#coachs' },
+    { name: 'Nos Souvenirs', href: '#souvenirs' },
     { name: 'Infos', href: '#infos-pratiques' },
   ]
 
@@ -128,27 +105,6 @@ export default function Navbar() {
 
           {/* Desktop CTA Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            {user ? (
-              <motion.a
-                href="/account"
-                className="flex items-center gap-2 px-4 py-3 bg-blue-600 text-white font-semibold rounded-full hover:shadow-lg hover:shadow-blue-600/50 transition-all text-sm"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <User className="w-4 h-4" />
-                Mon Compte
-              </motion.a>
-            ) : (
-              <motion.a
-                href="/login"
-                className="flex items-center gap-2 px-4 py-3 bg-gray-700 text-white font-semibold rounded-full hover:shadow-lg hover:shadow-gray-700/50 transition-all text-sm"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <LogIn className="w-4 h-4" />
-                Connexion
-              </motion.a>
-            )}
             <motion.a
               href="#tarifs"
               className="px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold rounded-full hover:shadow-lg hover:shadow-red-500/50 transition-all"
@@ -187,7 +143,7 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden overflow-hidden fixed top-[72px] left-0 right-0 z-50"
+              className="md:hidden overflow-hidden fixed top-[var(--nav-h)] left-0 right-0 z-50"
             >
             <div className="bg-black/95 backdrop-blur-xl border-t border-white/10 shadow-2xl">
               <div className="container mx-auto px-6 py-8 flex flex-col gap-2">
@@ -220,27 +176,6 @@ export default function Navbar() {
                     </span>
                   </button>
                 ))}
-                
-                {/* Account/Login Button for Mobile */}
-                {user ? (
-                  <a
-                    href="/account"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="mt-2 px-4 py-4 rounded-xl text-white font-semibold bg-blue-600/20 border border-blue-500/50 hover:bg-blue-600/30 active:bg-blue-600/40 transition-all text-center flex items-center justify-center gap-2"
-                  >
-                    <User className="w-5 h-5" />
-                    Mon Compte
-                  </a>
-                ) : (
-                  <a
-                    href="/login"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="mt-2 px-4 py-4 rounded-xl text-white font-semibold bg-gray-700/20 border border-gray-500/50 hover:bg-gray-700/30 active:bg-gray-700/40 transition-all text-center flex items-center justify-center gap-2"
-                  >
-                    <LogIn className="w-5 h-5" />
-                    Connexion
-                  </a>
-                )}
                 
                 <button
                   type="button"
