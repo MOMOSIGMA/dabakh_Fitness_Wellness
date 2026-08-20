@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions'
 
+// llama-3.3-70b-versatile a ete retire par Groq : c est ce qui cassait le bot.
 // Groq decommissionne ses modeles regulierement. Surchargeable par variable
 // d'environnement pour en changer sans toucher au code.
-const GROQ_MODEL = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile'
+const GROQ_MODEL = process.env.GROQ_MODEL || 'openai/gpt-oss-120b'
 
 // Garde-fous : la route est publique et facturee a l appel.
 const MAX_MESSAGE_LENGTH = 500
@@ -239,7 +240,12 @@ INSTRUCTIONS CRITIQUES:
 9. Mentionne les Événements & Challenges pour créer de l'engagement communautaire
 10. En cas de question sur les services, fournis les détails complets
 11. Sois enthousiaste à propos de Dabakh Fitness et ses services
-12. Rappelle toujours les horaires si pertinent: Lun-Ven 07h-22h30, Sam 09h-21h, Dim 10h-15h`
+12. FORMAT DE REPONSE : ecris en texte simple. Pas de titres Markdown (###),
+    pas de gras (**), pas de separateurs (---), pas de liens Markdown : ecris
+    les URL en clair. La bulle de chat n'interprete pas le Markdown.
+13. LONGUEUR : 6 phrases maximum, sauf si on te demande explicitement un
+    programme d'entrainement detaille.
+14. Rappelle toujours les horaires si pertinent: Lun-Ven 07h-22h30, Sam 09h-21h, Dim 10h-15h`
 
     const messages: ChatMessage[] = [
       {
@@ -260,7 +266,7 @@ INSTRUCTIONS CRITIQUES:
         model: GROQ_MODEL,
         messages,
         temperature: 0.7,
-        max_tokens: 500,
+        max_tokens: 800,
       }),
     })
 
@@ -317,7 +323,7 @@ INSTRUCTIONS CRITIQUES:
     const assistantMessage = data?.choices?.[0]?.message?.content
 
     // Ajouter CTA après conseils - Transformation en vendeur automatique
-    const messageWithCTA = `${assistantMessage || 'Je suis là pour t\'aider ! Dis-moi ton objectif et ton poids.'}\n\n---\n\n🎯 OFFRE SPÉCIALE : Tu veux des résultats réels ?\n\nCe programme est calculé pour toi, mais pour maximiser ton succès, je te recommande de venir tester nos équipements professionnels à Dabakh Fitness.\n\nRéserve une séance découverte à 2 000 FCFA avec un de nos coachs !\n(Clic sur le bouton ci-dessous)`
+    const messageWithCTA = `${assistantMessage || 'Je suis là pour t\'aider ! Dis-moi ton objectif et ton poids.'}\n\n🎯 OFFRE SPÉCIALE : Tu veux des résultats réels ?\n\nCe programme est calculé pour toi, mais pour maximiser ton succès, je te recommande de venir tester nos équipements professionnels à Dabakh Fitness.\n\nRéserve une séance découverte à 2 000 FCFA avec un de nos coachs !\n(Clic sur le bouton ci-dessous)`
 
     return NextResponse.json({
       message: messageWithCTA,

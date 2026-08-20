@@ -89,11 +89,20 @@ export default function AICoachBot() {
     return () => window.removeEventListener('open-ai-coach', handleOpen as EventListener)
   }, [])
 
+  // La bulle de chat affiche du texte brut : tout Markdown non neutralise
+  // apparait tel quel a l'ecran (### Titre, ---, [texte](url)).
   const formatMessage = (text: string) => {
     return text
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, (_m, label, url) =>
+        label === url ? url : `${label} : ${url}`
+      )
+      .replace(/^\s*#{1,6}\s+/gm, '')
+      .replace(/^\s*([-*_])\1{2,}\s*$/gm, '')
       .replace(/\*\*(.*?)\*\*/g, '$1')
-      .replace(/^\s*[*+-]\s+/gm, '• ')
+      .replace(/^\s*[*+-]\s+/gm, '\u2022 ')
       .replace(/^(\d+)\.\s+/gm, '$1) ')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim()
   }
 
   const renderMessageContent = (text: string) => {
