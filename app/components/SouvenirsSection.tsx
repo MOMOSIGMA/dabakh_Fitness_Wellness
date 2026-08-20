@@ -147,6 +147,7 @@ export default function SouvenirsSection() {
               onClick={() => setActive(null)}
               className="fixed inset-0 bg-black/70 z-[110]"
             />
+            <div className="fixed inset-0 z-[120] flex items-center justify-center modal-shell pointer-events-none">
             <motion.div
               role="dialog"
               aria-modal="true"
@@ -155,7 +156,7 @@ export default function SouvenirsSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 24 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-x-4 top-1/2 -translate-y-1/2 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:max-w-xl max-h-[85vh] overflow-y-auto bg-neutral-950 border border-white/15 rounded-2xl p-6 z-[120] shadow-2xl"
+              className="pointer-events-auto w-full sm:max-w-xl modal-panel overflow-y-auto overscroll-contain bg-neutral-950 border border-white/15 rounded-2xl p-6 shadow-2xl"
             >
               <div className="flex items-start justify-between gap-4 mb-4">
                 <div className="flex items-center gap-3">
@@ -202,6 +203,7 @@ export default function SouvenirsSection() {
                 <p className="sr-only">Aucun média disponible pour ce souvenir.</p>
               )}
             </motion.div>
+            </div>
           </>
         )}
       </AnimatePresence>

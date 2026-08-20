@@ -226,7 +226,7 @@ export default function AICoachBot() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 50 }}
             onClick={(e) => e.stopPropagation()}
-            className="fixed bottom-24 right-6 w-80 sm:w-96 h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col z-[100] overflow-hidden"
+            className="fixed bottom-24 right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-96 chat-panel bg-white rounded-2xl shadow-2xl flex flex-col z-[100] overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-red-500 to-red-600 p-4 flex items-center justify-between">

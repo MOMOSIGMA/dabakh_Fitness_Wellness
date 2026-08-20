@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Star, PenLine, X, ExternalLink } from 'lucide-react'
+import { Star, PenLine, X, ExternalLink, CheckCircle2 } from 'lucide-react'
 
 type Review = {
   id: string
@@ -40,6 +40,7 @@ export default function ReviewsSection() {
   const [comment, setComment] = useState('')
   const [sending, setSending] = useState(false)
   const [feedback, setFeedback] = useState<{ ok: boolean; text: string } | null>(null)
+  const [sent, setSent] = useState(false)
 
   const load = useCallback(async () => {
     try {
@@ -59,6 +60,15 @@ export default function ReviewsSection() {
     load()
   }, [load])
 
+  const closeForm = useCallback(() => {
+    setFormOpen(false)
+    // Laisse l'animation de fermeture se terminer avant de remettre a zero.
+    setTimeout(() => {
+      setSent(false)
+      setFeedback(null)
+    }, 250)
+  }, [])
+
   useEffect(() => {
     document.body.style.overflow = formOpen ? 'hidden' : ''
     return () => {
@@ -68,11 +78,11 @@ export default function ReviewsSection() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setFormOpen(false)
+      if (e.key === 'Escape') closeForm()
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [])
+  }, [closeForm])
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -88,13 +98,14 @@ export default function ReviewsSection() {
       const data = await res.json()
 
       if (res.ok) {
-        setFeedback({ ok: true, text: data.message || 'Merci pour ton avis !' })
+        // Le formulaire disparait au profit d'une confirmation explicite :
+        // un message fugace de 1,4 seconde passait inapercu, et l'utilisateur
+        // renvoyait son avis sans savoir que le premier etait deja parti.
+        setSent(true)
         setName('')
         setComment('')
         setRating(5)
-        // L'avis est publie tout de suite : on recharge pour qu'il apparaisse.
         load()
-        setTimeout(() => setFormOpen(false), 1400)
       } else {
         setFeedback({ ok: false, text: data.error || 'Une erreur est survenue.' })
       }
@@ -203,9 +214,10 @@ export default function ReviewsSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setFormOpen(false)}
+              onClick={closeForm}
               className="fixed inset-0 bg-black/70 z-[110]"
             />
+            <div className="fixed inset-0 z-[120] flex items-center justify-center modal-shell pointer-events-none">
             <motion.div
               role="dialog"
               aria-modal="true"
@@ -214,13 +226,15 @@ export default function ReviewsSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 24 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-x-4 top-1/2 -translate-y-1/2 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:max-w-md max-h-[85vh] overflow-y-auto bg-neutral-950 border border-white/15 rounded-2xl p-6 z-[120] shadow-2xl"
+              className="pointer-events-auto w-full sm:max-w-md modal-panel overflow-y-auto overscroll-contain bg-neutral-950 border border-white/15 rounded-2xl p-6 shadow-2xl"
             >
               <div className="flex items-start justify-between gap-4 mb-5">
-                <h3 className="text-xl font-black text-white">Ton avis</h3>
+                <h3 className="text-xl font-black text-white">
+                  {sent ? 'Avis publié' : 'Ton avis'}
+                </h3>
                 <button
                   type="button"
-                  onClick={() => setFormOpen(false)}
+                  onClick={closeForm}
                   aria-label="Fermer"
                   className="p-2 -m-2 text-gray-400 hover:text-white transition-colors"
                 >
@@ -228,6 +242,22 @@ export default function ReviewsSection() {
                 </button>
               </div>
 
+              {sent ? (
+                <div className="text-center py-4">
+                  <CheckCircle2 className="w-14 h-14 text-green-500 mx-auto mb-4" strokeWidth={1.5} />
+                  <p className="text-white font-bold text-lg mb-2">Merci !</p>
+                  <p className="text-gray-300 text-sm mb-6">
+                    Ton avis est en ligne. Il apparaît dès maintenant sur le site.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={closeForm}
+                    className="w-full py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-bold transition-colors"
+                  >
+                    Voir les avis
+                  </button>
+                </div>
+              ) : (
               <form onSubmit={submit} className="space-y-4">
                 <div>
                   <label htmlFor="review-name" className="block text-xs uppercase tracking-wider text-gray-400 mb-2">
@@ -315,7 +345,9 @@ export default function ReviewsSection() {
                   Ton avis apparaît tout de suite sur le site.
                 </p>
               </form>
+              )}
             </motion.div>
+            </div>
           </>
         )}
       </AnimatePresence>

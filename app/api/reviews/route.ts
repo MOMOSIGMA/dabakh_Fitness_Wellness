@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
       '[reviews] UPSTASH_REDIS_REST_URL et UPSTASH_REDIS_REST_TOKEN absents de l environnement.'
     )
     return NextResponse.json(
-      { error: 'Les avis ne sont pas encore actifs. Reviens bientot !' },
+      { error: 'Les avis ne sont pas encore actifs. Reviens bientôt !' },
       { status: 503 }
     )
   }
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
 
   if (!(await isSubmissionAllowed(ip))) {
     return NextResponse.json(
-      { error: 'Tu as deja laisse plusieurs avis aujourd hui. Merci !' },
+      { error: 'Tu as déjà laissé plusieurs avis aujourd’hui. Merci !' },
       { status: 429 }
     )
   }
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
   try {
     body = await request.json()
   } catch {
-    return NextResponse.json({ error: 'Requete invalide.' }, { status: 400 })
+    return NextResponse.json({ error: 'Requête invalide.' }, { status: 400 })
   }
 
   const { name, rating, comment } = (body ?? {}) as Record<string, unknown>
@@ -61,18 +61,18 @@ export async function POST(request: NextRequest) {
 
   if (cleanName.length < NAME_MIN || cleanName.length > NAME_MAX) {
     return NextResponse.json(
-      { error: `Ton nom doit faire entre ${NAME_MIN} et ${NAME_MAX} caracteres.` },
+      { error: `Ton prénom doit faire entre ${NAME_MIN} et ${NAME_MAX} caractères.` },
       { status: 400 }
     )
   }
 
   if (!Number.isInteger(cleanRating) || cleanRating < 1 || cleanRating > 5) {
-    return NextResponse.json({ error: 'Choisis une note de 1 a 5 etoiles.' }, { status: 400 })
+    return NextResponse.json({ error: 'Choisis une note de 1 à 5 étoiles.' }, { status: 400 })
   }
 
   if (cleanComment.length < COMMENT_MIN || cleanComment.length > COMMENT_MAX) {
     return NextResponse.json(
-      { error: `Ton avis doit faire entre ${COMMENT_MIN} et ${COMMENT_MAX} caracteres.` },
+      { error: `Ton avis doit faire entre ${COMMENT_MIN} et ${COMMENT_MAX} caractères.` },
       { status: 400 }
     )
   }
@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
   // Un lien dans un avis de salle de sport est un signal de spam quasi certain.
   if (/https?:\/\/|www\.|\[url|<a\s/i.test(cleanComment)) {
     return NextResponse.json(
-      { error: 'Les liens ne sont pas acceptes dans les avis.' },
+      { error: 'Les liens ne sont pas acceptés dans les avis.' },
       { status: 400 }
     )
   }
@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
   const saved = await saveReview(review)
   if (!saved) {
     return NextResponse.json(
-      { error: 'Impossible d enregistrer ton avis pour le moment. Reessaye plus tard.' },
+      { error: 'Impossible d’enregistrer ton avis pour le moment. Réessaye plus tard.' },
       { status: 502 }
     )
   }

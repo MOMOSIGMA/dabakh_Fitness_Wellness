@@ -24,28 +24,28 @@ export default function CoachAvatars() {
       specialty: 'Fitness & Musculation',
       image: '/images/coach-babacar.jpeg',
       description:
-        'Accompagne les debutants comme les pratiquants confirmes sur le plateau musculation et les seances de fitness.',
+        'Accompagne les débutants comme les pratiquants confirmés sur le plateau musculation et les séances de fitness.',
     },
     {
       name: 'Achille',
       specialty: 'Musculation & Grit Force',
       image: '/images/coach-achille.jpeg',
       description:
-        'Specialiste du travail de force et des programmes de prise de masse, avec un suivi technique sur chaque mouvement.',
+        'Spécialiste du travail de force et des programmes de prise de masse, avec un suivi technique sur chaque mouvement.',
     },
     {
       name: 'Top',
       specialty: 'Circuit Training & Cardio',
       image: '/images/coach-top.jpeg',
       description:
-        'Anime les seances de circuit training et de cardio intensif, orientees endurance et perte de poids.',
+        'Anime les séances de circuit training et de cardio intensif, orientées endurance et perte de poids.',
     },
     {
       name: 'Lamine Bara Diouf',
       specialty: 'Fitness & Personal Training',
       image: '/images/coach-lamine.jpeg',
       description:
-        'Construit des programmes sur mesure en coaching individuel, adaptes a l objectif et au rythme de chacun.',
+        'Construit des programmes sur mesure en coaching individuel, adaptés à l’objectif et au rythme de chacun.',
     },
   ]
 
@@ -65,7 +65,7 @@ export default function CoachAvatars() {
             Nos Coachs <span className="text-red-500">Experts</span>
           </h2>
           <p className="text-gray-300 text-sm md:text-base">
-            Une equipe de specialistes pour t accompagner sur chaque discipline
+            Une équipe de spécialistes pour t’accompagner sur chaque discipline
           </p>
         </div>
 

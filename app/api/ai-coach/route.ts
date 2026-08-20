@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           message:
-            'Tu vas un peu vite ! Laisse-moi souffler quelques secondes, puis reessaye. Pour une reponse immediate, un vrai coach est dispo sur WhatsApp.',
+            'Tu vas un peu vite ! Laisse-moi souffler quelques secondes, puis réessaye. Pour une réponse immédiate, un coach est joignable sur WhatsApp.',
         },
         { status: 429 }
       )
@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
 
     if (typeof rawMessage !== 'string' || rawMessage.trim().length === 0) {
       return NextResponse.json(
-        { message: 'Ecris-moi ta question et je te reponds !' },
+        { message: 'Écris-moi ta question et je te réponds.' },
         { status: 400 }
       )
     }
@@ -290,13 +290,13 @@ INSTRUCTIONS CRITIQUES:
       )
 
       const indispo =
-        'Le coach IA est momentanement indisponible. Contacte un coach sur WhatsApp, il te repondra tout de suite.'
+        'Le coach IA est momentanément indisponible. Contacte un coach sur WhatsApp, il te répondra tout de suite.'
       let friendlyMessage = indispo
 
       if (groqResponse.status === 429) {
         // Quota reellement atteint
         friendlyMessage =
-          'Je suis tres sollicite en ce moment ! Reessaye dans quelques secondes. Les coachs de Dabakh Fitness restent joignables sur WhatsApp.'
+          'Je suis très sollicité en ce moment. Réessaye dans quelques secondes, ou contacte directement un coach sur WhatsApp.'
       } else if (groqResponse.status === 400 || groqResponse.status === 404) {
         // Presque toujours un modele retire par Groq, PAS un depassement de quota.
         // Confondre les deux rendait la panne indiagnostiquable.
@@ -312,7 +312,7 @@ INSTRUCTIONS CRITIQUES:
         )
       } else if (groqResponse.status >= 500) {
         friendlyMessage =
-          'Le service est momentanement perturbe. Reessaye dans une minute, ou contacte un coach sur WhatsApp.'
+          'Le service est momentanément perturbé. Réessaye dans une minute, ou contacte un coach sur WhatsApp.'
       }
 
       return NextResponse.json(

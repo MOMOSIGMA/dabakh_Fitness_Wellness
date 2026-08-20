@@ -58,6 +58,41 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
+  /* Fenetres modales.
+     Le centrage par -translate-y-1/2 ne fonctionnait pas : Framer Motion pose
+     un transform en ligne pour animer y, qui ecrase la classe utilitaire. Le
+     panneau demarrait donc a 50 % de la hauteur et son bas passait sous
+     l'ecran, bouton d'envoi compris. Le centrage passe par un conteneur flex,
+     que rien ne peut ecraser. */
+  .modal-shell {
+    padding: 1rem;
+    /* Reserve la barre de navigation Android et l'indicateur d'accueil iOS. */
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
+  }
+
+  .modal-panel {
+    max-height: 82vh;
+  }
+
+  /* dvh suit la hauteur reellement visible quand la barre d'adresse mobile
+     se retracte, ce que vh ignore. */
+  @supports (height: 100dvh) {
+    .modal-panel {
+      max-height: 82dvh;
+    }
+  }
+
+  .chat-panel {
+    height: 600px;
+    max-height: calc(100vh - 11rem);
+  }
+
+  @supports (height: 100dvh) {
+    .chat-panel {
+      max-height: calc(100dvh - 11rem);
+    }
+  }
+
   /* Halos d'ambiance.
      Ils etaient obtenus par filter: blur(120-150px) sur de grands blocs pleins.
      C'est l'une des operations les plus couteuses pour un navigateur mobile :
