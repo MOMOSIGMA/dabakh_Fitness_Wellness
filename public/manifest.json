@@ -1,8 +1,8 @@
 {
   "name": "Dabakh Fitness Wellness Club",
   "short_name": "Dabakh Fitness",
-  "description": "Salle de sport premium à Sacré Cœur 3, Dakar - Musculation, Boxe, Cardio avec coaching IA",
-  "start_url": "https://dabakh-fitness-wellness.vercel.app",
+  "description": "Salle de sport premium a Sacre Coeur 3 / Mermoz, Dakar - Musculation, Boxe, Cardio avec coaching IA",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
@@ -29,5 +29,9 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["health", "fitness"]
+  "categories": [
+    "health",
+    "fitness"
+  ],
+  "id": "/"
 }

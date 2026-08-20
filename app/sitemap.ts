@@ -27,6 +27,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: 'https://dabakh-fitness-wellness.vercel.app/#avis',
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
       url: 'https://dabakh-fitness-wellness.vercel.app/#souvenirs',
       lastModified: new Date(),
       changeFrequency: 'monthly',

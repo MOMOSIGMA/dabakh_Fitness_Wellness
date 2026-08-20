@@ -37,6 +37,7 @@ export default function Navbar() {
     { name: 'AI Coach', href: '#ai-coach', action: 'ai' as const },
     { name: 'Nos Coachs', href: '#coachs' },
     { name: 'Nos Souvenirs', href: '#souvenirs' },
+    { name: 'Avis', href: '#avis' },
     { name: 'Infos', href: '#infos-pratiques' },
   ]
 

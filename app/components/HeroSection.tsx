@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowRight, Play } from 'lucide-react'
+import OpenStatus from './OpenStatus'
 
 export default function HeroSection() {
   const [isMobile, setIsMobile] = useState(false)
@@ -49,17 +50,20 @@ export default function HeroSection() {
       )}
 
       <div className="relative z-20 text-center px-4 max-w-6xl mx-auto">
-        {/* Badge animé */}
+        {/* Badge localisation + etat d'ouverture en direct */}
         <motion.div
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-400/30 glass mb-8 shadow-lg shadow-blue-500/10"
+          className="inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-2 mb-8"
         >
-          <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-          <span className="text-xs font-medium uppercase tracking-widest">
-            Sacré Cœur 3 • Dakar 🇸🇳 • Note 4.3★
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-red-500/30 glass shadow-lg shadow-red-500/10">
+            <span className="w-2 h-2 rounded-full bg-red-500" />
+            <span className="text-xs font-medium uppercase tracking-widest">
+              Sacré Cœur 3 • Dakar • Note 4.3★
+            </span>
           </span>
+          <OpenStatus />
         </motion.div>
         
         {/* Titre Principal avec animation */}

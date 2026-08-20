@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from './components/Navbar'
+import PwaRegister from './components/PwaRegister'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -125,6 +126,25 @@ export default function RootLayout({
                 'https://www.instagram.com/dabakh_fitnesswellnessclub?igsh=MWQ4NWk2d21kMWN6eQ=='
               ],
               hasMap: 'https://maps.app.goo.gl/BAVYB8i4dUwGWnss7',
+              hasOfferCatalog: {
+                '@type': 'OfferCatalog',
+                name: 'Abonnements Dabakh Fitness',
+                itemListElement: [
+                  { name: 'Pack Starter - 1er mois', price: '25000' },
+                  { name: 'Pack Silver - 3 mois', price: '45000' },
+                  { name: 'Pack Gold - 6 mois', price: '100000' },
+                  { name: 'Pack Premium - 12 mois', price: '150000' },
+                  { name: 'Seance decouverte', price: '2000' },
+                  { name: 'Boxe / Taekwondo enfant - mensualite', price: '15000' },
+                  { name: 'Boxe / Taekwondo adulte - mensualite', price: '20000' },
+                ].map((offer) => ({
+                  '@type': 'Offer',
+                  name: offer.name,
+                  price: offer.price,
+                  priceCurrency: 'XOF',
+                  availability: 'https://schema.org/InStock',
+                })),
+              },
               openingHoursSpecification: [
                 {
                   '@type': 'OpeningHoursSpecification',
@@ -272,6 +292,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
+        <PwaRegister />
         <Navbar />
         {children}
       </body>
