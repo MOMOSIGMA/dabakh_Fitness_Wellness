@@ -35,3 +35,6 @@ next-env.d.ts
 
 # Zone de depot des medias bruts (non publiee)
 /_medias-bruts/
+
+# Contexte prive, non versionne (depot public)
+CLAUDE.local.md
