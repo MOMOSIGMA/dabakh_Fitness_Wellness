@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "medias": "python scripts/optimiser-medias.py"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.38.0",
