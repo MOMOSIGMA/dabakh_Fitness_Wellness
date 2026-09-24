@@ -38,3 +38,6 @@ next-env.d.ts
 
 # Contexte prive, non versionne (depot public)
 CLAUDE.local.md
+
+# Fichier d'espace de travail de l'editeur
+*.code-workspace

@@ -2,18 +2,19 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    remotePatterns: [
-      // Restreint a Unsplash tant que les photos de la salle ne sont pas livrees.
-      // hostname '**' laissait n importe quel domaine utiliser l optimiseur Vercel.
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-    ],
+    // Plus aucune image distante : toutes les photos du site sont celles de la
+    // salle, servies depuis /public. Laisser un remotePattern ouvert reviendrait
+    // a offrir l optimiseur Vercel a un domaine tiers.
+    remotePatterns: [],
     // Optimisations pour connexion faible (3G)
     formats: ['image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200],
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
+    // Toute valeur passee a `quality` sur un next/image DOIT figurer ici,
+    // sinon Next 15 leve une erreur d'execution. Elle ne se voit ni au build
+    // ni au `tsc` : un quality={70} pose dans une fenetre modale n'a plante
+    // qu'au clic, une fois en ligne. Verifier avec :
+    //   grep -rn "quality={" app/
     qualities: [50, 60, 75],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",

@@ -39,8 +39,15 @@ lance `npm run medias`.
 ### Coachs → `_medias-bruts/coachs/`
 
 Le nom doit correspondre au prénom utilisé dans le code :
-`coach-babacar.jpg`, `coach-achille.jpg`, `coach-top.jpg`,
-`coach-lamine.jpg`.
+`coach-moussa.jpg`, `coach-achille.jpg`, `coach-top.jpg`,
+`coach-lamine.jpg`, `coach-amet.jpg`.
+
+Les deux coachs des cours combat n'ont pas encore de prénom renseigné : une
+fois qu'ils seront connus, leurs portraits suivront la même convention.
+
+Si la photo porte un bandeau « COACH X » incrusté ou un logo d'application,
+signale-le : il faut le retirer avant de lancer le script, sinon le nom
+apparaît deux fois sur la carte et le jaune du bandeau sort de la palette.
 
 ### Souvenirs → `_medias-bruts/souvenirs/`
 

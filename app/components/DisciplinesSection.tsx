@@ -1,8 +1,19 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Dumbbell, Zap, Clock, Users, Calendar, X } from 'lucide-react'
+import { Dumbbell, Zap, Clock, Users, Calendar, Sparkles, X } from 'lucide-react'
+
+/** Un element detaille a l'interieur d'une carte : un espace, un cours, une
+ *  formule. Chaque champ est optionnel pour qu'un sujet encore sans photo ni
+ *  prix s'affiche proprement, sans bloc vide ni mention d'attente. */
+type Sujet = {
+  nom: string
+  description?: string
+  prix?: string
+  images?: string[]
+}
 
 type Discipline = {
   title: string
@@ -10,10 +21,11 @@ type Discipline = {
   details: string
   price: string | null
   icon: typeof Dumbbell
-  size: 'large' | 'medium' | 'small'
+  size: 'large' | 'medium' | 'small' | 'wide'
   gradient: string
   image?: string
   fullWidthMobile?: boolean
+  sujets?: Sujet[]
   schedule?: { day: string; time: string; activity: string }[]
 }
 
@@ -47,58 +59,131 @@ export default function DisciplinesSection() {
 
   // TODO CLIENT : faire valider les tarifs ci-dessous. Ils proviennent de la grille
   // deja utilisee par le bot IA, qui diverge aujourd'hui de la page Tarifs.
+  //
+  // TODO CLIENT — photos manquantes : boxe, taekwondo, salle detente et cours
+  // collectifs n'ont pas encore de photo. Les sujets concernes s'affichent sans
+  // image ; il suffira de completer le tableau `images` quand elles arriveront.
   const disciplines: Discipline[] = [
     {
-      title: 'Musculation & Cardio',
-      description: 'Équipements professionnels pour tous les niveaux.',
+      title: 'Nos Espaces',
+      description: 'Cardio, fitness, gym et boxe sous le même toit.',
       details:
-        'Salle de musculation complète et zone cardio moderne : tapis roulants, vélos, rameurs et machines de dernière génération. Un espace libre est réservé aux exercices au poids du corps. Accès inclus dans la mensualité, sans engagement de durée.',
+        'La salle est organisée en espaces distincts, pour que chacun s’entraîne sans se gêner : une zone cardio, un espace fitness, le plateau de musculation et un espace dédié à la boxe. L’accès à l’ensemble est compris dans la mensualité, sans engagement de durée.',
       price: '20 000 FCFA / mois',
       icon: Dumbbell,
       size: 'large',
       gradient: 'from-red-500/20 to-red-600/20',
-      image:
-        'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80&fit=crop&auto=format',
-    },
-    {
-      title: 'Boxe & Combat',
-      description: 'Sacs de frappe et coaching technique en Boxe et Taekwondo.',
-      details:
-        'Espace dédié aux sacs de frappe, avec un coaching technique en Boxe et en Taekwondo assuré par des coachs certifiés. Cours enfants et adultes. Une inscription de 5 000 FCFA s’ajoute à la première mensualité.',
-      price: 'Enfant 15 000 · Adulte 20 000 FCFA / mois',
-      icon: Zap,
-      size: 'medium',
-      gradient: 'from-red-400/20 to-red-500/20',
-      image:
-        'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=1200&q=80&fit=crop&auto=format',
-    },
-    {
-      title: 'Événements & Challenges',
-      description: 'Participe aux activités phares de la salle.',
-      details:
-        'Tout au long de l’année, la salle organise des rendez-vous ouverts à tous les membres : concours de force en powerlifting, séances de gainage collectif et challenges de fin d’année. Participation incluse dans l’abonnement.',
-      price: 'Inclus dans l’abonnement',
-      icon: Calendar,
-      size: 'small',
-      fullWidthMobile: true,
-      gradient: 'from-red-600/25 to-red-800/20',
-      schedule: [
-        { day: 'Concours de force', time: 'Powerlifting', activity: 'Événement' },
-        { day: 'Séances de gainage', time: 'Collectif', activity: 'Challenge' },
-        { day: 'Challenges de fin d’année', time: 'Communauté', activity: 'Saison' },
+      image: '/images/salle/salle-vue-ensemble.jpg',
+      sujets: [
+        {
+          nom: 'Cardio',
+          description:
+            'Vélos de biking, tapis et machines cardio, pour le travail d’endurance comme pour l’échauffement.',
+          images: ['/images/salle/salle-cardio.jpg', '/images/salle/salle-coaching.jpg'],
+        },
+        {
+          nom: 'Fitness',
+          description:
+            'Espace libre pour les exercices au poids du corps, les étirements et les séances collectives.',
+          images: ['/images/salle/salle-vue-ensemble.jpg'],
+        },
+        {
+          nom: 'Gym — plateau musculation',
+          description:
+            'Bancs, barres, haltères et machines guidées, du poids léger aux charges lourdes.',
+          images: ['/images/salle/salle-musculation.jpg'],
+        },
+        {
+          nom: 'Boxe',
+          description:
+            'Espace dédié aux sacs de frappe et au travail technique, adultes et enfants.',
+        },
       ],
     },
     {
-      title: 'Coaching Personnalisé',
-      description: 'Programmes sur mesure adaptés à vos objectifs.',
+      title: 'Cours Combat',
+      description: 'Boxe et Taekwondo, adultes et enfants.',
       details:
-        'Un coach diplômé construit ton programme d’entraînement selon ton objectif, ton niveau et ton rythme, avec des conseils nutrition intégrés. Les formules Personal Training vont de 16 à 20 séances, séances de massage comprises.',
-      price: 'À partir de 80 000 FCFA / 16 séances',
+        'Cours encadrés par des coachs dédiés, en groupes séparés pour les adultes et les enfants. Une inscription de 5 000 FCFA s’ajoute à la première mensualité.',
+      price: 'Enfant 15 000 · Adulte 20 000 FCFA / mois',
+      icon: Zap,
+      size: 'small',
+      gradient: 'from-red-400/20 to-red-500/20',
+      sujets: [
+        {
+          nom: 'Boxe',
+          description:
+            'Garde, déplacements et travail au sac, puis exercices d’opposition encadrés. Groupes adultes et enfants.',
+          prix: 'Enfant 15 000 · Adulte 20 000 FCFA / mois',
+        },
+        {
+          nom: 'Taekwondo',
+          description:
+            'Techniques de pied, souplesse et enchaînements de forme. Groupes adultes et enfants.',
+          prix: 'Enfant 15 000 · Adulte 20 000 FCFA / mois',
+        },
+      ],
+    },
+    {
+      title: 'Salle Détente',
+      description: 'Espace massage et récupération.',
+      details:
+        'Un espace séparé du plateau, équipé pour le massage et la récupération après l’effort. Les séances se réservent sur place ou par WhatsApp.',
+      price: 'À partir de 10 000 FCFA',
+      icon: Sparkles,
+      size: 'small',
+      gradient: 'from-red-600/20 to-red-800/20',
+      sujets: [
+        { nom: 'Massage dos relaxant', description: '20 minutes', prix: '10 000 FCFA' },
+        { nom: 'Massage tonifiant', description: '30 minutes', prix: '15 000 FCFA' },
+        { nom: 'Massage relaxant doux', description: '1 heure', prix: '20 000 FCFA' },
+      ],
+    },
+    {
+      title: 'Cours Collectifs',
+      description: 'Des séances en groupe tout au long de la semaine.',
+      details:
+        'Les cours collectifs sont compris dans l’abonnement et se déroulent dans l’espace fitness. Le planning de la semaine est affiché à l’accueil de la salle.',
+      price: 'Inclus dans l’abonnement',
       icon: Users,
       size: 'medium',
       gradient: 'from-red-500/20 to-red-700/20',
-      image:
-        'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80&fit=crop&auto=format',
+      // TODO CLIENT : le planning jour par jour n'a pas encore ete fourni. Les
+      // cours listes ci-dessous proviennent des donnees deja presentes dans le
+      // projet ; il reste a leur associer un jour, un horaire et une photo.
+      sujets: [
+        { nom: 'Fitness collectif' },
+        { nom: 'Cardio intensif' },
+        { nom: 'Yoga & Pilates' },
+        { nom: 'Circuit training' },
+      ],
+    },
+    {
+      title: 'Événements & Challenges',
+      description: 'Les rendez-vous qui rythment l’année.',
+      details:
+        'Tout au long de l’année, la salle organise des rendez-vous ouverts à tous les membres. La participation est comprise dans l’abonnement.',
+      price: 'Inclus dans l’abonnement',
+      icon: Calendar,
+      size: 'medium',
+      gradient: 'from-red-600/25 to-red-800/20',
+      // TODO CLIENT : photos et videos de souvenirs attendues, a deposer dans
+      // _medias-bruts/souvenirs/ puis `npm run medias`.
+      sujets: [
+        {
+          nom: 'Concours de force',
+          description:
+            'Une épreuve de powerlifting ouverte aux membres, sur les mouvements de base.',
+        },
+        {
+          nom: 'Séances de gainage collectif',
+          description: 'Des sessions de groupe où toute la salle travaille en même temps.',
+        },
+        {
+          nom: 'Challenges de fin d’année',
+          description: 'Un rendez-vous communautaire pour clôturer la saison.',
+        },
+      ],
     },
     {
       title: 'Large Amplitude Horaire',
@@ -107,7 +192,7 @@ export default function DisciplinesSection() {
         'Lundi au vendredi de 07h00 à 22h30, samedi de 09h00 à 21h00, dimanche de 10h00 à 15h00. Une amplitude pensée pour s’entraîner avant le travail comme en fin de journée.',
       price: null,
       icon: Clock,
-      size: 'small',
+      size: 'wide',
       fullWidthMobile: true,
       gradient: 'from-red-700/20 to-red-900/25',
     },
@@ -118,15 +203,17 @@ export default function DisciplinesSection() {
     visible: { transition: { staggerChildren: isMobile ? 0.03 : 0.08 } },
   }
 
+  // Un leger glissement, sans passer par l'opacite : les cartes doivent etre
+  // lisibles dans le HTML rendu par le serveur, avant toute hydratation.
   const itemVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { duration: isMobile ? 0.15 : 0.3 } },
+    hidden: { y: 12 },
+    visible: { y: 0, transition: { duration: isMobile ? 0.15 : 0.3 } },
   }
 
   const active = openIndex !== null ? disciplines[openIndex] : null
 
   return (
-    <section id="disciplines" className="py-24 px-4 bg-black relative overflow-hidden">
+    <section id="disciplines" className="py-12 md:py-24 px-4 bg-black relative overflow-hidden">
       {/* Background Pattern - disabled on mobile */}
       {!isMobile && (
         <div className="absolute inset-0 opacity-5">
@@ -144,11 +231,9 @@ export default function DisciplinesSection() {
       <div className="container mx-auto max-w-7xl relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: isMobile ? 0.2 : 0.4 }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16"
         >
           <span className="inline-block px-4 py-2 glass rounded-full text-sm font-medium uppercase tracking-wider text-red-500 mb-4">
             Nos Disciplines
@@ -167,7 +252,7 @@ export default function DisciplinesSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-150px' }}
-          className="grid grid-cols-2 md:grid-cols-6 gap-3 md:gap-4 auto-rows-[minmax(200px,auto)]"
+          className="grid grid-cols-2 md:grid-cols-6 gap-3 md:gap-4 auto-rows-[minmax(158px,auto)] md:auto-rows-[minmax(200px,auto)]"
         >
           {disciplines.map((discipline, index) => {
             const Icon = discipline.icon
@@ -175,7 +260,9 @@ export default function DisciplinesSection() {
               discipline.size === 'large'
                 ? 'col-span-2 md:col-span-4 md:row-span-2'
                 : discipline.size === 'medium'
-                ? 'col-span-2 md:col-span-3 md:row-span-2'
+                ? 'col-span-1 md:col-span-3 md:row-span-2'
+                : discipline.size === 'wide'
+                ? 'col-span-2 md:col-span-6 md:row-span-1'
                 : discipline.fullWidthMobile
                 ? 'col-span-2 md:col-span-2 md:row-span-1'
                 : 'col-span-1 md:col-span-2 md:row-span-1'
@@ -204,32 +291,16 @@ export default function DisciplinesSection() {
                 )}
 
                 {/* Content */}
-                <div className="relative h-full p-6 flex flex-col justify-between gap-4">
+                <div className="relative h-full p-4 md:p-6 flex flex-col justify-between gap-3 md:gap-4">
                   <div>
-                    <Icon className="w-10 h-10 mb-4 text-red-500" />
-                    <h3 className="text-2xl font-bold mb-2">{discipline.title}</h3>
-                    <p className="text-white text-sm">{discipline.description}</p>
+                    <Icon className="w-7 h-7 md:w-10 md:h-10 mb-2.5 md:mb-4 text-red-500" />
+                    <h3 className="text-lg md:text-2xl font-bold mb-1.5 md:mb-2 leading-tight">{discipline.title}</h3>
+                    <p className="text-white text-xs md:text-sm leading-snug">{discipline.description}</p>
                   </div>
-
-                  {/* Schedule for planning card */}
-                  {discipline.schedule && (
-                    <div className="space-y-2">
-                      {discipline.schedule.map((item) => (
-                        <div
-                          key={item.day}
-                          className="flex items-center justify-between gap-2 text-xs glass rounded-lg px-3 py-2"
-                        >
-                          <span className="font-semibold">{item.day}</span>
-                          <span className="text-red-500">{item.time}</span>
-                          <span className="text-gray-100">{item.activity}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
 
                   <div className="flex items-center justify-between gap-3">
                     {discipline.price ? (
-                      <span className="text-red-500 font-black text-base md:text-lg leading-tight">
+                      <span className="text-red-500 font-black text-sm md:text-lg leading-tight">
                         {discipline.price}
                       </span>
                     ) : (
@@ -258,48 +329,102 @@ export default function DisciplinesSection() {
               className="fixed inset-0 bg-black/70 z-[110]"
             />
             <div className="fixed inset-0 z-[120] flex items-center justify-center modal-shell pointer-events-none">
-            <motion.div
-              role="dialog"
-              aria-modal="true"
-              aria-label={active.title}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 24 }}
-              transition={{ duration: 0.2 }}
-              className="pointer-events-auto w-full sm:max-w-lg modal-panel overflow-y-auto overscroll-contain bg-neutral-950 border border-white/15 rounded-2xl p-6 shadow-2xl"
-            >
-              <div className="flex items-start justify-between gap-4 mb-4">
-                <div className="flex items-center gap-3">
-                  <active.icon className="w-8 h-8 text-red-500 shrink-0" />
-                  <h3 className="text-xl font-black text-white leading-tight">
-                    {active.title}
-                  </h3>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setOpenIndex(null)}
-                  aria-label="Fermer"
-                  className="shrink-0 p-2 -m-2 text-gray-400 hover:text-white transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              {active.price && (
-                <p className="text-red-500 font-black text-lg mb-4">{active.price}</p>
-              )}
-
-              <p className="text-gray-200 text-sm leading-relaxed mb-6">{active.details}</p>
-
-              <a
-                href="https://wa.me/221775323725"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full text-center bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-full transition-colors"
+              <motion.div
+                role="dialog"
+                aria-modal="true"
+                aria-label={active.title}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 24 }}
+                transition={{ duration: 0.2 }}
+                className="pointer-events-auto w-full sm:max-w-lg modal-panel overflow-y-auto overscroll-contain bg-neutral-950 border border-white/15 rounded-2xl p-6 shadow-2xl"
               >
-                Réserver une séance découverte
-              </a>
-            </motion.div>
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <div className="flex items-center gap-3">
+                    <active.icon className="w-8 h-8 text-red-500 shrink-0" />
+                    <h3 className="text-xl font-black text-white leading-tight">
+                      {active.title}
+                    </h3>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setOpenIndex(null)}
+                    aria-label="Fermer"
+                    className="shrink-0 p-2 -m-2 text-gray-400 hover:text-white transition-colors"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {active.price && (
+                  <p className="text-red-500 font-black text-lg mb-4">{active.price}</p>
+                )}
+
+                <p className="text-gray-200 text-sm leading-relaxed mb-6">{active.details}</p>
+
+                {/* Le detail de chaque espace, cours ou formule */}
+                {active.sujets && (
+                  <div className="space-y-5 mb-6">
+                    {active.sujets.map((sujet) => (
+                      <div
+                        key={sujet.nom}
+                        className="border-t border-white/10 pt-5 first:border-0 first:pt-0"
+                      >
+                        <div className="flex items-baseline justify-between gap-4 mb-2">
+                          <h4 className="text-white font-bold text-base leading-snug">
+                            {sujet.nom}
+                          </h4>
+                          {sujet.prix && (
+                            <span className="shrink-0 text-red-500 font-black text-sm tabular-nums">
+                              {sujet.prix}
+                            </span>
+                          )}
+                        </div>
+
+                        {sujet.description && (
+                          <p className="text-gray-300 text-sm leading-relaxed">
+                            {sujet.description}
+                          </p>
+                        )}
+
+                        {sujet.images && sujet.images.length > 0 && (
+                          <div
+                            className={`mt-3 grid gap-2 ${
+                              sujet.images.length > 1 ? 'grid-cols-2' : 'grid-cols-1'
+                            }`}
+                          >
+                            {sujet.images.map((src) => (
+                              <div
+                                key={src}
+                                className="relative aspect-[4/3] rounded-xl overflow-hidden"
+                              >
+                                <Image
+                                  src={src}
+                                  alt={sujet.nom}
+                                  fill
+                                  className="object-cover"
+                                  loading="lazy"
+                                  quality={60}
+                                  sizes="(max-width: 640px) 50vw, 240px"
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <a
+                  href="https://wa.me/221775323725"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full text-center bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-full transition-colors"
+                >
+                  Réserver une séance découverte
+                </a>
+              </motion.div>
             </div>
           </>
         )}

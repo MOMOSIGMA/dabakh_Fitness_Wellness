@@ -27,7 +27,7 @@ export default function PracticalInfoSection() {
   ]
 
   return (
-    <section id="infos-pratiques" className="py-24 px-4 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
+    <section id="infos-pratiques" className="py-12 md:py-24 px-4 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
       {/* Background Effect */}
       <div className="absolute inset-0 opacity-5">
         {/* Halo fige : meme raison, a 5 % d'opacite l'animation etait invisible. */}
@@ -37,10 +37,10 @@ export default function PracticalInfoSection() {
       <div className="container mx-auto max-w-7xl relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16"
         >
           <span className="inline-block px-4 py-2 glass rounded-full text-sm font-medium uppercase tracking-wider text-red-500 mb-4">
             Règlement Intérieur
@@ -54,14 +54,14 @@ export default function PracticalInfoSection() {
         </motion.div>
 
         {/* Rules Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto mb-10 md:mb-16">
           {rules.map((rule, index) => {
             const Icon = rule.icon
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ y: 30 }}
+                whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -10 }}
@@ -90,8 +90,8 @@ export default function PracticalInfoSection() {
 
         {/* Info Banner */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="max-w-3xl mx-auto"
         >
@@ -108,8 +108,8 @@ export default function PracticalInfoSection() {
 
         {/* Google Maps Button */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="max-w-3xl mx-auto mt-12 text-center"
         >

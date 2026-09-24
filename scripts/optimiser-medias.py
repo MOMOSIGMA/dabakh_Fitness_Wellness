@@ -26,6 +26,18 @@ import sys
 
 from PIL import Image, ImageOps
 
+# Les iPhone enregistrent en HEIC. Pillow ne sait pas lire ce format seul :
+# sans ce greffon, les fichiers .heic listes dans EXTENSIONS ci-dessous
+# ressortaient en ILLISIBLE. Installation : pip install pillow-heif
+try:
+    import pillow_heif
+
+    pillow_heif.register_heif_opener()
+except ImportError:
+    print('Note : pillow-heif absent, les fichiers .heic seront ignores.')
+    print('       Pour les traiter : pip install pillow-heif')
+    print('')
+
 RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SOURCE = os.path.join(RACINE, '_medias-bruts')
 DESTINATION = os.path.join(RACINE, 'public', 'images')
@@ -37,7 +49,7 @@ EXTENSIONS = ('.jpg', '.jpeg', '.png', '.webp', '.heic', '.bmp', '.tif', '.tiff'
 # 1200 px, et next/image genere de toute facon les variantes plus petites.
 PROFILS = {
     'salle': {'largeur': 2000, 'qualite': 82},
-    'coachs': {'largeur': 800, 'qualite': 85},
+    'coachs': {'largeur': 1000, 'qualite': 85},
     'souvenirs': {'largeur': 1600, 'qualite': 82},
 }
 

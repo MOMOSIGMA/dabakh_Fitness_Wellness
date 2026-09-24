@@ -1,40 +1,22 @@
-# 📸 Dossier Images Dabakh Fitness
+# Images du site
 
-## 📁 PLACER VOS PHOTOS ICI
+Ne rien déposer directement ici. Les fichiers de ce dossier sont ceux que le
+site sert en ligne : ils doivent être passés par `npm run medias`, qui
+redresse, supprime les données EXIF (coordonnées GPS comprises), redimensionne
+et compresse.
 
-Ce dossier contient toutes les images du site web.
+Marche à suivre : déposer les fichiers bruts dans `_medias-bruts/<catégorie>/`
+puis lancer `npm run medias`. Convention de nommage dans
+`scripts/NOMMAGE-MEDIAS.md`.
 
-### ✅ PHOTOS À AJOUTER (Priorité)
+## Contenu
 
-Copier vos photos ici avec ces noms **EXACTS**:
+| Dossier | Ce qu'il contient |
+|---|---|
+| `salle/` | Photos de la salle : hero, galerie, cartes des espaces |
+| `coachs/` | Portraits des coachs |
+| `souvenirs/` | Photos d'événements (vide pour l'instant) |
 
-- `hero-dabakh.jpg` - Photo principale page d'accueil (1920x1080px)
-- `musculation-zone.jpg` - Vue d'ensemble salle musculation (1200x800px)
-- `boxe-zone.jpg` - Espace boxe et sacs de frappe (1200x800px)
-- `coaching-session.jpg` - Coach avec client (1200x800px)
-- `cardio-machines.jpg` - Tapis et vélos (800x600px)
-- `vestiaires-propres.jpg` - Vestiaires vides et propres (800x600px)
-- `stretching-zone.jpg` - Zone étirements et tapis (1200x600px)
-- `cours-groupe.jpg` - Cours collectifs en action (800x600px)
-
-### 📝 GUIDES DÉTAILLÉS
-
-Voir les fichiers à la racine du projet:
-- `PHOTOS_CHECKLIST.md` - Checklist rapide des photos à prendre
-- `GUIDE_PHOTOS_A_PRENDRE.md` - Guide complet avec conseils pros
-- `REMPLACEMENT_PHOTOS_TECHNIQUE.md` - Comment remplacer dans le code
-
-### 🎯 ACTUELLEMENT
-
-Les images du site utilisent temporairement des photos Unsplash génériques.
-Indicateur visible: 📸 "Photos modèles"
-
-### 🔄 APRÈS AJOUT DES PHOTOS
-
-1. Copier vos photos dans ce dossier
-2. Suivre les instructions dans `REMPLACEMENT_PHOTOS_TECHNIQUE.md`
-3. Les URLs Unsplash seront remplacées par `/images/votre-photo.jpg`
-
----
-
-**Questions?** Consulte `PHOTOS_CHECKLIST.md` pour commencer ! 📸💪
+Les fichiers à la racine (`logo-dabakh.png`, `favicon.png`, `icon-192.png`,
+`icon-pwa.png`, `og-dabakh.jpg`) sont l'identité visuelle et les icônes PWA.
+Ils ne passent pas par le script.

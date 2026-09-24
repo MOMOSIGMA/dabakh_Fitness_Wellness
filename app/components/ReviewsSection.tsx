@@ -117,13 +117,11 @@ export default function ReviewsSection() {
   }
 
   return (
-    <section id="avis" className="py-24 px-4 bg-black relative overflow-hidden">
+    <section id="avis" className="py-12 md:py-24 px-4 bg-black relative overflow-hidden">
       <div className="container mx-auto max-w-5xl relative z-10">
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: '-100px' }}
-          className="text-center mb-12"
+          className="text-center mb-8 md:mb-12"
         >
           <span className="inline-block px-4 py-2 glass rounded-full text-sm font-medium uppercase tracking-wider text-red-500 mb-4">
             Ils en parlent
@@ -176,15 +174,20 @@ export default function ReviewsSection() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div
+            className="rail md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4"
+            tabIndex={0}
+            role="region"
+            aria-label="Avis des membres, faire defiler horizontalement"
+          >
             {reviews.map((review, index) => (
               <motion.blockquote
                 key={review.id}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ y: 16 }}
+                whileInView={{ y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.3, delay: Math.min(index, 5) * 0.05 }}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 flex flex-col"
+                className="w-[78vw] md:w-auto rounded-2xl border border-white/10 bg-white/[0.03] p-5 flex flex-col"
               >
                 <Stars value={review.rating} />
                 <p className="text-gray-200 text-sm leading-relaxed mt-3 mb-4 flex-grow">

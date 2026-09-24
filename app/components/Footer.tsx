@@ -22,18 +22,18 @@ export default function Footer() {
   return (
     <footer className="bg-black border-t border-white/10 pt-16 pb-8">
       <div className="container mx-auto px-4 max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-7 md:gap-12 mb-8 md:mb-12">
           {/* Logo & Description */}
           <div className="md:col-span-2">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true }}
               className="flex items-center gap-2 mb-4"
             >
               <Image
                 src="/images/logo-dabakh.png"
-                alt="Dabakh Fitness Logo"
+                alt="Logo du Dabakh Fitness Wellness Club"
                 width={48}
                 height={48}
                 className="w-12 h-12 object-contain"
@@ -103,8 +103,8 @@ export default function Footer() {
 
         {/* Social Links */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 20 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true }}
           className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-8 border-t border-white/10"
         >

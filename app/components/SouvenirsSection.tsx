@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Trophy, Users, Flame, Play, X } from 'lucide-react'
+import { Trophy, Users, Flame, Play, Utensils, X } from 'lucide-react'
 
 type Souvenir = {
   title: string
@@ -13,6 +13,8 @@ type Souvenir = {
   image?: string
   /** Video du souvenir (fichier servi depuis /public/videos). */
   video?: string
+  /** Photos supplementaires, affichees en galerie dans le panneau de detail. */
+  galerie?: string[]
 }
 
 export default function SouvenirsSection() {
@@ -33,11 +35,27 @@ export default function SouvenirsSection() {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  // TODO CLIENT : ajouter `image` et/ou `video` a chaque entree des que la salle
-  // fournit ses photos et ses videos, et completer avec les autres souvenirs.
+  // TODO CLIENT : les trois entrees sans photo ci-dessous viennent de l'ancienne
+  // base du bot IA, pas de la salle. A faire confirmer ou remplacer : rien ne dit
+  // que ces evenements existent reellement.
+  //
+  // TODO CLIENT : videos de la journee de partage attendues.
   // Les entrees sans media s'affichent proprement en carte texte : aucune image
   // de remplacement, aucune mention "bientot disponible".
   const souvenirs: Souvenir[] = [
+    {
+      title: 'Journée de partage',
+      summary:
+        'Chaque année pendant le Ramadan, la salle organise une rupture du jeûne commune. Les membres préparent et partagent le repas sur place, familles comprises.',
+      icon: Utensils,
+      image: '/images/souvenirs/souvenir-rupture-jeune-01.jpg',
+      galerie: [
+        '/images/souvenirs/souvenir-rupture-jeune-01.jpg',
+        '/images/souvenirs/souvenir-rupture-jeune-03.jpg',
+        '/images/souvenirs/souvenir-rupture-jeune-02.jpg',
+        '/images/souvenirs/souvenir-rupture-jeune-04.jpg',
+      ],
+    },
     {
       title: 'Concours de force',
       summary:
@@ -63,28 +81,30 @@ export default function SouvenirsSection() {
   return (
     <section
       id="souvenirs"
-      className="py-24 px-4 bg-gradient-to-b from-black to-gray-900 relative overflow-hidden"
+      className="py-12 md:py-24 px-4 bg-gradient-to-b from-black to-gray-900 relative overflow-hidden"
     >
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
+        <div className="absolute top-1/3 right-1/4 w-[560px] h-[560px] translate-x-1/4 glow-blue" />
+      </div>
+
       <div className="container mx-auto max-w-6xl relative z-10">
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.4 }}
-          className="text-center mb-14"
+          className="text-center mb-9 md:mb-14"
         >
-          <span className="inline-block px-4 py-2 glass rounded-full text-sm font-medium uppercase tracking-wider text-red-500 mb-4">
+          <span className="inline-block px-4 py-2 glass rounded-full text-sm font-medium uppercase tracking-wider text-blue-400 mb-4">
             Nos Souvenirs
           </span>
           <h2 className="text-4xl md:text-6xl font-black mb-4">
-            Les moments <span className="text-red-500">Dabakh</span>
+            Les moments <span className="text-blue-400">Dabakh</span>
           </h2>
           <p className="text-white text-lg max-w-2xl mx-auto">
             Les rendez-vous qui rythment l’année de la salle et rassemblent la communauté
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
           {souvenirs.map((souvenir, index) => {
             const Icon = souvenir.icon
             return (
@@ -93,8 +113,6 @@ export default function SouvenirsSection() {
                 type="button"
                 onClick={() => setActive(souvenir)}
                 aria-label={`${souvenir.title} — voir le détail`}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
                 viewport={{ once: true, margin: '-80px' }}
                 transition={{ duration: 0.3, delay: index * 0.06 }}
                 className="group relative overflow-hidden rounded-2xl glass border border-white/10 text-left transition-transform hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
@@ -121,7 +139,7 @@ export default function SouvenirsSection() {
                 )}
 
                 <div className="p-6">
-                  <Icon className="w-9 h-9 mb-4 text-red-500" />
+                  <Icon className="w-9 h-9 mb-4 text-blue-400" />
                   <h3 className="text-xl font-bold mb-2 text-white leading-tight">
                     {souvenir.title}
                   </h3>
@@ -160,7 +178,7 @@ export default function SouvenirsSection() {
             >
               <div className="flex items-start justify-between gap-4 mb-4">
                 <div className="flex items-center gap-3">
-                  <active.icon className="w-8 h-8 text-red-500 shrink-0" />
+                  <active.icon className="w-8 h-8 text-blue-400 shrink-0" />
                   <h3 className="text-xl font-black text-white leading-tight">{active.title}</h3>
                 </div>
                 <button
@@ -191,13 +209,38 @@ export default function SouvenirsSection() {
                       fill
                       className="object-cover"
                       sizes="(max-width: 640px) 100vw, 576px"
-                      quality={70}
+                      quality={75}
                     />
                   </div>
                 )
               )}
 
               <p className="text-gray-200 text-sm leading-relaxed">{active.summary}</p>
+
+              {/* Les autres photos de l'evenement. La premiere sert deja de
+                  couverture au-dessus, on ne la repete pas. */}
+              {active.galerie && active.galerie.length > 1 && (
+                <div className="grid grid-cols-2 gap-2 mt-4">
+                  {active.galerie
+                    .filter((src) => src !== active.image)
+                    .map((src) => (
+                      <div
+                        key={src}
+                        className="relative aspect-[4/3] rounded-xl overflow-hidden"
+                      >
+                        <Image
+                          src={src}
+                          alt={active.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 640px) 50vw, 280px"
+                          quality={60}
+                          loading="lazy"
+                        />
+                      </div>
+                    ))}
+                </div>
+              )}
 
               {!hasMedia(active) && (
                 <p className="sr-only">Aucun média disponible pour ce souvenir.</p>

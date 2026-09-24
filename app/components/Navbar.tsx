@@ -1,14 +1,17 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, ChevronRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const ouvertureRef = useRef<HTMLButtonElement>(null)
+  const fermetureRef = useRef<HTMLButtonElement>(null)
+  const dejaOuvert = useRef(false)
 
   // Bloquer le scroll du body quand menu ouvert
   useEffect(() => {
@@ -20,6 +23,33 @@ export default function Navbar() {
     return () => {
       document.body.style.overflow = 'unset'
     }
+  }, [mobileMenuOpen])
+
+  // Echap ferme le menu, comme n'importe quelle fenetre modale du site.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileMenuOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  // En passant au format bureau, le menu mobile n'a plus de bouton pour le
+  // fermer : il resterait ouvert et bloquerait le defilement du body.
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 768) setMobileMenuOpen(false)
+    }
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
+  // A l'ouverture, le focus part sur la croix ; a la fermeture il revient sur
+  // le bouton d'ouverture, sinon la navigation au clavier se perd.
+  useEffect(() => {
+    if (mobileMenuOpen) fermetureRef.current?.focus()
+    else if (dejaOuvert.current) ouvertureRef.current?.focus()
+    dejaOuvert.current = mobileMenuOpen
   }, [mobileMenuOpen])
 
   useEffect(() => {
@@ -45,11 +75,29 @@ export default function Navbar() {
     window.dispatchEvent(new CustomEvent('open-ai-coach'))
   }
 
+  /** Referme le panneau puis navigue. Le delai laisse le panneau sortir de
+   *  l'ecran et le verrou de defilement se lever : sans lui, le defilement
+   *  vers l'ancre est annule. */
+  const allerVers = (href: string, action?: string) => {
+    setMobileMenuOpen(false)
+    setTimeout(() => {
+      if (action === 'ai') {
+        openAICoach()
+        return
+      }
+      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 220)
+  }
+
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <nav
+      // La barre porte un z-index qui cree un contexte d'empilement : un enfant
+      // ne peut pas passer au-dessus d'un element exterieur plus haut, quel que
+      // soit son propre z-index. Menu ouvert, on hisse donc toute la barre
+      // au-dessus des bulles flottantes (coach IA et WhatsApp, z-100).
+      className={`fixed top-0 left-0 right-0 ${
+        mobileMenuOpen ? 'z-[120]' : 'z-50'
+      } transition-all duration-300 ${
         scrolled
           ? 'nav-scrolled shadow-lg py-3'
           : 'bg-transparent py-5'
@@ -66,15 +114,15 @@ export default function Navbar() {
           >
             <Image
               src="/images/logo-dabakh.png"
-              alt="Dabakh Fitness Logo"
+              alt="Logo du Dabakh Fitness Wellness Club"
               width={40}
               height={40}
-              className="w-10 h-10 object-contain"
+              className="w-10 h-10 shrink-0 object-contain"
               priority
             />
             <div className="flex flex-col">
               <span className="font-black text-xl tracking-tight uppercase">Dabakh</span>
-              <span className="text-xs text-gray-200 -mt-1">Fitness Club</span>
+              <span className="text-xs text-gray-200 -mt-1">Fitness Wellness Club</span>
             </div>
           </motion.a>
 
@@ -116,94 +164,99 @@ export default function Navbar() {
             </motion.a>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Bouton d'ouverture. La croix vit desormais dans le panneau :
+              chercher un bouton de 24 px en haut d'ecran pour refermer etait
+              le point le plus penible de l'ancien menu. */}
           <button
+            ref={ouvertureRef}
             type="button"
-            className="md:hidden p-2 text-white"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+            className="md:hidden -mr-2 p-3 text-white"
+            onClick={() => setMobileMenuOpen(true)}
+            aria-label="Ouvrir le menu"
             aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <Menu className="w-6 h-6" />
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Panneau lateral.
+          L'ancien menu etait un bandeau deroulant en overflow-hidden : avec
+          huit liens et un bouton, le bas sortait de l'ecran sans possibilite
+          de le faire defiler. Ici la liste defile et l'appel a l'action reste
+          ancre en bas. */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <>
-            {/* Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+              className="fixed inset-0 bg-black/70 z-[105] md:hidden"
             />
-            
+
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.2 }}
-              className="md:hidden overflow-hidden fixed top-[var(--nav-h)] left-0 right-0 z-50"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Menu principal"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'tween', ease: [0.32, 0.72, 0, 1], duration: 0.28 }}
+              className="md:hidden fixed top-0 right-0 bottom-0 z-[110] w-[86%] max-w-sm bg-neutral-950 border-l border-white/10 flex flex-col"
             >
-            <div className="bg-black/95 backdrop-blur-xl border-t border-white/10 shadow-2xl">
-              <div className="container mx-auto px-6 py-8 flex flex-col gap-2">
+              <div className="flex items-center justify-between gap-3 px-5 h-[var(--nav-h)] border-b border-white/10 shrink-0">
+                <span className="flex items-center gap-2 min-w-0">
+                  <Image
+                    src="/images/logo-dabakh.png"
+                    alt=""
+                    width={32}
+                    height={32}
+                    className="w-8 h-8 shrink-0 object-contain"
+                  />
+                  <span className="font-black text-base uppercase tracking-tight truncate">
+                    Dabakh
+                  </span>
+                </span>
+                <button
+                  ref={fermetureRef}
+                  type="button"
+                  onClick={() => setMobileMenuOpen(false)}
+                  aria-label="Fermer le menu"
+                  className="-mr-2 p-3 text-gray-300 hover:text-white transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+
+              <nav className="flex-1 overflow-y-auto overscroll-contain px-3 py-3">
                 {navLinks.map((link) => (
                   <button
                     key={link.name}
                     type="button"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      e.stopPropagation()
-                      setMobileMenuOpen(false)
-                      if (link.action === 'ai') {
-                        setTimeout(() => {
-                          openAICoach()
-                        }, 100)
-                        return
-                      }
-                      setTimeout(() => {
-                        const element = document.querySelector(link.href)
-                        if (element) {
-                          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                        }
-                      }, 100)
-                    }}
-                    className="text-left w-full px-4 py-4 rounded-xl text-white text-lg font-semibold hover:bg-red-500/10 active:bg-red-500/20 transition-all border-b border-white/5 last:border-0"
+                    onClick={() => allerVers(link.href, link.action)}
+                    className="group flex items-center justify-between w-full gap-3 px-4 py-3.5 rounded-xl text-white text-base font-semibold hover:bg-white/5 active:bg-white/10 transition-colors"
                   >
-                    <span className="flex items-center gap-3">
-                      <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
-                      {link.name}
-                    </span>
+                    <span>{link.name}</span>
+                    <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-red-500 transition-colors" />
                   </button>
                 ))}
-                
+              </nav>
+
+              <div className="shrink-0 border-t border-white/10 p-4 sheet-safe">
                 <button
                   type="button"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    setMobileMenuOpen(false)
-                    setTimeout(() => {
-                      const element = document.querySelector('#tarifs')
-                      if (element) {
-                        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                      }
-                    }, 100)
-                  }}
-                  className="mt-4 px-6 py-4 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold rounded-xl text-center w-full shadow-lg shadow-red-500/30 active:scale-95 transition-transform text-lg"
+                  onClick={() => allerVers('#tarifs')}
+                  className="block w-full px-6 py-4 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold rounded-xl text-center shadow-lg shadow-red-500/25 active:scale-[0.98] transition-transform"
                 >
                   Séance Découverte
                 </button>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
           </>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </nav>
   )
 }

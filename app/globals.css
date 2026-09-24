@@ -82,6 +82,12 @@
     }
   }
 
+  /* Bas d'un panneau plein ecran : reserve la barre de navigation Android et
+     l'indicateur d'accueil iOS, sinon le bouton se retrouve dessous. */
+  .sheet-safe {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  }
+
   .chat-panel {
     height: 600px;
     max-height: calc(100vh - 11rem);
@@ -107,6 +113,15 @@
     );
   }
 
+  .glow-blue {
+    background: radial-gradient(
+      circle closest-side,
+      rgba(37, 99, 235, 0.9),
+      rgba(37, 99, 235, 0.28) 45%,
+      transparent 75%
+    );
+  }
+
   .glow-red-deep {
     background: radial-gradient(
       circle closest-side,
@@ -114,6 +129,41 @@
       rgba(185, 28, 28, 0.28) 45%,
       transparent 75%
     );
+  }
+
+  /* Rail horizontal.
+     Sur telephone, une liste de cartes empilees verticalement fait descendre
+     la page d'un ecran entier par carte. Presentee en rail, la meme liste
+     tient sur une bande : on fait glisser du doigt au lieu de derouler, et
+     la presence d'une carte coupee au bord indique qu'il y en a d'autres.
+     La barre de defilement est masquee : elle n'apporte rien au doigt et
+     ajoute une bande grise sous chaque rail. */
+  /* Cantonne au telephone : au-dela, la classe ne fait plus rien et les
+     utilitaires de grille de Tailwind reprennent la main sans conflit de
+     specificite. */
+  @media (max-width: 767px) {
+    .rail {
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      /* Deborde jusqu'aux bords de l'ecran malgre le px-4 de la section, pour
+         que la carte coupee au bord signale qu'il y en a d'autres. */
+      margin-inline: -1rem;
+      padding-inline: 1rem;
+    }
+
+    .rail::-webkit-scrollbar {
+      display: none;
+    }
+
+    .rail > * {
+      scroll-snap-align: start;
+      flex: 0 0 auto;
+    }
   }
 
   /* Mobile optimizations */
