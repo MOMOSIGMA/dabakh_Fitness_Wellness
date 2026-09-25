@@ -105,7 +105,7 @@ export default function DisciplinesSection() {
       description: 'Boxe et Taekwondo, adultes et enfants.',
       details:
         'Cours encadrés par des coachs dédiés, en groupes séparés pour les adultes et les enfants. Une inscription de 5 000 FCFA s’ajoute à la première mensualité.',
-      price: 'Enfant 15 000 · Adulte 20 000 FCFA / mois',
+      price: 'Dès 15 000 FCFA / mois',
       icon: Zap,
       size: 'small',
       gradient: 'from-red-400/20 to-red-500/20',
@@ -129,7 +129,7 @@ export default function DisciplinesSection() {
       description: 'Espace massage et récupération.',
       details:
         'Un espace séparé du plateau, équipé pour le massage et la récupération après l’effort. Les séances se réservent sur place ou par WhatsApp.',
-      price: 'À partir de 10 000 FCFA',
+      price: 'Dès 10 000 FCFA',
       icon: Sparkles,
       size: 'small',
       gradient: 'from-red-600/20 to-red-800/20',
@@ -144,7 +144,7 @@ export default function DisciplinesSection() {
       description: 'Des séances en groupe tout au long de la semaine.',
       details:
         'Les cours collectifs sont compris dans l’abonnement et se déroulent dans l’espace fitness. Le planning de la semaine est affiché à l’accueil de la salle.',
-      price: 'Inclus dans l’abonnement',
+      price: 'Inclus',
       icon: Users,
       size: 'medium',
       gradient: 'from-red-500/20 to-red-700/20',
@@ -163,7 +163,7 @@ export default function DisciplinesSection() {
       description: 'Les rendez-vous qui rythment l’année.',
       details:
         'Tout au long de l’année, la salle organise des rendez-vous ouverts à tous les membres. La participation est comprise dans l’abonnement.',
-      price: 'Inclus dans l’abonnement',
+      price: 'Inclus',
       icon: Calendar,
       size: 'medium',
       gradient: 'from-red-600/25 to-red-800/20',
@@ -238,12 +238,9 @@ export default function DisciplinesSection() {
           <span className="inline-block px-4 py-2 glass rounded-full text-sm font-medium uppercase tracking-wider text-red-500 mb-4">
             Nos Disciplines
           </span>
-          <h2 className="text-4xl md:text-6xl font-black mb-4">
+          <h2 className="text-4xl md:text-6xl font-black">
             Trouvez Votre <span className="text-stroke italic">Passion</span>
           </h2>
-          <p className="text-white text-lg max-w-2xl mx-auto">
-            Des équipements de pointe et des programmes adaptés à tous les niveaux
-          </p>
         </motion.div>
 
         {/* Bento Grid */}
@@ -298,7 +295,7 @@ export default function DisciplinesSection() {
                     <p className="text-white text-xs md:text-sm leading-snug">{discipline.description}</p>
                   </div>
 
-                  <div className="flex items-center justify-between gap-3">
+                  <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
                     {discipline.price ? (
                       <span className="text-red-500 font-black text-sm md:text-lg leading-tight">
                         {discipline.price}

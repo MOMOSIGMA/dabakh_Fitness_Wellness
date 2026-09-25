@@ -45,12 +45,9 @@ export default function PracticalInfoSection() {
           <span className="inline-block px-4 py-2 glass rounded-full text-sm font-medium uppercase tracking-wider text-red-500 mb-4">
             Règlement Intérieur
           </span>
-          <h2 className="text-4xl md:text-6xl font-black mb-4">
+          <h2 className="text-4xl md:text-6xl font-black">
             Infos <span className="text-stroke italic">Pratiques</span>
           </h2>
-          <p className="text-white text-lg max-w-2xl mx-auto">
-            Respecte ces règles simples pour profiter pleinement de ton expérience Dabakh
-          </p>
         </motion.div>
 
         {/* Rules Grid */}

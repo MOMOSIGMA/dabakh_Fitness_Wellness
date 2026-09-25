@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 // degradait la progression visuelle (Speed Index 3,1 s -> 6,3 s) pour un gain nul.
 import CoachAvatars from './components/CoachAvatars'
 import HeroSection from './components/HeroSection'
-import WhatsAppButton from './components/WhatsAppButton'
+import FloatingActions from './components/FloatingActions'
 
 
 // Regeneration horaire : les tarifs ne changent pas toutes les secondes,
@@ -56,7 +56,7 @@ export default function Home() {
       <SouvenirsSection />
       <ReviewsSection />
       <Footer />
-      <WhatsAppButton />
+      <FloatingActions />
        <AICoachBot />
      </main>
    )

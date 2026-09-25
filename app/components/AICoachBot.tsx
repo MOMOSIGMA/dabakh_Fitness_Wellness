@@ -200,23 +200,10 @@ export default function AICoachBot() {
         )}
       </AnimatePresence>
 
-      {/* Floating Button */}
-      <AnimatePresence>
-        {!isOpen && (
-          <motion.button
-            initial={false}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => setIsOpen(true)}
-            aria-label="Ouvrir le coach IA"
-            className="fixed bottom-24 right-6 w-16 h-16 rounded-full bg-gradient-to-r from-red-500 to-red-600 shadow-2xl shadow-red-500/50 flex items-center justify-center z-[100] hover:shadow-lg hover:shadow-red-600/70 transition-all"
-          >
-            <Bot className="w-8 h-8 text-white" />
-          </motion.button>
-        )}
-      </AnimatePresence>
+      {/* Le bouton flottant a ete fusionne dans FloatingActions : deux bulles
+          empilees masquaient les prix et les liens du site. Ce composant reste
+          ouvert par l'evenement 'open-ai-coach', emis par la bulle unique et
+          par le menu de navigation. */}
 
       {/* Chat Window */}
       <AnimatePresence>

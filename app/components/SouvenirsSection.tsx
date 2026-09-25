@@ -96,12 +96,9 @@ export default function SouvenirsSection() {
           <span className="inline-block px-4 py-2 glass rounded-full text-sm font-medium uppercase tracking-wider text-blue-400 mb-4">
             Nos Souvenirs
           </span>
-          <h2 className="text-4xl md:text-6xl font-black mb-4">
+          <h2 className="text-4xl md:text-6xl font-black">
             Les moments <span className="text-blue-400">Dabakh</span>
           </h2>
-          <p className="text-white text-lg max-w-2xl mx-auto">
-            Les rendez-vous qui rythment l’année de la salle et rassemblent la communauté
-          </p>
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">

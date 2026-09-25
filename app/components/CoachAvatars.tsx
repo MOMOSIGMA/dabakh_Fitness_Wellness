@@ -141,12 +141,9 @@ export default function CoachAvatars() {
 
       <div className="container mx-auto max-w-6xl relative z-10">
         <div className="text-center mb-7 md:mb-10">
-          <h2 className="text-2xl md:text-3xl font-black mb-2">
+          <h2 className="text-2xl md:text-3xl font-black">
             Nos Coachs <span className="text-red-500">Experts</span>
           </h2>
-          <p className="text-gray-300 text-sm md:text-base">
-            Une équipe de spécialistes pour t’accompagner sur chaque discipline
-          </p>
         </div>
 
         {/* Coach mis en avant : portrait large et texte a cote, pour qu'il se
