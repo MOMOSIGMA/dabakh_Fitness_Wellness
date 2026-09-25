@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { User } from '@supabase/supabase-js'
@@ -13,11 +13,18 @@ export default function AccountPage() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
-  const supabase = createClient()
+  // useMemo : sans lui, un nouveau client serait construit a chaque rendu.
+  const supabase = useMemo(() => createClient(), [])
 
   useEffect(() => {
+    // Espace client non configure : la page n'a rien a montrer.
+    if (!supabase) {
+      router.push('/')
+      return
+    }
+
     async function getUser() {
-      const { data: { user: currentUser } } = await supabase.auth.getUser()
+      const { data: { user: currentUser } } = await supabase!.auth.getUser()
       
       if (!currentUser) {
         router.push('/login')
@@ -29,9 +36,10 @@ export default function AccountPage() {
     }
 
     getUser()
-  }, [router, supabase.auth])
+  }, [router, supabase])
 
   const handleLogout = async () => {
+    if (!supabase) return
     await supabase.auth.signOut()
     router.push('/')
   }
